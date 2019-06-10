@@ -1,6 +1,6 @@
 {
   "/uploads/*": {
-    "target": "http://ann-shop-server.com:8080",
+    "target": "http://ann-shop-server.com",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

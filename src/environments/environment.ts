@@ -4,7 +4,7 @@ import { appInitializerFactory } from '@angular/platform-browser/src/browser/ser
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const _api = "http://ann-shop-server.com:8080/api/v1";
+export const _api = "http://ann-shop-server.com/api/v1";
 
 export const environment = {
     production: false,
