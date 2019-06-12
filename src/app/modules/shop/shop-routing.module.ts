@@ -10,67 +10,13 @@ import { CheckoutGuard } from './guards/checkout.guard';
 import { PageProductComponent } from './pages/page-product/page-product.component';
 
 const routes: Routes = [
+    // {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     redirectTo: 'all'
+    // },
     {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'set-bo-nam'
-    },
-    {
-        path: 'set-bo-nam',
-        component: PageCategoryComponent,
-        data: {
-            columns: 4,
-            viewMode: 'grid',
-            category: 2
-        }
-    },
-    {
-        path: 'ao-thung-nam',
-        component: PageCategoryComponent,
-        data: {
-            columns: 4,
-            viewMode: 'grid',
-            category: 3
-        }
-    },
-    {
-        path: 'ao-thung-ca-sau',
-        component: PageCategoryComponent,
-        data: {
-            columns: 4,
-            viewMode: 'grid',
-            category: 4
-        }
-    },
-    {
-        path: 'ao-thung-soc-ngang',
-        component: PageCategoryComponent,
-        data: {
-            columns: 4,
-            viewMode: 'grid',
-            category: 5
-        }
-    },
-    {
-        path: 'ao-thung-the-thao',
-        component: PageCategoryComponent,
-        data: {
-            columns: 4,
-            viewMode: 'grid',
-            category: 6
-        }
-    },
-    {
-        path: 'category-grid-3-columns-sidebar',
-        component: PageCategoryComponent,
-        data: {
-            columns: 3,
-            viewMode: 'grid',
-            sidebarPosition: 'start'
-        }
-    },
-    {
-        path: 'category-grid-4-columns-full',
         component: PageCategoryComponent,
         data: {
             columns: 4,
@@ -78,35 +24,12 @@ const routes: Routes = [
         }
     },
     {
-        path: 'category-grid-5-columns-full',
+        path: 'category/:id',
         component: PageCategoryComponent,
         data: {
-            columns: 5,
+            columns: 4,
             viewMode: 'grid'
         }
-    },
-    {
-        path: 'category-list',
-        component: PageCategoryComponent,
-        data: {
-            columns: 3,
-            viewMode: 'list',
-            sidebarPosition: 'start'
-        }
-    },
-    {
-        path: 'category-right-sidebar',
-        component: PageCategoryComponent,
-        data: {
-            columns: 3,
-            viewMode: 'grid',
-            sidebarPosition: 'end'
-        }
-    },
-    {
-        path: 'product',
-        pathMatch: 'full',
-        redirectTo: 'product/1'
     },
     {
         path: 'product/:id',
@@ -115,41 +38,13 @@ const routes: Routes = [
             layout: 'standard'
         }
     },
-    {
-        path: 'product-columnar',
-        component: PageProductComponent,
-        data: {
-            layout: 'columnar'
-        }
-    },
-    {
-        path: 'product-sidebar',
-        component: PageProductComponent,
-        data: {
-            layout: 'sidebar',
-            sidebarPosition: 'start'
-        }
-    },
-    {
-        path: 'cart',
-        component: PageCartComponent
-    },
-    {
-        path: 'checkout',
-        component: PageCheckoutComponent,
-        canActivate: [CheckoutGuard],
-    },
+    // {
+    //     path: 'cart',
+    //     component: PageCartComponent
+    // },
     {
         path: 'wishlist',
         component: PageWishlistComponent
-    },
-    {
-        path: 'compare',
-        component: PageCompareComponent
-    },
-    {
-        path: 'track-order',
-        component: PageTrackOrderComponent
     }
 ];
 

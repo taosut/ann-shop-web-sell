@@ -1,7 +1,7 @@
 <app-page-header [breadcrumbs]="[
-    {label: 'Home',        url: '../../'},
-    {label: 'Blog',        url: '../'},
-    {label: 'Latest News', url: ''}
+    {label: 'Trang chủ',        url: '/'},
+    {label: post?.categoryName,        url: '/blog/category/' + post?.categoryID},
+    {label: post?.title, url: '/blog/post/' + post?.ID}
 ]"></app-page-header>
 
 <div class="container">
@@ -11,7 +11,7 @@
                 <app-sidebar position="start"></app-sidebar>
             </div>
             <div class="col-12 col-lg-8">
-                <app-post-details layout="classic"></app-post-details>
+                <app-post-details layout="classic" [post]="post"></app-post-details>
             </div>
             <div *ngIf="sidebarPosition === 'end'" class="col-12 col-lg-4">
                 <app-sidebar position="end"></app-sidebar>
@@ -21,7 +21,7 @@
     <ng-container *ngIf="layout === 'full'">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-9 col-xl-8">
-                <app-post-details layout="full"></app-post-details>
+                <app-post-details layout="full" [post]="post"></app-post-details>
             </div>
         </div>
     </ng-container>

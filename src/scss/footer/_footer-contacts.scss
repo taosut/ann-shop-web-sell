@@ -6,7 +6,6 @@
 @import '../mixins/direction';
 
 
-.footer-contacts {}
 .footer-contacts__title {
     margin-bottom: 25px;
 }
@@ -54,9 +53,6 @@
 
 
 @media (max-width: breakpoint(sm-end)) {
-    .footer-contacts {
-        text-align: center;
-    }
     .footer-contacts__title {
         font-size: 28px;
         margin-bottom: 16px;

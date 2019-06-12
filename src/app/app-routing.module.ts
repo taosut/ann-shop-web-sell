@@ -7,13 +7,13 @@ import { RootComponent } from './components/root/root.component';
 
 export function makeRoutes(homeComponent: Type<any>): Routes {
     return [
+        // {
+        //     path: '',
+        //     pathMatch: 'full',
+        //     redirectTo: 'home'
+        // },
         {
             path: '',
-            pathMatch: 'full',
-            redirectTo: 'home'
-        },
-        {
-            path: 'home',
             component: homeComponent
         },
         {
@@ -24,14 +24,14 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
             path: 'shop',
             loadChildren: './modules/shop/shop.module#ShopModule'
         },
-        {
-            path: 'account',
-            loadChildren: './modules/account/account.module#AccountModule'
-        },
-        {
-            path: 'site',
-            loadChildren: './modules/site/site.module#SiteModule'
-        },
+        // {
+        //     path: 'account',
+        //     loadChildren: './modules/account/account.module#AccountModule'
+        // },
+        // {
+        //     path: 'site',
+        //     loadChildren: './modules/site/site.module#SiteModule'
+        // },
         {
             path: '**',
             component: PageNotFoundComponent

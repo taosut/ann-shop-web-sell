@@ -23,18 +23,18 @@
                 </div>
             </div>
             <div *ngIf="pagingHeaders.totalPages" class="view-options__legend">
-                Showing {{ (pagingHeaders.currentPage - 1) * pagingHeaders.pageSize + 1 }} of {{ pagingHeaders.totalCount }} products
+                Trang {{ pagingHeaders.currentPage }} trên {{ pagingHeaders.totalPages }} trang ({{ pagingHeaders.totalCount }} sản phẩm)
             </div>
             <div class="view-options__divider"></div>
             <div class="view-options__control">
-                <label for="view-options-sort">Sort By</label>
+                <label for="view-options-sort">Sắp xếp</label>
                 <div>
                     <select class="form-control form-control-sm" name="" id="view-options-sort">
-                        <option value="">Default</option>
-                        <option value="">Theo giá tăng dần</option>
-                        <option value="">Theo giá giảm dần</option>
-                        <option value="">Theo mẩu mới nhất</option>
-                        <option value="">Theo mới nhập kho</option>
+                        <option value="">Mặc định</option>
+                        <option value="">Giá tăng dần</option>
+                        <option value="">Giá giảm dần</option>
+                        <option value="">Mẩu mới nhất</option>
+                        <option value="">Mới nhập kho</option>
                     </select>
                 </div>
             </div>

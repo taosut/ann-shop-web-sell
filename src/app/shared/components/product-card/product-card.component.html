@@ -26,11 +26,10 @@
             <a appClick [routerLink]="root.product(product.id)">{{ product.name }}</a>
         </div>
         <!-- Chưa sử dụng -->
-        <!-- <div class="product-card__rating">
-            <app-rating [value]="product.rating"></app-rating>
-            <div class="product-card__rating-legend">{{ product.reviews }} Reviews</div>
+        <div class="product-card__sku">
+            Mã: {{ product.sku }}
         </div>
-        <ul *ngIf="product.features.length" class="product-card__features-list">
+        <!-- <ul *ngIf="product.features.length" class="product-card__features-list">
             <li *ngFor="let feature of product.features">{{ feature.name }}: {{ feature.value }}</li>
         </ul> -->
         <ul *ngIf="product.materials" class="product-card__features-list">
@@ -39,7 +38,7 @@
     </div>
     <div class="product-card__actions">
         <div class="product-card__availability">
-            Availability:
+            Tình trạng:
             <span [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
         </div>
         <div class="product-card__prices">
@@ -62,17 +61,17 @@
             </ng-container>
         </div>
         <!-- Chưa sử dụng -->
-        <!-- <div class="product-card__buttons">
-            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button>
+        <div class="product-card__buttons">
+            <!-- <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button>
+            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button> -->
             <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" appClick (click)="addToWishlist()" [ngClass]="{'btn-loading': addingToWishlist}">
                 <app-icon name="wishlist-16" size="16"></app-icon>
                 <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
             </button>
-            <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button" appClick (click)="addToCompare()" [ngClass]="{'btn-loading': addingToCompare}">
+            <!-- <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button" appClick (click)="addToCompare()" [ngClass]="{'btn-loading': addingToCompare}">
                 <app-icon name="compare-16" size="16"></app-icon>
                 <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-            </button>
-        </div> -->
+            </button> -->
+        </div>
     </div>
 </div>

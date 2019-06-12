@@ -1,6 +1,6 @@
 {
   "/uploads/*": {
-    "target": "http://ann-shop-server.com",
+    "target": "http://hethongann.com",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

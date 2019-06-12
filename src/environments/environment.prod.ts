@@ -4,4 +4,6 @@ export const environment = {
     production: true,
     api: _api,
     apiProduct: _api + "/product",
+    apiPost: _api + "/post",
+    apiProductCategory: _api + "/product-category"
 };

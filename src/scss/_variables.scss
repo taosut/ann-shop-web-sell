@@ -118,7 +118,7 @@
    $dark-color:                     $light-opposite-color !default;
    $dark-opposite-color:            $light-color          !default;
    // accent
-   $accent-color:                   #ffd333               !default;
+   $accent-color:                   #ff8400               !default;
    $accent-opposite-color:          $light-opposite-color !default;
    //links
    $link-color:                     #1a66ff               !default;
@@ -159,7 +159,7 @@
    $body-font-color:       $light-opposite-color       !default;
    $body-font-muted-color: $light-opposite-muted-color !default;
    $body-font-alt-color:   $light-opposite-alt-color   !default;
-   $body-font-family:      'Roboto', 'sans-serif'      !default;
+   $body-font-family:      Arial, 'sans-serif'      !default;
    $body-font-size:        16px                        !default;
    $body-font-weight:      $font-weight-normal         !default;
    $body-line-height:      1.5                         !default;
@@ -231,10 +231,10 @@
    // ----------------------------------------
    // -- .nav-panel, .mobile-header
    // ----------------------------------------
-      $nav-panel-bg:           $accent-color                                                                   !default;
+      $nav-panel-bg:           #212121                                                                   !default;
       $nav-panel-shadow:       0 1px rgba(#000, .04), inset 0 -1px rgba(#000, .04)                             !default;
       $nav-panel-stuck-shadow: 0 1px rgba(#000, .02), inset 0 -1px rgba(#000, .03), 0 1px 20px rgba(#000, .15) !default;
-      $nav-panel-font-color:   $accent-opposite-color                                                          !default;
+      $nav-panel-font-color:   #fff                                                          !default;
       $nav-panel-logo-color:   $nav-panel-font-color                                                           !default;
       $nav-panel-height:       54px                                                                            !default;
       $nav-panel-padding:      6px                                                                             !default;
@@ -261,7 +261,7 @@
       $nav-links-item-default-bg:          transparent                                !default;
       $nav-links-item-default-shadow:      none                                       !default;
       $nav-links-item-default-font-color:  inherit                                    !default;
-      $nav-links-item-default-arrow-color: rgba(#000, .3)                             !default;
+      $nav-links-item-default-arrow-color: rgba(#fff, .3)                             !default;
       // hover
       $nav-links-item-hover-bg:            rgba(#fff, .5)                             !default;
       $nav-links-item-hover-shadow:        $nav-links-item-default-shadow             !default;

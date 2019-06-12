@@ -10,11 +10,10 @@ import { Product } from '../../../shared/interfaces/product';
 })
 export class BlockProductsComponent implements OnInit {
     @Input() header: string;
-    @Input() layout: 'large-first'|'large-last' = 'large-first';
+    @Input() layout: 'normal'|'large-first'|'large-last' = 'large-first';
     @Input() products: any[] = [];
     @Input() categoryID: number = 0;
-
-    _limit: number = 7;
+    @Input() limit: number = 7;
 
     get large(): any {
         if (this.layout === 'large-first' && this.products.length > 0) {
@@ -29,17 +28,22 @@ export class BlockProductsComponent implements OnInit {
     get smalls(): any[] {
         if (this.layout === 'large-first') {
             return this.products.slice(1, 7);
-        } else  {
+        } else if(this.layout === 'large-last')  {
             return this.products.slice(0, 6);
+        } else if(this.layout === 'normal') {
+            return this.products;
         }
     }
 
     constructor(private http: HttpClient) { }
 
     ngOnInit(): void {
+        if(this.layout !== 'normal') {
+            this.limit = 7;
+        }
         if (this.categoryID) {
             this.http
-            .get<Product[]>(environment.apiProduct + `?pageSize=${this._limit}&category=${this.categoryID}`)
+            .get<Product[]>(environment.apiProduct + `?pageSize=${this.limit}&category=${this.categoryID}`)
             .subscribe(resp  => {
                 this.products = resp;
             });

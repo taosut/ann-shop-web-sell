@@ -1,14 +1,14 @@
-<app-page-header [header]="'Wish List'" [breadcrumbs]="[
-    {label: 'Home',      url: '../../'},
-    {label: 'Wish List', url: ''}
+<app-page-header [header]="'Danh sách ưa thích'" [breadcrumbs]="[
+    {label: 'Trang chủ',      url: '../../'},
+    {label: 'Danh sách ưa thích', url: ''}
 ]"></app-page-header>
 
 <div class="block block-empty" *ngIf="!(wishlist.items$|async).length">
     <div class="container">
         <div class="block-empty__body">
-            <div class="block-empty__message">Your wish list is empty!</div>
+            <div class="block-empty__message">Chưa có sản phẩm!</div>
             <div class="block-empty__actions">
-                <a routerLink="../../" class="btn btn-primary btn-sm">Continue</a>
+                <a routerLink="../../" class="btn btn-primary btn-sm">Xem sản phẩm</a>
             </div>
         </div>
     </div>
@@ -19,11 +19,11 @@
         <table class="wishlist">
             <thead class="wishlist__head">
             <tr class="wishlist__row">
-                <th class="wishlist__column wishlist__column--image">Image</th>
-                <th class="wishlist__column wishlist__column--product">Product</th>
-                <th class="wishlist__column wishlist__column--stock">Stock Status</th>
-                <th class="wishlist__column wishlist__column--price">Price</th>
-                <th class="wishlist__column wishlist__column--tocart"></th>
+                <th class="wishlist__column wishlist__column--image">Hình</th>
+                <th class="wishlist__column wishlist__column--product">Sản phẩm</th>
+                <th class="wishlist__column wishlist__column--stock">Kho</th>
+                <th class="wishlist__column wishlist__column--price">Giá sỉ</th>
+                <!-- <th class="wishlist__column wishlist__column--tocart"></th> -->
                 <th class="wishlist__column wishlist__column--remove"></th>
             </tr>
             </thead>
@@ -34,18 +34,23 @@
                 </td>
                 <td class="wishlist__column wishlist__column--product">
                     <a [routerLink]="root.product(product.id)" class="wishlist__product-name">{{ product.name }}</a>
-                    <div class="wishlist__product-rating">
+                    <div class="wishlist__product-sku">
+                        Mã: {{ product.sku }}
+                    </div>
+                    <!-- <div class="wishlist__product-rating">
                         <app-rating [value]="product.rating"></app-rating>
                         <div class="wishlist__product-rating-legend">{{ product.reviews }} Reviews</div>
-                    </div>
+                    </div> -->
                 </td>
                 <td class="wishlist__column wishlist__column--stock">
-                    <div class="badge badge-success">In Stock</div>
+                    <div [className]="'badge' + product.availability ? 'badge-success' : 'badge-danger'">
+                        {{ product.availability ? 'Còn hàng' : 'Hết hàng' }}
+                    </div>
                 </td>
-                <td class="wishlist__column wishlist__column--price">{{ product.price|currencyFormat }}</td>
-                <td class="wishlist__column wishlist__column--tocart">
+                <td class="wishlist__column wishlist__column--price">{{ product.regularPrice|currencyFormat }}</td>
+                <!-- <td class="wishlist__column wishlist__column--tocart">
                     <button type="button" class="btn btn-primary btn-sm" (click)="addToCart(product)" [ngClass]="{'btn-loading': addedToCartProducts.includes(product)}">Add To Cart</button>
-                </td>
+                </td> -->
                 <td class="wishlist__column wishlist__column--remove">
                     <button type="button" class="btn btn-light btn-sm btn-svg-icon" (click)="remove(product)" [ngClass]="{'btn-loading': removedProducts.includes(product)}">
                         <app-icon name="cross-12" size="12"></app-icon>
