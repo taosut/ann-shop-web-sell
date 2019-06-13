@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { Product } from '../../../../shared/interfaces/product';
 import { ProductCategory } from '../../../../shared/interfaces/product-category';
 import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'app-grid',
@@ -17,7 +18,7 @@ export class PageCategoryComponent implements OnInit {
     columns: 3|4|5 = 3;
     viewMode: 'grid'|'grid-with-features'|'list' = 'grid';
     sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
-    private _category: number = 0;
+    private _category: string = "";
     search: string = "";
     productCategory: ProductCategory;
     products: Product[] = [];
@@ -29,12 +30,13 @@ export class PageCategoryComponent implements OnInit {
         previousPage: "No",
         nextPage: "No"
     };
-    pageTitle: string = "";
+    pageHeading: string = "";
 
     constructor(
         private http: HttpClient,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private titleService: Title,
         ) {
         this.route.data.subscribe(data => {
             this.columns = 'columns' in data ? data.columns : this.columns;
@@ -43,7 +45,7 @@ export class PageCategoryComponent implements OnInit {
         });
     }
 
-    private getProductURL(category: number, page: number, limit: number, search: string): string {
+    private getProductURL(category: string, page: number, limit: number, search: string): string {
         let paramCategory = category ? `category=${category}&` : '';
         let paramPage = page ? `pageNumber=${page}&` : '';
         let paramLimit = limit ? `pageSize=${limit}&` : '';
@@ -53,15 +55,15 @@ export class PageCategoryComponent implements OnInit {
         return url.replace(/(\?|\&)+$/g, '');
     }
 
-    private getProductCategoryURL(id: number): string {
+    private getProductCategoryURL(slug: string): string {
 
-        let url = `${environment.apiProductCategory}/${id}` ;
+        let url = `${environment.apiProductCategory}/${slug}` ;
         return url.replace(/(\?|\&)+$/g, '');
     }
 
     ngOnInit(): void {
         let pageNumber = 0;
-        this.pageTitle = "Hàng mới về";
+        this.pageHeading = "Hàng mới về";
 
         this.route.queryParamMap
             .subscribe(
@@ -70,40 +72,57 @@ export class PageCategoryComponent implements OnInit {
                     this.limit = +params.get("limt") || this.limit;
                     this.search = params.get("search") || "";
 
-                    console.log("ABC")
                     this.route.params.subscribe(params => {
-                        if(params.hasOwnProperty('id'))
+                        if(params.hasOwnProperty('slug'))
                         {
-                            this._category = +params.id;
-                            if (!Number.isInteger(this._category) || this._category < 0){
+                            this._category = params.slug;
+                            if (!this._category)
+                            {
                                 this.router.navigate(['/not-found']);
                             }
                         }
                     
                         if (!this.search)
                         {
-                            if (this._category !== 0)
+                            if (this._category)
                             {
                                 this.http
                                     .get(this.getProductCategoryURL(this._category))
-                                    .subscribe((data: ProductCategory)  => {
-                                        this.productCategory = data;
-                                        this.pageTitle = this.productCategory.title;
-                                    });
+                                    .subscribe(
+                                        (data: ProductCategory)  => {
+                                            this.productCategory = data;
+                                            this.pageHeading = this.productCategory.title;
+                                            this.titleService.setTitle(this.productCategory.title);
+                                        },
+                                        (err) => {
+                                            if (err.status === 404)
+                                            {
+                                                this.router.navigate(['/not-found']);
+                                            }
+                                        }
+                                    );
                             }
                         }
                         else
                         {
                             console.log(this.search);
-                            this.pageTitle = "Kết quả tìm kiếm: " + this.search;
+                            this.pageHeading = "Kết quả tìm kiếm: " + this.search;
                         }
             
                         this.http
                             .get(this.getProductURL(this._category, pageNumber, this.limit, this.search), { observe: 'response'})
-                            .subscribe(resp  => {
+                            .subscribe(
+                                resp  => {
                                 this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
                                 this.products = <Product[]>resp.body;
-                            });
+                                },
+                                (err) => {
+                                    if (err.status === 404)
+                                    {
+                                        this.router.navigate(['/not-found']);
+                                    }
+                                }
+                            );
                     });
                 });
     }

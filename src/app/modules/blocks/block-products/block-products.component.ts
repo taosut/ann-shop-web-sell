@@ -12,7 +12,7 @@ export class BlockProductsComponent implements OnInit {
     @Input() header: string;
     @Input() layout: 'normal'|'large-first'|'large-last' = 'large-first';
     @Input() products: any[] = [];
-    @Input() categoryID: number = 0;
+    @Input() categorySlug: string;
     @Input() limit: number = 7;
 
     get large(): any {
@@ -41,9 +41,10 @@ export class BlockProductsComponent implements OnInit {
         if(this.layout !== 'normal') {
             this.limit = 7;
         }
-        if (this.categoryID) {
+        console.log(this.categorySlug);
+        if (this.categorySlug !== "") {
             this.http
-            .get<Product[]>(environment.apiProduct + `?pageSize=${this.limit}&category=${this.categoryID}`)
+            .get<Product[]>(environment.apiProduct + `?pageSize=${this.limit}&category=${this.categorySlug}`)
             .subscribe(resp  => {
                 this.products = resp;
             });

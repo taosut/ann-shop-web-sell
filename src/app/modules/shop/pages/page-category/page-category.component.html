@@ -1,6 +1,6 @@
-<app-page-header [header]="pageTitle" [breadcrumbs]="[
+<app-page-header [header]="pageHeading" [breadcrumbs]="[
     {label: 'Trang chủ',         url: '/'},
-    {label: pageTitle, url: '/shop/category/' + productCategory?.ID}
+    {label: pageHeading, url: '/shop/category/' + productCategory?.slug}
 ]"></app-page-header>
 
 <ng-container *ngIf="columns > 3">

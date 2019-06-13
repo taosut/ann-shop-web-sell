@@ -5,6 +5,8 @@ import { environment } from '../../../../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Post } from '../../../../shared/interfaces/post';
+import { Title } from "@angular/platform-browser";
+
 @Component({
     selector: 'app-post',
     templateUrl: './page-post.component.html',
@@ -16,7 +18,7 @@ export class PagePostComponent implements OnInit, OnDestroy {
     sidebarPosition: 'start'|'end' = 'end'; // For LTR scripts "start" is "left" and "end" is "right"
     layout: 'classic'|'full' = 'classic';
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private route: ActivatedRoute, private titleService: Title) {
         this.route.data.pipe(takeUntil(this.destroy$)).subscribe(data => {
             this.sidebarPosition = data.sidebarPosition;
             this.layout = data.layout;
@@ -28,7 +30,10 @@ export class PagePostComponent implements OnInit, OnDestroy {
             if(params.hasOwnProperty('id')){
                 let url = environment.apiPost + `/${params.id}`;
 
-                this.http.get(url).subscribe((data : Post) => { this.post = data});
+                this.http.get(url).subscribe((data : Post) => { 
+                    this.post = data;
+                    this.titleService.setTitle(this.post.title);
+                });
             }
         });
     }

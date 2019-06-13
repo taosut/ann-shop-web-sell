@@ -1,6 +1,6 @@
 <app-page-header [breadcrumbs]="[
     {label: 'Trang chủ',         url: '/'},
-    {label: product?.categoryName,   url: '/shop/category/' + product?.categoryID},
+    {label: product?.categoryName,   url: '/shop/category/' + product?.categorySlug},
     {label: product?.name, url: '/shop/product/' + product?.ID}
 ]"></app-page-header>
 

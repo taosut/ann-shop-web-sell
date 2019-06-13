@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 // import { products } from '../../../../../data/shop-products';
@@ -9,6 +9,7 @@ import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
 import { categories } from '../../../../../data/shop-widget-categories';
 // import { map } from 'rxjs/operators';
 // import { ProductCardComponent } from 'src/app/shared/components/product-card/product-card.component';
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'app-page-product',
@@ -33,10 +34,11 @@ export class PageProductComponent implements OnInit {
         nextPage: "No"
     };
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private titleService: Title) {
         this.route.data.subscribe(data => {
             this.layout = 'layout' in data ? data.layout : this.layout;
             this.sidebarPosition = 'sidebarPosition' in data ? data.sidebarPosition : this.sidebarPosition;
+            
         });
         // this.route.params.pipe(map(params => {
         //     if (params.hasOwnProperty('id')) {
@@ -60,14 +62,34 @@ export class PageProductComponent implements OnInit {
             if(params.hasOwnProperty('id')){
                 let url = environment.apiProduct + `/${params.id}`;
 
-                this.http.get(url).subscribe((data : ProductDetail) => { this.product = data});
-
+                this.http.get(url)
+                    .subscribe(
+                        (data : ProductDetail) => { 
+                            this.product = data; 
+                            this.titleService.setTitle(this.product.name);
+                        },
+                        (err) => {
+                            if (err.status === 404)
+                            {
+                                this.router.navigate(['/not-found']);
+                            }
+                        }
+                    );
+                    
                 this.http
                     .get(this.getUrlProductRelated(params.id) + `?pageSize=${this.limit}`, { observe: 'response'})
-                    .subscribe(resp  => {
+                    .subscribe(
+                        resp  => {
                         this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
                         this.relatedProducts = <ProductRelated[]>resp.body;
-                    });
+                        },
+                        (err) => {
+                            if (err.status === 404)
+                            {
+                                this.relatedProducts = [];
+                            }
+                        }
+                    );
             }
         });
     }
@@ -77,10 +99,18 @@ export class PageProductComponent implements OnInit {
             if(params.hasOwnProperty('id')){
                 this.http
                     .get(this.getUrlProductRelated(params.id) + `?pageNumber=${page}&pageSize=${this.limit}`, { observe: 'response'})
-                    .subscribe(resp  => {
+                    .subscribe(
+                        resp  => {
                         this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
                         this.relatedProducts = <ProductRelated[]>resp.body;
-                    });
+                        },
+                        (err) => {
+                            if (err.status === 404)
+                            {
+                                this.relatedProducts = [];
+                            }
+                        }
+                    );
             }
         });
         

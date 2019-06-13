@@ -4,39 +4,39 @@ export const mobileMenu: MobileMenuItem[] = [
     {type: 'link', label: 'Trang chủ', url: '/'},
     {type: 'link', label: 'Hàng mới về', url: '/shop'},
     {type: 'button', label: 'Danh mục sản phẩm', children: [
-        {type: 'link', label: 'Quần áo nam', url: '/shop/category/1', children: [
-            {type: 'link', label: 'Set bộ nam', url: '/shop/category/2'},
-            {type: 'link', label: 'Áo thun nam', url: '/shop/category/3', children: [
-                {type: 'link', label: 'Áo thun cá sấu',    url: '/shop/category/4'},
-                {type: 'link', label: 'Áo thun sọc ngang', url: '/shop/category/5'},
-                {type: 'link', label: 'Áo thun thể thao',  url: '/shop/category/6'},
+        {type: 'link', label: 'Quần áo nam', url: '/shop/category/quan-ao-nam', children: [
+            {type: 'link', label: 'Set bộ nam', url: '/shop/category/set-bo-nam'},
+            {type: 'link', label: 'Áo thun nam', url: '/shop/category/ao-thun-nam', children: [
+                {type: 'link', label: 'Áo thun cá sấu',    url: '/shop/category/ao-thun-ca-sau'},
+                {type: 'link', label: 'Áo thun sọc ngang', url: '/shop/category/ao-thun-soc-ngang'},
+                {type: 'link', label: 'Áo thun thể thao',  url: '/shop/category/ao-thun-the-thao'},
             ]},
-            {type: 'link', label: 'Áo sơ mi nam', url: '/shop/category/7', children: [
-                {type: 'link', label: 'Sơ mi nam VNXK',    url: '/shop/category/8'},
-                {type: 'link', label: 'Sơ mi nam Hàn Quốc', url: '/shop/category/9'},
+            {type: 'link', label: 'Áo sơ mi nam', url: '/shop/category/ao-so-mi-nam', children: [
+                {type: 'link', label: 'Sơ mi nam VNXK',    url: '/shop/category/ao-so-mi-nam-xuat-khau'},
+                {type: 'link', label: 'Sơ mi nam Hàn Quốc', url: '/shop/category/ao-so-mi-nam-han-quoc'},
             ]},
-            {type: 'link', label: 'Áo khoác nam', url: '/shop/category/10'},
-            {type: 'link', label: 'Quần nam', url: '/shop/category/11', children: [
-                {type: 'link', label: 'Quần jeans nam',    url: '/shop/category/12'},
-                {type: 'link', label: 'Quần dài nam', url: '/shop/category/13'},
-                {type: 'link', label: 'Quần short nam', url: '/shop/category/14'},
+            {type: 'link', label: 'Áo khoác nam', url: '/shop/category/ao-khoac-nam'},
+            {type: 'link', label: 'Quần nam', url: '/shop/category/quan-nam', children: [
+                {type: 'link', label: 'Quần jeans nam',    url: '/shop/category/quan-jeans-nam'},
+                {type: 'link', label: 'Quần dài nam', url: '/shop/category/quan-dai-nam'},
+                {type: 'link', label: 'Quần short nam', url: '/shop/category/quan-short-nam'},
             ]},
-            {type: 'link', label: 'Quần lót nam', url: '/shop/category/42'},
+            {type: 'link', label: 'Quần lót nam', url: '/shop/category/quan-lot-nam'},
         ]},
-        {type: 'link', label: 'Quần áo nữ', url: '/shop/category/15', children: [
-            {type: 'link', label: 'Váy đầm', url: '/shop/category/17'},
-            {type: 'link', label: 'Đồ bộ nữ', url: '/shop/category/18'},
-            {type: 'link', label: 'Áo thun nữ', url: '/shop/category/19'},
-            {type: 'link', label: 'Áo khoác nữ', url: '/shop/category/21'},
-            {type: 'link', label: 'Đồ lót nữ', url: '/shop/category/41'},
-            {type: 'link', label: 'Áo sơ mi nữ', url: '/shop/category/20'},
-            {type: 'link', label: 'Áo thun teen', url: '/shop/category/22'},
-            {type: 'link', label: 'Quần nữ', url: '/shop/category/23'},
-            {type: 'link', label: 'Quần jean nữ', url: '/shop/category/24'},
-            {type: 'link', label: 'Áo dài cách tân nữ', url: '/shop/category/16'},
+        {type: 'link', label: 'Quần áo nữ', url: '/shop/category/quan-ao-nu', children: [
+            {type: 'link', label: 'Váy đầm', url: '/shop/category/vay-dam'},
+            {type: 'link', label: 'Đồ bộ nữ', url: '/shop/category/do-bo-nu'},
+            {type: 'link', label: 'Áo thun nữ', url: '/shop/category/ao-thun-nu'},
+            {type: 'link', label: 'Áo khoác nữ', url: '/shop/category/ao-khoac-nu'},
+            {type: 'link', label: 'Đồ lót nữ', url: '/shop/category/do-lot-nu'},
+            {type: 'link', label: 'Áo sơ mi nữ', url: '/shop/category/ao-so-mi-nu'},
+            {type: 'link', label: 'Áo thun teen', url: '/shop/category/ao-thun-teen'},
+            {type: 'link', label: 'Quần nữ', url: '/shop/category/quan-nu'},
+            {type: 'link', label: 'Quần jeans nữ', url: '/shop/category/quan-jeans-nu'},
+            {type: 'link', label: 'Áo dài cách tân', url: '/shop/category/ao-dai-cach-tan'},
             
         ]},
-        {type: 'link', label: 'Nước hoa', url: '/shop/category/44'},
+        {type: 'link', label: 'Nước hoa', url: '/shop/category/nuoc-hoa'},
     ]},
     {type: 'button', label: 'Hướng dẫn khách mới', children: [
         {type: 'link', label: 'Cách up mẫu', url: '/blog/post/cach-up-mau'},

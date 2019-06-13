@@ -29,6 +29,7 @@ export interface Product {
     // custom
     categoryID: number;
     categoryName: string;
+    categorySlug: string;
     sku: string;
     // ----------------------------
     name: string;
