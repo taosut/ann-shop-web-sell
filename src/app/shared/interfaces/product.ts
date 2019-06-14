@@ -1,4 +1,5 @@
 import { Variable } from './variable';
+import { Thumbnail } from './thumbnail';
 
 export interface ProductFeature {
     name: string;
@@ -39,10 +40,11 @@ export interface Product {
     // custom
     materials: string;
     avatar: string;
+    thumbnails: Thumbnail[];
     regularPrice: number;
     retailPrice: number;
     // ----------------------------
-    
+
     // badges: ('sale'|'new'|'hot')[];
     // rating: number;
     // reviews: number;

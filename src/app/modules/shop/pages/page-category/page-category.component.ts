@@ -6,6 +6,7 @@ import { Product } from '../../../../shared/interfaces/product';
 import { ProductCategory } from '../../../../shared/interfaces/product-category';
 import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
 import { Title } from "@angular/platform-browser";
+import { combineLatest } from 'rxjs';
 
 @Component({
     selector: 'app-grid',
@@ -55,75 +56,73 @@ export class PageCategoryComponent implements OnInit {
         return url.replace(/(\?|\&)+$/g, '');
     }
 
-    private getProductCategoryURL(slug: string): string {
+    private getProducts(url: string): void {
+        this.http.get(url, { observe: 'response'}).subscribe(
+            resp  => {
+                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+                this.products = <Product[]>resp.body;
+            },
+            (err) => {
+                if (err.status === 404)
+                {
+                    this.router.navigate(['/not-found']);
+                }
+            }
+        );
+    }
 
+    private getProductCategoryURL(slug: string): string {
         let url = `${environment.apiProductCategory}/${slug}` ;
         return url.replace(/(\?|\&)+$/g, '');
     }
 
+    private getProdcutCategory(url: string): void {
+        this.http.get(url).subscribe(
+            (data: ProductCategory)  => {
+                this.productCategory = data;
+                this.pageHeading = this.productCategory.title;
+                this.titleService.setTitle(this.productCategory.title);
+            },
+            (err) => {
+                if (err.status === 404)
+                {
+                    this.router.navigate(['/not-found']);
+                }
+            }
+        );
+    }
+
     ngOnInit(): void {
         let pageNumber = 0;
-        this.pageHeading = "Hàng mới về";
+        const urlParams = combineLatest(
+            this.route.params,
+            this.route.queryParams,
+            (params, queryParams) => ({ ...params, ...queryParams})
+        );
 
-        this.route.queryParamMap
-            .subscribe(
-                params => {
-                    pageNumber = +params.get("page") || 0;
-                    this.limit = +params.get("limt") || this.limit;
-                    this.search = params.get("search") || "";
+        urlParams.subscribe(routeParams => {
+            pageNumber = +routeParams["page"] || 0;
+            this.limit = +routeParams["limt"] || this.limit;
+            this.search = routeParams["search"] || "";
+            this._category = routeParams['slug'];
 
-                    this.route.params.subscribe(params => {
-                        if(params.hasOwnProperty('slug'))
-                        {
-                            this._category = params.slug;
-                            if (!this._category)
-                            {
-                                this.router.navigate(['/not-found']);
-                            }
-                        }
-                    
-                        if (!this.search)
-                        {
-                            if (this._category)
-                            {
-                                this.http
-                                    .get(this.getProductCategoryURL(this._category))
-                                    .subscribe(
-                                        (data: ProductCategory)  => {
-                                            this.productCategory = data;
-                                            this.pageHeading = this.productCategory.title;
-                                            this.titleService.setTitle(this.productCategory.title);
-                                        },
-                                        (err) => {
-                                            if (err.status === 404)
-                                            {
-                                                this.router.navigate(['/not-found']);
-                                            }
-                                        }
-                                    );
-                            }
-                        }
-                        else
-                        {
-                            console.log(this.search);
-                            this.pageHeading = "Kết quả tìm kiếm: " + this.search;
-                        }
-            
-                        this.http
-                            .get(this.getProductURL(this._category, pageNumber, this.limit, this.search), { observe: 'response'})
-                            .subscribe(
-                                resp  => {
-                                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                                this.products = <Product[]>resp.body;
-                                },
-                                (err) => {
-                                    if (err.status === 404)
-                                    {
-                                        this.router.navigate(['/not-found']);
-                                    }
-                                }
-                            );
-                    });
-                });
+            if (!this.search)
+            {
+                if (this._category)
+                {
+                    this.getProdcutCategory(this.getProductCategoryURL(this._category));
+                }
+                else
+                {
+                    this.pageHeading = "Hàng mới về";
+                }
+            }
+            else
+            {
+                this.pageHeading = "Kết quả tìm kiếm: " + this.search;
+            }
+
+            this.getProducts(this.getProductURL(this._category, pageNumber, this.limit, this.search));
+        });
     }
 }

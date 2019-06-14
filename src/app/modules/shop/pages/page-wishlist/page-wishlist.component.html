@@ -30,7 +30,12 @@
             <tbody class="wishlist__body">
             <tr *ngFor="let product of wishlist.items$|async" class="wishlist__row">
                 <td class="wishlist__column wishlist__column--image">
-                    <a [routerLink]="root.product(product.id)" *ngIf="product.avatar"><img [src]="product.avatar" alt=""></a>
+                    <a [routerLink]="root.product(product.id)" *ngIf="product.thumbnails.length">
+                        <picture>
+                            <source media="(max-width: 766px)" [srcset]="getImageThumbnail(product.thumbnails, '350x467')">
+                            <img [src]="getImageThumbnail(product.thumbnails, '240x320')" alt="">
+                        </picture>
+                    </a>
                 </td>
                 <td class="wishlist__column wishlist__column--product">
                     <a [routerLink]="root.product(product.id)" class="wishlist__product-name">{{ product.name }}</a>
