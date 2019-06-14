@@ -8,6 +8,7 @@ import { RootService } from '../../services/root.service';
 import { CurrencyService } from '../../services/currency.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Thumbnail } from '../../interfaces/thumbnail';
 
 @Component({
     selector: 'app-product-card',
@@ -101,5 +102,18 @@ export class ProductCardComponent implements OnInit, OnDestroy {
                 this.cd.markForCheck();
             }
         });
+    }
+
+    getImageThumbnail(thumbnails: Thumbnail[], size: string): string {
+        let url: string = "";
+        thumbnails.forEach(item => {
+            if (item.size === size)
+            {
+                url = item.url;
+                return false;
+            }
+        });
+
+        return url
     }
 }

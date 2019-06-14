@@ -3,6 +3,7 @@ import { Location } from '@angular/common'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { Product } from '../../../../shared/interfaces/product';
+import { ProductSort } from '../../../../shared/interfaces/product-sort';
 import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
 
 export type Layout = 'grid'|'grid-with-features'|'list';
@@ -28,23 +29,28 @@ export class ProductsViewComponent implements OnInit {
 
     private _url:string =  window.location.pathname.split('/').join('/');
     private _category: number = 0;
-    
+    public sorts: ProductSort[] = [];
+    public sort: string = "";
 
     constructor(
             private http: HttpClient,
             private location: Location
         ) { }
 
-    private getProductURL(category: number, page: number, limit: number): string {
+    private getProductURL(category: number, page: number, limit: number, sort: string): string {
         let paramCategory = category ? `category=${category}&` : '';
         let paramPage = page ? `pageNumber=${page}&` : '';
         let paramLimit = limit ? `pageSize=${limit}&` : '';
+        let paramSort = sort ? `sort=${sort}&` : '';
 
-        let url = environment.apiProduct + '?' + paramPage + paramLimit + paramCategory ;
+
+        let url = environment.apiProduct + '?' + paramPage + paramLimit + paramCategory + paramSort ;
         return url.replace(/(\?|\&)+$/g, '');
     }
 
     ngOnInit(): void {
+        this.http.get(environment.apiProductSort)
+            .subscribe((data: ProductSort[]) => this.sorts = data);
     }
 
     setLayout(value: Layout): void {
@@ -58,11 +64,21 @@ export class ProductsViewComponent implements OnInit {
 
     onPageChange(page: number): void {
         this.http
-            .get(this.getProductURL(this._category, page, this.limit), { observe: 'response'})
+            .get(this.getProductURL(this._category, page, this.limit, this.sort), { observe: 'response'})
             .subscribe(resp  => {
                 this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
                 this.products = <Product[]>resp.body;
                 this.changeUrl(this._url + `?page=${page}&limt=${this.limit}`);
+            });
+    }
+
+    onSortChange(key: string): void {
+        this.sort = key;
+        this.http
+            .get(this.getProductURL(this._category, 0, this.limit, this.sort), { observe: 'response'})
+            .subscribe(resp  => {
+                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+                this.products = <Product[]>resp.body;
             });
     }
 }

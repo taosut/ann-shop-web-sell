@@ -19,7 +19,12 @@
     </div> -->
 
     <div class="product-card__image">
-        <a appClick [routerLink]="root.product(product.id)" *ngIf="product.avatar"><img [src]="product.avatar" alt=""></a>
+        <a appClick [routerLink]="root.product(product.id)" *ngIf="product.thumbnails.length">
+            <picture>
+                <source media="(max-width: 478px)" [srcset]="getImageThumbnail(product.thumbnails, '350x467')">
+                <img [src]="getImageThumbnail(product.thumbnails, '240x320')" alt="">
+            </picture>
+        </a>
     </div>
     <div class="product-card__info">
         <div class="product-card__name">
@@ -53,7 +58,7 @@
             <ng-container>
                 Giá sỉ: {{ product.regularPrice|currencyFormat }}
             </ng-container>
-            
+
         </div>
         <div class="product-card__prices">
             <ng-container>

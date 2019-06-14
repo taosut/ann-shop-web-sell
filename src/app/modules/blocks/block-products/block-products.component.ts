@@ -41,7 +41,6 @@ export class BlockProductsComponent implements OnInit {
         if(this.layout !== 'normal') {
             this.limit = 7;
         }
-        console.log(this.categorySlug);
         if (this.categorySlug !== "") {
             this.http
             .get<Product[]>(environment.apiProduct + `?pageSize=${this.limit}&category=${this.categorySlug}`)

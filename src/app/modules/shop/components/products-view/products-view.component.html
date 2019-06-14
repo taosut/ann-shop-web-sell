@@ -29,12 +29,8 @@
             <div class="view-options__control">
                 <label for="view-options-sort">Sắp xếp</label>
                 <div>
-                    <select class="form-control form-control-sm" name="" id="view-options-sort">
-                        <option value="">Mặc định</option>
-                        <option value="">Giá tăng dần</option>
-                        <option value="">Giá giảm dần</option>
-                        <option value="">Mẩu mới nhất</option>
-                        <option value="">Mới nhập kho</option>
+                    <select class="form-control form-control-sm" name="" id="view-options-sort" (change)="onSortChange($event.target.value)">
+                        <option *ngFor="let item of sorts" [value]="item.key">{{ item.name }}</option>
                     </select>
                 </div>
             </div>

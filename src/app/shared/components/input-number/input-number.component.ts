@@ -66,7 +66,6 @@ export class InputNumberComponent implements ControlValueAccessor {
         return this.inputElement.value === '' ? '' : parseFloat(this.inputElement.value);
     }
     set value(value: ''|number) {
-        console.log(value);
         this.writeValue(value);
     }
 
