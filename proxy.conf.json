@@ -1,11 +1,14 @@
 {
-  "/uploads/*": {
+  "/uploads/images/*": {
     "target": "http://hethongann.com",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-        "^/uploads": ""
-    }
+    "logLevel": "debug"
+  },
+  "/App_Themes/Ann/image/*": {
+    "target": "http://hethongann.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
