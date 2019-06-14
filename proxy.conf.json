@@ -2,7 +2,10 @@
   "/uploads/*": {
     "target": "http://hethongann.com",
     "secure": false,
+    "changeOrigin": true,
     "logLevel": "debug",
-    "changeOrigin": true
+    "pathRewrite": {
+        "^/uploads": ""
+    }
   }
 }

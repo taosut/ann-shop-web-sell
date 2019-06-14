@@ -1,7 +1,7 @@
 <app-page-header [breadcrumbs]="[
     {label: 'Trang chủ',         url: '/'},
     {label: product?.categoryName,   url: '/shop/category/' + product?.categorySlug},
-    {label: product?.name, url: '/shop/product/' + product?.ID}
+    {label: product?.name, url: '/shop/product/' + product?.id}
 ]"></app-page-header>
 
 <ng-container *ngIf="layout !== 'sidebar'">
