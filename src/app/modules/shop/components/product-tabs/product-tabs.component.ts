@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductFeaturesSection, ProductReview, Product } from '../../../../shared/interfaces/product';
+import { ProductFeaturesSection, ProductReview, ProductDetail } from '../../../../shared/interfaces/product';
 import { specification } from '../../../../../data/shop-product-spec';
 import { reviews } from '../../../../../data/shop-product-reviews';
 
@@ -8,13 +8,36 @@ import { reviews } from '../../../../../data/shop-product-reviews';
     templateUrl: './product-tabs.component.html',
     styleUrls: ['./product-tabs.component.scss']
 })
-export class ProductTabsComponent {
+export class ProductTabsComponent{
     @Input() withSidebar = false;
     @Input() tab: 'description'|'specification'|'reviews' = 'description';
-    @Input() product: Product;
+    @Input() product: ProductDetail;
 
     specification: ProductFeaturesSection[] = specification;
     reviews: ProductReview[] = reviews;
 
     constructor() { }
+
+    public get content(): string {
+        if (this.product)
+        {
+            let content: string = this.product.content ? `${this.product.content}<br/>` : "";
+            let contentImages: string[] = content.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
+
+            this.product.images
+                .filter(item => !(item in contentImages) )
+                .forEach((item: string) => {
+                    let regex: string[] = item.match(/([a-z0-9\-\.]+)$/g) || [];
+                    let alt: string = regex.length ? regex[1] : "";
+
+                    content += `<img alt="${alt}" class="img-download" src="${item}"><br/>`;
+                });
+
+            return content;
+        }
+        else
+        {
+            return "";
+        }
+    }
 }
