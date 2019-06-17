@@ -16,5 +16,11 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/tat-ca-san-pham.aspx/*": {
+    "target": "http://hethongann.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

@@ -67,8 +67,12 @@
         </div>
         <!-- Chưa sử dụng -->
         <div class="product-card__buttons">
-            <!-- <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="addToCart()" [ngClass]="{'btn-loading': addingToCart}">Add To Cart</button> -->
+            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="copy(product)" [ngClass]="{'btn-loading': addingToCart}" >
+                COPY
+            </button>
+            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="save(product)" [ngClass]="{'btn-loading': addingToCart}">
+                Tải hình
+            </button>
             <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" appClick (click)="addToWishlist()" [ngClass]="{'btn-loading': addingToWishlist}">
                 <app-icon name="wishlist-16" size="16"></app-icon>
                 <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>

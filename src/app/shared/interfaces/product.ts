@@ -43,8 +43,8 @@ export interface Product {
     thumbnails: Thumbnail[];
     regularPrice: number;
     retailPrice: number;
+    content: string;
     // ----------------------------
-
     // badges: ('sale'|'new'|'hot')[];
     // rating: number;
     // reviews: number;
@@ -66,5 +66,4 @@ export interface ProductDetail extends Product {
     colors: Variable[];
     sizes: Variable[];
     images: string[];
-    content: string;
 }

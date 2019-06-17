@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../interfaces/product';
 import { WishlistService } from '../../services/wishlist.service';
@@ -28,6 +30,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     showingQuickview = false;
 
     constructor(
+        private http: HttpClient,
         private cd: ChangeDetectorRef,
         public root: RootService,
         public cart: CartService,
@@ -115,5 +118,66 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         });
 
         return url
+    }
+
+    private _getProductAdvertisementInfo(product: Product): string{
+        let content: string = '';
+
+        if (product){
+            content += `${product.sku || ""} - ${product.name || ""}\n`;
+            content += '\n';
+            content += `📌 Giá sỉ: ${product.regularPrice || ""}\n`;
+            content += '\n';
+            content += `📌 Giá lẻ: ${product.retailPrice  || ""}\n`;
+            content += '\n';
+            content += `🔖 Chất liệu: ${product.materials || ""}\n`;
+            content += '\n';
+            content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
+        }
+        return content;
+    }
+
+    copy(product: Product): void{
+        let selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this._getProductAdvertisementInfo(product);
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
+
+    save(product: Product): void{
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json'
+            })
+        };
+
+        this.http.post(environment.apiProductImage, JSON.stringify({sku: product.sku}), httpOptions)
+            .subscribe(
+                (resp: {d: string})  => {
+                    let data: string[] = JSON.parse(resp.d);
+
+                    if (data)
+                    {
+                        let link = document.createElement('a');
+                        data.forEach((item: string, index: number) => {
+                            setTimeout(function () {
+                                link.setAttribute('download', `${product.sku}-${index + 1}`);
+                                link.setAttribute('href', data[index]);
+                                link.click();
+                            }, 1000 * index);
+                        });
+                    }
+                },
+                (err) => {
+                    alert("Lỗi");
+                }
+            );
     }
 }

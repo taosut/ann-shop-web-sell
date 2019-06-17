@@ -18,7 +18,7 @@ export class ProductTabsComponent{
 
     constructor() { }
 
-    public get content(): string {
+    get content(): string {
         if (this.product)
         {
             let content: string = this.product.content ? `${this.product.content}<br/>` : "";
