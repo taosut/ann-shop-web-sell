@@ -1,4 +1,15 @@
-<div class="products-view">
+<div class="block block-empty" *ngIf="!products.length">
+    <div class="container">
+        <div class="block-empty__body">
+            <div class="block-empty__message">Sản phẩm đang được cập nhật</div>
+            <div class="block-empty__actions">
+                <a routerLink="/" class="btn btn-primary btn-sm">Tiếp tục</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="products-view" *ngIf="products.length">
     <div class="products-view__options">
         <div class="view-options">
             <div class="view-options__layout">
@@ -45,7 +56,7 @@
         </div>
     </div>
 
-    <div *ngIf="pagingHeaders.totalPages" class="products-view__pagination">
+    <div *ngIf="pagingHeaders.totalPages && pagingHeaders.totalPages !== 1" class="products-view__pagination">
         <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
 </div>
