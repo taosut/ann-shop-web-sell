@@ -260,4 +260,12 @@ export class ProductComponent implements OnInit {
 
         this.selectImageWithVariable();
     }
+
+    getImageThumbnail(imageURL: string, size: string): string {
+        if (!imageURL) return "";
+        if (imageURL.match(/^\/App_Themes\/Ann\/image\/.+$/g)) return imageURL;
+
+        let regexFiles: string[] = imageURL.match(/[a-z0-9\-\.]+$/g);
+        return regexFiles.length ? `/uploads/images/${size}/${regexFiles[0]}` : "";
+    }
 }
