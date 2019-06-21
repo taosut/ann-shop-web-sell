@@ -16,6 +16,7 @@ import { DepartmentsAreaDirective } from './directives/departments-area.directiv
 import { DropdownDirective } from './directives/dropdown.directive';
 import { FakeSlidesDirective } from './directives/fake-slides.directive';
 import { OwlPreventClickDirective } from './directives/owl-prevent-click.directive';
+import { InputCurrencyDirective } from './directives/input-currency.directive';
 
 // components
 import { AlertComponent } from './components/alert/alert.component';
@@ -29,6 +30,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductComponent } from './components/product/product.component';
 import { QuickviewComponent } from './components/quickview/quickview.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { CopyConfigComponent } from './components/copy-config/copy-config.component';
 
 // pipes
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
@@ -45,6 +47,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         DropdownDirective,
         FakeSlidesDirective,
         OwlPreventClickDirective,
+        InputCurrencyDirective,
         // components
         AlertComponent,
         IconComponent,
@@ -57,6 +60,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         ProductComponent,
         QuickviewComponent,
         RatingComponent,
+        CopyConfigComponent,
         // pipes
         CurrencyFormatPipe
     ],
@@ -80,6 +84,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         DropdownDirective,
         FakeSlidesDirective,
         OwlPreventClickDirective,
+        InputCurrencyDirective,
         // components
         AlertComponent,
         IconComponent,
@@ -92,6 +97,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         ProductComponent,
         QuickviewComponent,
         RatingComponent,
+        CopyConfigComponent,
         // pipes
         CurrencyFormatPipe
     ]
