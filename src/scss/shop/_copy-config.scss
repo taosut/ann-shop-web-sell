@@ -1,0 +1,12 @@
+.modal-body {
+    .input-currency {
+        display: flex;
+
+        input[type="text"] {
+            text-align: right;
+        }
+        span {
+            padding: 6px 0 6px 10px;
+        }
+    }
+}

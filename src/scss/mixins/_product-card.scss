@@ -73,7 +73,8 @@
     }
     .product-card__addtocart,
     .product-card__wishlist,
-    .product-card__compare {
+    .product-card__compare
+    .product-card__gear {
         @include btn-sm();
     }
     .product-card__availability {

@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { formatNumber } from '@angular/common';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../interfaces/product';
+import { User } from '../../interfaces/user';
 import { WishlistService } from '../../services/wishlist.service';
 import { CompareService } from '../../services/compare.service';
-import { QuickviewService } from '../../services/quickview.service';
+import { CopyConfigService } from '../../services/copy-config.service';
 import { RootService } from '../../services/root.service';
 import { CurrencyService } from '../../services/currency.service';
 import { takeUntil } from 'rxjs/operators';
@@ -27,7 +29,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     addingToCart = false;
     addingToWishlist = false;
     addingToCompare = false;
-    showingQuickview = false;
+    showingCopyConfig = false;
+    copyingProductInfo = false;
 
     constructor(
         private http: HttpClient,
@@ -36,7 +39,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         public cart: CartService,
         public wishlist: WishlistService,
         public compare: CompareService,
-        public quickview: QuickviewService,
+        public copyConfig: CopyConfigService,
         public currency: CurrencyService
     ) { }
 
@@ -93,15 +96,18 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         });
     }
 
-    showQuickview(): void {
-        if (this.showingQuickview) {
+    showCopyConfig(): void {
+        if (this.showingCopyConfig) {
             return;
         }
 
-        this.showingQuickview = true;
-        this.quickview.show(this.product).subscribe({
+        this.showingCopyConfig = true;
+        const userJSON = localStorage.getItem('user');
+        let user: User = userJSON ? JSON.parse(userJSON) : null;
+
+        this.copyConfig.show(user).subscribe({
             complete: () => {
-                this.showingQuickview = false;
+                this.showingCopyConfig = false;
                 this.cd.markForCheck();
             }
         });
@@ -120,38 +126,120 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         return url
     }
 
-    private _getProductAdvertisementInfo(product: Product): string{
+    private _getProductAdvertisementInfo(product: Product, user?: User): string{
         let content: string = '';
+        if (user)
+        {
+            // Config SKU - Product name
+            if (user.setting.showSKU && user.setting.showProductName)
+            {
+                content += `${product.sku || ""} - ${product.name || ""}\n`;
+                content += '\n';
+            }
+            else {
+                if (user.setting.showSKU && !user.setting.showProductName)
+                {
+                    content += `${product.sku || ""}`;
+                    content += '\n';
+                }
+                else if (!user.setting.showSKU && user.setting.showProductName)
+                {
+                    content += `${product.name || ""}\n`;
+                    content += '\n';
+                }
+                else
+                {
+                    content += '';
+                }
+            }
 
-        if (product){
+            // Config RegularPrice and RetailPrice
+            if (user.setting.increntPrice)
+            {
+                let regularPrice = (+product.regularPrice || 0) + user.setting.increntPrice;
+                let retailPrice = (+product.retailPrice || 0) + user.setting.increntPrice;
+
+                content += `📌 Giá sỉ: ${formatNumber(regularPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
+                content += '\n';
+                content += `📌 Giá lẻ: ${formatNumber(retailPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
+                content += '\n';
+            }
+
+            content += `🔖 Chất liệu: ${product.materials || ""}\n`;
+            content += '\n';
+            content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
+            content += '\n';
+
+            // Config phone
+            if (user.shop.phone)
+            {
+                content += `📌 Điện thoại shop: ${user.shop.phone || ""}\n`;
+                content += '\n';
+            }
+
+            // Config address
+            if (user.shop.address)
+            {
+                content += `📌 Địa chỉ shop: ${user.shop.address || ""}\n`;
+                content += '\n';
+            }
+        }
+        else
+        {
             content += `${product.sku || ""} - ${product.name || ""}\n`;
             content += '\n';
-            content += `📌 Giá sỉ: ${product.regularPrice || ""}\n`;
+            content += `📌 Giá sỉ: ${formatNumber(+product.regularPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
             content += '\n';
-            content += `📌 Giá lẻ: ${product.retailPrice  || ""}\n`;
+            content += `📌 Giá lẻ: ${formatNumber(+product.retailPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo)  || ""} VND\n`;
             content += '\n';
             content += `🔖 Chất liệu: ${product.materials || ""}\n`;
             content += '\n';
             content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
         }
+
         return content;
     }
 
-    copy(product: Product): void{
-        let selBox = document.createElement('textarea');
-        selBox.style.position = 'fixed';
-        selBox.style.left = '0';
-        selBox.style.top = '0';
-        selBox.style.opacity = '0';
-        selBox.value = this._getProductAdvertisementInfo(product);
-        document.body.appendChild(selBox);
-        selBox.focus();
-        selBox.select();
-        document.execCommand('copy');
-        document.body.removeChild(selBox);
+    copyProductInfo(product: Product): void{
+        if (this.copyingProductInfo) {
+            return;
+        }
+
+        try {
+            this.copyingProductInfo = true;
+
+            // Get user info
+            const userJSON = localStorage.getItem('user');
+            let user: User = userJSON ? JSON.parse(userJSON) : null;
+
+            // Create Text Area
+            let textArea = document.createElement('textarea');
+            textArea.style.position = 'fixed';
+            textArea.style.left = '0';
+            textArea.style.top = '0';
+            textArea.style.opacity = '0';
+            textArea.value = this._getProductAdvertisementInfo(product, user);
+            document.body.appendChild(textArea);
+            textArea.focus();
+            // Select Text
+            let range = document.createRange();
+            range.selectNodeContents(textArea);
+            let selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            textArea.setSelectionRange(0, 999999);
+            // Copy and remove textArea
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            this.copyingProductInfo = false;
+        } catch (error) {
+            this.copyingProductInfo = false;
+        }
     }
 
-    save(product: Product): void{
+    saveProductImage(product: Product): void{
+        // Setting header
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json'
@@ -165,13 +253,11 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
                     if (data)
                     {
-                        let link = document.createElement('a');
+                        const FileSaver = require('file-saver');
                         data.forEach((item: string, index: number) => {
-                            setTimeout(function () {
-                                link.setAttribute('download', `${product.sku}-${index + 1}`);
-                                link.setAttribute('href', data[index]);
-                                link.click();
-                            }, 1000 * index);
+                            setTimeout(() => {
+                                FileSaver.saveAs(data[index], `${product.sku}-${index + 1}`);
+                            }, 1000);
                         });
                     }
                 },

@@ -24,7 +24,7 @@ export class PageProductComponent implements OnInit {
     layout: 'standard'|'columnar'|'sidebar' = 'standard';
     sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
 
-    limit:number = 8;
+    limit:number = 12;
     pagingHeaders: PagingHeaders =  {
         totalCount: 0,
         pageSize: 0,
@@ -38,19 +38,7 @@ export class PageProductComponent implements OnInit {
         this.route.data.subscribe(data => {
             this.layout = 'layout' in data ? data.layout : this.layout;
             this.sidebarPosition = 'sidebarPosition' in data ? data.sidebarPosition : this.sidebarPosition;
-            
         });
-        // this.route.params.pipe(map(params => {
-        //     if (params.hasOwnProperty('id')) {
-        //         const product = products.find(eachProduct => eachProduct.id === parseFloat(params.id));
-
-        //         if (product) {
-        //             return product;
-        //         }
-        //     }
-
-        //     return products[products.length - 1];
-        // })).subscribe(product => this.product = product);
     }
 
     private getUrlProductRelated(productID: number): string {
@@ -64,8 +52,8 @@ export class PageProductComponent implements OnInit {
 
                 this.http.get(url)
                     .subscribe(
-                        (data : ProductDetail) => { 
-                            this.product = data; 
+                        (data : ProductDetail) => {
+                            this.product = data;
                             this.titleService.setTitle(this.product.name);
                         },
                         (err) => {
@@ -75,7 +63,7 @@ export class PageProductComponent implements OnInit {
                             }
                         }
                     );
-                    
+
                 this.http
                     .get(this.getUrlProductRelated(params.id) + `?pageSize=${this.limit}`, { observe: 'response'})
                     .subscribe(
@@ -113,6 +101,6 @@ export class PageProductComponent implements OnInit {
                     );
             }
         });
-        
+
     }
 }
