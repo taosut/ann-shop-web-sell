@@ -1,0 +1,71 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cài đặt COPY</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label class="col-form-label">Mã sản phẩm :</label>
+                <div class="custom-control custom-switch">
+                    <div>
+                        <input type="checkbox"
+                            class="custom-control-input"
+                            id="showSKU"
+                            [(ngModel)]="user.setting.showSKU"
+                            [ngModelOptions]="{standalone: true}">
+                        <label class="custom-control-label" for="showSKU">
+                            {{ user.setting.showSKU ? 'Hiện' : 'Ẩn'}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Tên sản phẩm :</label>
+                <div class="custom-control custom-switch">
+                    <div>
+                        <input type="checkbox"
+                            class="custom-control-input"
+                            id="showProductName"
+                            [(ngModel)]="user.setting.showProductName"
+                            [ngModelOptions]="{standalone: true}">
+                        <label class="custom-control-label" for="showProductName">
+                            {{ user.setting.showProductName ? 'Hiện' : 'Ẩn'}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Giá lẻ cộng thêm :</label>
+                <div class="input-currency">
+                    <input type="text"
+                        class="form-control"
+                        [ngModel]="user.setting.increntPrice | currencyFormat"
+                        [ngModelOptions]="{standalone: true}"
+                        appInputCurrency>
+                    <span>{{ currencySymbol }}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Điên thoại đặt hàng :</label>
+                <input type="text"
+                    class="form-control"
+                    [(ngModel)]="user.shop.phone"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Địa chỉ shop :</label>
+                <input type="text"
+                    class="form-control"
+                    [(ngModel)]="user.shop.address"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-light" (click)="onSubmit()">Lưu</button>
+        <button type="button" class="btn btn-light" (click)="modalRef.hide()">Đóng</button>
+    </div>
+</ng-template>
