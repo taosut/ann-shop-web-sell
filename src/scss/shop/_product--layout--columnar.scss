@@ -137,8 +137,35 @@
                 }
             }
         }
+        .product__actions-item--copy {
+            flex-grow: 1;
+
+            .btn {
+                width: 100%;
+
+                @include direction {
+                    #{$padding-inline-start}: .5rem;
+                    #{$padding-inline-end}: .5rem;
+                }
+            }
+        }
+        .product__actions-item--save-image {
+            flex-grow: 1;
+
+            .btn {
+                width: 100%;
+
+                @include direction {
+                    #{$padding-inline-start}: .5rem;
+                    #{$padding-inline-end}: .5rem;
+                }
+            }
+        }
         .product__actions-item--wishlist,
         .product__actions-item--compare {
+            display: none;
+        }
+        .product__actions-item--gear {
             display: none;
         }
         .product__availability {
@@ -170,6 +197,12 @@
             margin: 0;
         }
         .product__actions-item--addtocart {
+            margin-top: 16px;
+        }
+        .product__actions-item--copy {
+            margin-top: 16px;
+        }
+        .product__actions-item--save-image {
             margin-top: 16px;
         }
     }

@@ -9,14 +9,14 @@ import { formatNumber } from '@angular/common';
 
 
 @Component({
-  selector: 'app-copy-config',
-  templateUrl: './copy-config.component.html',
-  styleUrls: ['./copy-config.component.scss']
+    selector: 'app-copy-config',
+    templateUrl: './copy-config.component.html',
+    styleUrls: ['./copy-config.component.scss']
 })
 export class CopyConfigComponent implements OnDestroy, OnInit {
     private destroy$: Subject<void> = new Subject();
 
-    @ViewChild('modal', {read: TemplateRef}) template: TemplateRef<any>;
+    @ViewChild('modal', { read: TemplateRef }) template: TemplateRef<any>;
 
     modalRef: BsModalRef;
     user: User = {
@@ -28,11 +28,12 @@ export class CopyConfigComponent implements OnDestroy, OnInit {
         setting: {
             showSKU: true,
             showProductName: true,
-            increntPrice: null
+            increntPrice: 0
         }
     };
     // formattedAmount: string;
     currencySymbol: string;
+    increntPrice: string = "";
 
     constructor(
         private copyConfig: CopyConfigService,
@@ -52,6 +53,7 @@ export class CopyConfigComponent implements OnDestroy, OnInit {
             }
 
             this.user = user ? user : this.user;
+            this.increntPrice = formatNumber(this.user.setting.increntPrice, this.currency.options.locale, this.currency.options.digitsInfo);
             this.modalRef = this.modalService.show(
                 this.template,
                 {
@@ -67,13 +69,9 @@ export class CopyConfigComponent implements OnDestroy, OnInit {
         this.destroy$.complete();
     }
 
-    // transformAmount(element: HTMLInputElement):void {
-    //     this.formattedAmount = formatNumber(+this.user.setting.increntPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || "";
-    //     element.value = this.formattedAmount;
-    //     console.log(this.formattedAmount);
-    // }
 
     onSubmit(): void {
+        this.user.setting.increntPrice = +this.increntPrice.replace(/\,/g, '') || 0;
         localStorage.setItem('user', JSON.stringify(this.user));
         this.modalRef.hide();
     }

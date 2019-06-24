@@ -42,7 +42,7 @@
                 <div class="input-currency">
                     <input type="text"
                         class="form-control"
-                        [ngModel]="user.setting.increntPrice | currencyFormat"
+                        [(ngModel)]="increntPrice"
                         [ngModelOptions]="{standalone: true}"
                         appInputCurrency>
                     <span>{{ currencySymbol }}</span>

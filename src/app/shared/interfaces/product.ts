@@ -41,6 +41,8 @@ export interface Product {
     materials: string;
     avatar: string;
     thumbnails: Thumbnail[];
+    colors: Variable[];
+    sizes: Variable[];
     regularPrice: number;
     retailPrice: number;
     content: string;
@@ -63,7 +65,5 @@ export interface ProductRelated extends Product {
 }
 
 export interface ProductDetail extends Product {
-    colors: Variable[];
-    sizes: Variable[];
     images: string[];
 }

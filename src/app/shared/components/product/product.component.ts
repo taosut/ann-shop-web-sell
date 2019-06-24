@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, QueryList, ViewChild, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ProductImage, ProductDetail } from '../../interfaces/product';
 import { CarouselComponent, SlidesOutputData } from 'ngx-owl-carousel-o';
@@ -7,12 +7,16 @@ import { FormControl } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { CompareService } from '../../services/compare.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, formatNumber } from '@angular/common';
 import { OwlCarouselOConfig } from 'ngx-owl-carousel-o/lib/carousel/owl-carousel-o-config';
 import { PhotoSwipeService } from '../../services/photo-swipe.service';
 import { DirectionService } from '../../services/direction.service';
+import { User } from '../../interfaces/user';
+import { CurrencyService } from '../../services/currency.service';
+import { CopyConfigService } from '../../services/copy-config.service';
+import { ProductService } from '../../services/product.service';
 
-export type Layout = 'standard'|'sidebar'|'columnar'|'quickview';
+export type Layout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
 @Component({
     selector: 'app-product',
@@ -31,9 +35,9 @@ export class ProductComponent implements OnInit {
     showGallery = true;
     showGalleryTimeout: number;
 
-    @ViewChild('featuredCarousel', {read: CarouselComponent}) featuredCarousel: CarouselComponent;
-    @ViewChild('thumbnailsCarousel', {read: CarouselComponent}) thumbnailsCarousel: CarouselComponent;
-    @ViewChildren('imageElement', {read: ElementRef}) imageElements: QueryList<ElementRef>;
+    @ViewChild('featuredCarousel', { read: CarouselComponent }) featuredCarousel: CarouselComponent;
+    @ViewChild('thumbnailsCarousel', { read: CarouselComponent }) thumbnailsCarousel: CarouselComponent;
+    @ViewChildren('imageElement', { read: ElementRef }) imageElements: QueryList<ElementRef>;
 
     @Input() set layout(value: Layout) {
         this.dataLayout = value;
@@ -72,7 +76,7 @@ export class ProductComponent implements OnInit {
         dots: false,
         autoplay: false,
         responsive: {
-            0: {items: 1}
+            0: { items: 1 }
         },
         rtl: this.direction.isRTL()
     };
@@ -83,9 +87,9 @@ export class ProductComponent implements OnInit {
         margin: 10,
         items: 5,
         responsive: {
-            480: {items: 5},
-            380: {items: 4},
-              0: {items: 3}
+            480: { items: 5 },
+            380: { items: 4 },
+            0: { items: 3 }
         },
         rtl: this.direction.isRTL()
     };
@@ -95,6 +99,8 @@ export class ProductComponent implements OnInit {
     addingToCart = false;
     addingToWishlist = false;
     addingToCompare = false;
+    showingCopyConfig = false;
+    copyingProductInfo = false;
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
@@ -103,7 +109,10 @@ export class ProductComponent implements OnInit {
         private compare: CompareService,
         private photoSwipe: PhotoSwipeService,
         private direction: DirectionService,
-        private http: HttpClient
+        private http: HttpClient,
+        private cd: ChangeDetectorRef,
+        private copyConfig: CopyConfigService,
+        private service: ProductService
     ) { }
 
     ngOnInit(): void {
@@ -141,7 +150,7 @@ export class ProductComponent implements OnInit {
         if (!this.addingToCart && this.product && this.quantity.value > 0) {
             this.addingToCart = true;
 
-            this.cart.add(this.product, this.quantity.value).subscribe({complete: () => this.addingToCart = false});
+            this.cart.add(this.product, this.quantity.value).subscribe({ complete: () => this.addingToCart = false });
         }
     }
 
@@ -149,7 +158,7 @@ export class ProductComponent implements OnInit {
         if (!this.addingToWishlist && this.product) {
             this.addingToWishlist = true;
 
-            this.wishlist.add(this.product).subscribe({complete: () => this.addingToWishlist = false});
+            this.wishlist.add(this.product).subscribe({ complete: () => this.addingToWishlist = false });
         }
     }
 
@@ -157,7 +166,7 @@ export class ProductComponent implements OnInit {
         if (!this.addingToCompare && this.product) {
             this.addingToCompare = true;
 
-            this.compare.add(this.product).subscribe({complete: () => this.addingToCompare = false});
+            this.compare.add(this.product).subscribe({ complete: () => this.addingToCompare = false });
         }
     }
 
@@ -179,7 +188,7 @@ export class ProductComponent implements OnInit {
                     const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                     const rect = imageElement.getBoundingClientRect();
 
-                    return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                    return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
                 },
                 index: this.images.indexOf(image),
                 bgOpacity: .9,
@@ -200,32 +209,32 @@ export class ProductComponent implements OnInit {
         if (this.color) variableID.push(this.color);
         if (this.size) variableID.push(this.size);
 
-        if ( variableID.length > 0) {
+        if (variableID.length > 0) {
             let url = environment.apiProduct + `/${this.product.id}/image`
             let paramUrl = "?"
             variableID.forEach(item => paramUrl += `&variables=${item}`);
             this.http
-                    .get(url + paramUrl)
-                    .subscribe((data: string)  => {
-                        if (data) {
-                            let image: ProductImage;
+                .get(url + paramUrl)
+                .subscribe((data: string) => {
+                    if (data) {
+                        let image: ProductImage;
 
-                            this.images.forEach(eachImage => {
-                                if (eachImage.url === data) {
-                                    eachImage.active = true;
-                                    image = eachImage;
-                                }
-                            });
-
-                            if (image) {
-                                if (!this.thumbnailsCarousel.slidesData.find(slide => slide.id === image.id && slide.isActive)) {
-                                    this.thumbnailsCarousel.to(image.id);
-                                }
-
-                                this.featuredCarousel.to(image.id);
+                        this.images.forEach(eachImage => {
+                            if (eachImage.url === data) {
+                                eachImage.active = true;
+                                image = eachImage;
                             }
+                        });
+
+                        if (image) {
+                            if (!this.thumbnailsCarousel.slidesData.find(slide => slide.id === image.id && slide.isActive)) {
+                                this.thumbnailsCarousel.to(image.id);
+                            }
+
+                            this.featuredCarousel.to(image.id);
                         }
-                    });
+                    }
+                });
         }
     }
 
@@ -233,12 +242,11 @@ export class ProductComponent implements OnInit {
         this.hasVariable = true;
         this.colorElement = el;
 
-        if(this.color && this.color === id)
-        {
+        if (this.color && this.color === id) {
             this.color = 0;
             this.colorElement.checked = false;
         }
-        else{
+        else {
             this.color = id;
         }
 
@@ -249,12 +257,11 @@ export class ProductComponent implements OnInit {
         this.hasVariable = true;
         this.sizeElement = el;
 
-        if(this.size && this.size === id)
-        {
+        if (this.size && this.size === id) {
             this.size = 0;
             this.sizeElement.checked = false;
         }
-        else{
+        else {
             this.size = id;
         }
 
@@ -267,5 +274,40 @@ export class ProductComponent implements OnInit {
 
         let regexFiles: string[] = imageURL.match(/[a-z0-9\-\.]+$/g);
         return regexFiles.length ? `/uploads/images/${size}/${regexFiles[0]}` : "";
+    }
+
+    showCopyConfig(): void {
+        if (this.showingCopyConfig) {
+            return;
+        }
+
+        this.showingCopyConfig = true;
+        const userJSON = localStorage.getItem('user');
+        let user: User = userJSON ? JSON.parse(userJSON) : null;
+
+        this.copyConfig.show(user).subscribe({
+            complete: () => {
+                this.showingCopyConfig = false;
+                this.cd.markForCheck();
+            }
+        });
+    }
+
+
+    copyProductInfo(btCopy: HTMLButtonElement): void {
+        if (this.copyingProductInfo) {
+            return;
+        }
+
+        this.copyingProductInfo = true;
+        btCopy.innerHTML = "Đang COPY"
+        this.service.copyInfo(this.product);
+        this.copyingProductInfo = false;
+        this.cd.markForCheck();
+        btCopy.innerHTML = "Đã COPY"
+    }
+
+    saveProductImage(): void {
+        this.service.saveProductImage(this.product.sku)
     }
 }

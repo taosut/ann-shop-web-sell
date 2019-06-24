@@ -143,12 +143,15 @@
                         <!-- <div class="product__actions-item">
                             <app-input-number aria-label="Quantity" class="product__quantity" size="lg" [min]="1" [formControl]="quantity" [readonly]="true"></app-input-number>
                         </div> -->
-                        <!-- Chưa sử dụng -->
-                        <!-- <div class="product__actions-item product__actions-item--addtocart">
+                        <div class="product__actions-item product__actions-item--copy">
                             <button type="button" class="btn btn-primary btn-lg"
-                                    [ngClass]="{'btn-loading': addingToCart}"
-                                    appClick (click)="addToCart()">Add to cart</button>
-                        </div> -->
+                                    [ngClass]="{'btn-loading': copyingProductInfo}"
+                                    appClick (click)="copyProductInfo(copy)" #copy>COPY</button>
+                        </div>
+                        <div class="product__actions-item product__actions-item--save-image">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    appClick (click)="saveProductImage()">Tải hình</button>
+                        </div>
                         <div class="product__actions-item product__actions-item--wishlist">
                             <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Lưu sản phẩm"
                                     [ngClass]="{'btn-loading': addingToWishlist}"
@@ -156,13 +159,13 @@
                                 <app-icon name="wishlist-16" size="16"></app-icon>
                             </button>
                         </div>
-                        <!-- <div class="product__actions-item product__actions-item--compare">
-                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Compare"
-                                    [ngClass]="{'btn-loading': addingToCompare}"
-                                    appClick (click)="addToCompare()">
-                                <app-icon name="compare-16" size="16"></app-icon>
+                        <div class="product__actions-item product__actions-item--gear">
+                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Cài đặt COPY"
+                                    [ngClass]="{'btn-loading': showingCopyConfig}"
+                                    appClick (click)="showCopyConfig()">
+                                <app-icon name="gear-512" size="16"></app-icon>
                             </button>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </form>
