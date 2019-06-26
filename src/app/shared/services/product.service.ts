@@ -60,8 +60,7 @@ export class ProductService {
 
       content += `🔖 Chất liệu: ${product.materials || ""}\n`;
       content += '\n';
-      // content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
-      content += "🔖 Mô tả: " + product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : "" + "\n";
+      content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
       content += '\n';
 
       if (product.colors && product.colors.length) {
@@ -144,7 +143,7 @@ export class ProductService {
     return content;
   }
 
-  copyInfo(product: Product): void {
+  copyInfo(product: Product): boolean {
     // Get user info
     const userJSON = localStorage.getItem('user');
     let user: User = userJSON ? JSON.parse(userJSON) : null;
@@ -168,10 +167,13 @@ export class ProductService {
       // Copy and remove textArea
       this.dom.execCommand('copy');
       this.dom.body.removeChild(textArea);
+
+      return true;
     }
     else
     {
       this.copyConfig.show(user).subscribe();
+      return false;
     }
   }
 

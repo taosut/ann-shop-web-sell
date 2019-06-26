@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 // modules (third-party)
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ToastrModule } from 'ngx-toastr';
+import { LazyLoadImageModule, intersectionObserverPreset  } from 'ng-lazyload-image';
 
 // modules
 import { AppRoutingModule } from './app-routing.module';
@@ -52,6 +53,7 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
         // modules (third-party)
         CarouselModule,
         ToastrModule.forRoot(),
+        LazyLoadImageModule.forRoot({ preset: intersectionObserverPreset }),
         // modules
         AppRoutingModule,
         BlocksModule,
