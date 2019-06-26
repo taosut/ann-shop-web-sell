@@ -39,14 +39,19 @@
                         </a>
                     </div>
 
-                    <!-- <div class="indicator indicator--mobile">
-                        <a routerLink="./shop/cart" class="indicator__button">
+                    <div class="indicator indicator--mobile">
+                        <!-- <a routerLink="./shop/cart" class="indicator__button">
                             <span class="indicator__area">
                                 <app-icon name="cart-20" size="20"></app-icon>
                                 <span class="indicator__value">{{ cart.quantity$|async }}</span>
                             </span>
+                        </a> -->
+                        <a class="indicator__button">
+                            <span class="indicator__area" appClick (click)="showCopyConfig()" [ngClass]="{'btn-loading': copyingProductInfo}">
+                                <app-icon name="gear-512" size="20"></app-icon>
+                            </span>
                         </a>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

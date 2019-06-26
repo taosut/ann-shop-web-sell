@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common'
+import { Location, ViewportScroller } from '@angular/common'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { Product } from '../../../../shared/interfaces/product';
@@ -34,7 +34,8 @@ export class ProductsViewComponent implements OnInit {
 
     constructor(
             private http: HttpClient,
-            private location: Location
+            private location: Location,
+            private scroller: ViewportScroller
         ) { }
 
     private getProductURL(category: number, page: number, limit: number, sort: string): string {
@@ -69,6 +70,9 @@ export class ProductsViewComponent implements OnInit {
                 this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
                 this.products = <Product[]>resp.body;
                 this.changeUrl(this._url + `?page=${page}&limt=${this.limit}`);
+
+                // Move the pointer to page top
+                this.scroller.scrollToPosition([0, 0]);
             });
     }
 

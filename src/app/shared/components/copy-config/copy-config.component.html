@@ -15,7 +15,8 @@
                             class="custom-control-input"
                             id="showSKU"
                             [(ngModel)]="user.setting.showSKU"
-                            [ngModelOptions]="{standalone: true}">
+                            [ngModelOptions]="{standalone: true}"
+                            checked>
                         <label class="custom-control-label" for="showSKU">
                             {{ user.setting.showSKU ? 'Hiện' : 'Ẩn'}}
                         </label>
@@ -30,7 +31,8 @@
                             class="custom-control-input"
                             id="showProductName"
                             [(ngModel)]="user.setting.showProductName"
-                            [ngModelOptions]="{standalone: true}">
+                            [ngModelOptions]="{standalone: true}"
+                            checked>
                         <label class="custom-control-label" for="showProductName">
                             {{ user.setting.showProductName ? 'Hiện' : 'Ẩn'}}
                         </label>

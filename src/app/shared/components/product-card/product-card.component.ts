@@ -129,13 +129,15 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         }
 
         this.copyingProductInfo = true;
-        btCopy1.innerHTML = "Đang COPY"
-        btCopy2.innerHTML = "Đang COPY"
-        this.service.copyInfo(product);
+        let result = this.service.copyInfo(product);
         this.copyingProductInfo = false;
         this.cd.markForCheck();
-        btCopy1.innerHTML = "Đã COPY"
-        btCopy2.innerHTML = "Đã COPY"
+
+        if (result)
+        {
+            btCopy1.innerHTML = "Đã COPY";
+            btCopy2.innerHTML = "Đã COPY";
+        }
     }
 
     saveProductImage(product: Product): void {

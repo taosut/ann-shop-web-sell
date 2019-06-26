@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // modules (third-party)
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { LazyLoadImageModule, intersectionObserverPreset  } from 'ng-lazyload-image';
 
 // modules
 import { BlocksModule } from '../blocks/blocks.module';
@@ -47,6 +48,7 @@ import { PageWishlistComponent } from './pages/page-wishlist/page-wishlist.compo
         ReactiveFormsModule,
         // modules (third-party)
         CarouselModule,
+        LazyLoadImageModule.forRoot({ preset: intersectionObserverPreset }),
         // modules
         BlocksModule,
         SharedModule,

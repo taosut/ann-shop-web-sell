@@ -30,7 +30,7 @@ export class ProductTabsComponent{
                     let regex: string[] = item.match(/([a-z0-9\-\.]+)$/g) || [];
                     let alt: string = regex.length ? regex[1] : "";
 
-                    content += `<img alt="${alt}" class="img-download" src="${item}"><br/>`;
+                    content += `<img alt="${alt}" class="img-download" src="${item}" width="600" height="600" ><br/>`;
                 });
 
             return content;

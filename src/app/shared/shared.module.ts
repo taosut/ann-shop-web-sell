@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 // modules (third-party)
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LazyLoadImageModule, intersectionObserverPreset  } from 'ng-lazyload-image';
 
 // directives
 import { ClickDirective } from './directives/click.directive';
@@ -72,7 +73,8 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         ReactiveFormsModule,
         // modules (third-party)
         CarouselModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        LazyLoadImageModule.forRoot({ preset: intersectionObserverPreset }),
     ],
     exports: [
         // directives

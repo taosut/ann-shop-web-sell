@@ -58,13 +58,27 @@ export class ProductComponent implements OnInit {
     @Input() set product(value: ProductDetail) {
         this.dataProduct = value;
         this.quantity.setValue(value ? value.quantity : 1);
-        this.images = value ? this.dataProduct.images.map((url, index) => {
-            return {
-                id: index.toString(),
-                url,
-                active: index === 0
-            };
-        }) : [];
+        if (value)
+        {
+            let carousel_image: ProductImage[] = [];
+            // Add avatar làm anh chính
+            carousel_image.push({
+                id: '0',
+                url: value.avatar,
+                active: true
+            })
+
+            // Add product image
+            this.dataProduct.images.map((url, index) => {
+                carousel_image.push({
+                    id: (index + 1).toString(),
+                    url,
+                    active: false
+                });
+            })
+
+            this.images = carousel_image;
+        }
     }
     get product(): ProductDetail {
         return this.dataProduct;
@@ -300,11 +314,11 @@ export class ProductComponent implements OnInit {
         }
 
         this.copyingProductInfo = true;
-        btCopy.innerHTML = "Đang COPY"
-        this.service.copyInfo(this.product);
+        let result = this.service.copyInfo(this.product);
         this.copyingProductInfo = false;
         this.cd.markForCheck();
-        btCopy.innerHTML = "Đã COPY"
+
+        if (result) btCopy.innerHTML = "Đã COPY";
     }
 
     saveProductImage(): void {
