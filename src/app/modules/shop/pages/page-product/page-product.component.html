@@ -17,11 +17,15 @@
     <!-- Custom show product variable list -->
     <div class="block block--highlighted block-categories block-categories--layout--compact">
         <div class="container">
+            <div class="block-header">
+                <h3 class="block-header__title">Màu & Size</h3>
+                <div class="block-header__divider"></div>
+            </div>
             <div class="block-categories__list">
                 <div *ngFor="let product of relatedProducts" class="block-categories__item category-card category-card--layout--compact">
                     <div class="category-card__body">
                         <div class="category-card__image">
-                            <img defaultImage="/App_Themes/Ann/image/placeholder.png"
+                            <img defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
                                 [lazyLoad]="product.avatar"
                                 offset="100">
                         </div>

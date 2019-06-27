@@ -8,7 +8,7 @@
                         <ng-container *ngFor="let image of images">
                             <ng-template carouselSlide [id]="image.id">
                                 <a appClick (click)="openPhotoSwipe($event, image);" [href]="image.url" target="_blank">
-                                    <img defaultImage="/App_Themes/Ann/image/placeholder.png"
+                                    <img defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
                                         [lazyLoad]="getImageThumbnail(image.url, '350x467')"
                                         offset="100"
                                         #imageElement>
@@ -25,7 +25,7 @@
                                    [ngClass]="{'product-gallery__carousel-item--active': image.active}"
                                    appClick (click)="featuredCarousel.to(image.id); setActiveImage(image)">
                                     <img class="product-gallery__carousel-image"
-                                        [defaultImage]="'/App_Themes/Ann/image/placeholder.png'"
+                                        [defaultImage]="'/App_Themes/Ann/image/placeholder_loading.png'"
                                         [lazyLoad]="getImageThumbnail(image.url, '85x113')"
                                         [offset]="100">
                                 </span>
@@ -100,7 +100,7 @@
             </div>
             <div class="product__prices">
                 <ng-container>
-                    Giá lẻ:<span class="product__price">{{ product.retailPrice|currencyFormat }}</span>
+                    Giá lẻ: <span class="product__price">{{ product.retailPrice|currencyFormat }}</span>
                 </ng-container>
             </div>
             <!-- .product__options -->

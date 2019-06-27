@@ -21,16 +21,15 @@ export class ProductTabsComponent{
     get content(): string {
         if (this.product)
         {
-            let content: string = this.product.content ? `${this.product.content}<br/>` : "";
+            let content: string = `<h2>${this.product.name}</h2>` + (this.product.content ? `${this.product.content}<br>` : "");
             let contentImages: string[] = content.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
 
             this.product.images
                 .filter(item => !(item in contentImages) )
                 .forEach((item: string) => {
-                    let regex: string[] = item.match(/([a-z0-9\-\.]+)$/g) || [];
-                    let alt: string = regex.length ? regex[1] : "";
+                    let alt: string = this.product.name;
 
-                    content += `<img alt="${alt}" class="img-download" src="${item}" width="600" height="600" ><br/>`;
+                    content += `<img alt="${alt}" class="img-download" src="${item}"><br>`;
                 });
 
             return content;

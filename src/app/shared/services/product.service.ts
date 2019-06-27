@@ -52,9 +52,7 @@ export class ProductService {
         let regularPrice = (+product.regularPrice || 0) + user.setting.increntPrice;
         let retailPrice = (+product.retailPrice || 0) + user.setting.increntPrice;
 
-        content += `📌 Giá sỉ: ${formatNumber(regularPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
-        content += '\n';
-        content += `📌 Giá lẻ: ${formatNumber(retailPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
+        content += `📌 Giá: ${formatNumber(retailPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
         content += '\n';
       }
 
@@ -72,7 +70,7 @@ export class ProductService {
         });
 
         if (strColor) {
-          content += `📚 Màu::${strColor}`;
+          content += `📚 Màu: ${strColor}`;
           content += '\n';
         }
       }
@@ -85,27 +83,25 @@ export class ProductService {
         });
 
         if (strSize) {
-          content += `📚 Sizes::${strSize}`;
+          content += `📚 Sizes: ${strSize}`;
           content += '\n';
         }
       }
 
       // Config phone
       if (user.shop.phone) {
-        content += `📌 Điện thoại shop: ${user.shop.phone || ""}\n`;
+        content += `📌 Điện thoại: ${user.shop.phone || ""}\n`;
         content += '\n';
       }
 
       // Config address
       if (user.shop.address) {
-        content += `📌 Địa chỉ shop: ${user.shop.address || ""}\n`;
+        content += `📌 Địa chỉ: ${user.shop.address || ""}\n`;
         content += '\n';
       }
     }
     else {
       content += `${product.sku || ""} - ${product.name || ""}\n`;
-      content += '\n';
-      content += `📌 Giá sỉ: ${formatNumber(+product.regularPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
       content += '\n';
       content += `📌 Giá lẻ: ${formatNumber(+product.retailPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
       content += '\n';
@@ -121,7 +117,7 @@ export class ProductService {
         });
 
         if (strColor) {
-          content += `📚 Màu::${strColor}`;
+          content += `📚 Màu: ${strColor}`;
           content += '\n';
         }
       }
@@ -134,7 +130,7 @@ export class ProductService {
         });
 
         if (strSize) {
-          content += `📚 Sizes::${strSize}`;
+          content += `📚 Sizes: ${strSize}`;
           content += '\n';
         }
       }

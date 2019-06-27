@@ -22,9 +22,9 @@
         <a appClick [routerLink]="root.product(product.id)" *ngIf="product.thumbnails.length">
             <picture>
                 <source media="(max-width: 478px)"
-                    defaultImage="/App_Themes/Ann/image/placeholder.png"
+                    defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
                     [attr.lazyLoad]="getImageThumbnail(product.thumbnails, '350x467')">
-                <img defaultImage="/App_Themes/Ann/image/placeholder.png"
+                <img defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
                      [lazyLoad]="getImageThumbnail(product.thumbnails, '240x320')"
                      offset="100">
             </picture>

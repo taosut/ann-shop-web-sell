@@ -55,26 +55,29 @@ export class PageProductComponent implements OnInit {
                         (data : ProductDetail) => {
                             this.product = data;
                             this.titleService.setTitle(this.product.name);
+
+                            if(this.product.colors.length || this.product.sizes.length)
+                            {
+                                this.http
+                                .get(this.getUrlProductRelated(params.id) + `?pageSize=${this.limit}`, { observe: 'response'})
+                                .subscribe(
+                                    resp  => {
+                                    this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+                                    this.relatedProducts = <ProductRelated[]>resp.body;
+                                    },
+                                    (err) => {
+                                        if (err.status === 404)
+                                        {
+                                            this.relatedProducts = [];
+                                        }
+                                    }
+                                );
+                            }
                         },
                         (err) => {
                             if (err.status === 404)
                             {
                                 this.router.navigate(['/not-found']);
-                            }
-                        }
-                    );
-
-                this.http
-                    .get(this.getUrlProductRelated(params.id) + `?pageSize=${this.limit}`, { observe: 'response'})
-                    .subscribe(
-                        resp  => {
-                        this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                        this.relatedProducts = <ProductRelated[]>resp.body;
-                        },
-                        (err) => {
-                            if (err.status === 404)
-                            {
-                                this.relatedProducts = [];
                             }
                         }
                     );
