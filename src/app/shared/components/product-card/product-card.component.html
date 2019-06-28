@@ -19,7 +19,7 @@
     </div> -->
 
     <div class="product-card__image">
-        <a appClick [routerLink]="root.product(product.id)" *ngIf="product.thumbnails.length">
+        <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
             <picture>
                 <source media="(max-width: 478px)"
                     defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
@@ -32,7 +32,7 @@
     </div>
     <div class="product-card__info">
         <div class="product-card__name">
-            <a appClick [routerLink]="root.product(product.id)">{{ product.name }}</a>
+            <a appClick [routerLink]="root.product(product.slug)">{{ product.name }}</a>
         </div>
         <!-- Chưa sử dụng -->
         <div class="product-card__sku">

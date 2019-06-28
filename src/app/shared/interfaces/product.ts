@@ -46,6 +46,7 @@ export interface Product {
     regularPrice: number;
     retailPrice: number;
     content: string;
+    slug: string;
     // ----------------------------
     // badges: ('sale'|'new'|'hot')[];
     // rating: number;

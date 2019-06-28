@@ -47,8 +47,8 @@ export class PageProductComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            if(params.hasOwnProperty('id')){
-                let url = environment.apiProduct + `/${params.id}`;
+            if(params.hasOwnProperty('slug')){
+                let url = environment.apiProduct + `/${params.slug}`;
 
                 this.http.get(url)
                     .subscribe(
@@ -59,7 +59,7 @@ export class PageProductComponent implements OnInit {
                             if(this.product.colors.length || this.product.sizes.length)
                             {
                                 this.http
-                                .get(this.getUrlProductRelated(params.id) + `?pageSize=${this.limit}`, { observe: 'response'})
+                                .get(this.getUrlProductRelated(this.product.id) + `?pageSize=${this.limit}`, { observe: 'response'})
                                 .subscribe(
                                     resp  => {
                                     this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
@@ -85,25 +85,21 @@ export class PageProductComponent implements OnInit {
         });
     }
 
-    onPageChange(page: number): void {
-        this.route.params.subscribe(params => {
-            if(params.hasOwnProperty('id')){
-                this.http
-                    .get(this.getUrlProductRelated(params.id) + `?pageNumber=${page}&pageSize=${this.limit}`, { observe: 'response'})
-                    .subscribe(
-                        resp  => {
-                        this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                        this.relatedProducts = <ProductRelated[]>resp.body;
-                        },
-                        (err) => {
-                            if (err.status === 404)
-                            {
-                                this.relatedProducts = [];
-                            }
-                        }
-                    );
-            }
-        });
+    onPageChange(productID: number, page: number): void {
+        this.http
+            .get(this.getUrlProductRelated(productID) + `?pageNumber=${page}&pageSize=${this.limit}`, { observe: 'response'})
+            .subscribe(
+                resp  => {
+                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+                this.relatedProducts = <ProductRelated[]>resp.body;
+                },
+                (err) => {
+                    if (err.status === 404)
+                    {
+                        this.relatedProducts = [];
+                    }
+                }
+            );
 
     }
 }
