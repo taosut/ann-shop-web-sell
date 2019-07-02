@@ -12,35 +12,16 @@
 <div class="products-view" *ngIf="products.length">
     <div class="products-view__options">
         <div class="view-options">
-            <div class="view-options__layout">
-                <div class="layout-switcher">
-                    <div class="layout-switcher__list">
-                        <button title="Grid" type="button" class="layout-switcher__button"
-                                [ngClass]="{'layout-switcher__button--active': layout === 'grid'}" (click)="setLayout('grid')">
-
-                            <app-icon name="layout-grid-16x16" size="16"></app-icon>
-                        </button>
-                        <button title="Grid With Features" type="button" class="layout-switcher__button"
-                                [ngClass]="{'layout-switcher__button--active': layout === 'grid-with-features'}" (click)="setLayout('grid-with-features')">
-
-                            <app-icon name="layout-grid-with-details-16x16" size="16"></app-icon>
-                        </button>
-                        <button title="List" type="button" class="layout-switcher__button"
-                                [ngClass]="{'layout-switcher__button--active': layout === 'list'}" (click)="setLayout('list')">
-
-                            <app-icon name="layout-list-16x16" size="16"></app-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
             <div *ngIf="pagingHeaders.totalPages" class="view-options__legend">
-                Trang {{ pagingHeaders.currentPage }} trên {{ pagingHeaders.totalPages }} trang ({{ pagingHeaders.totalCount }} sản phẩm)
+                Trang {{ pagingHeaders.currentPage }} trên {{ pagingHeaders.totalPages }} trang
+                ({{ pagingHeaders.totalCount }} sản phẩm)
             </div>
             <div class="view-options__divider"></div>
             <div class="view-options__control">
                 <label for="view-options-sort">Sắp xếp</label>
                 <div>
-                    <select class="form-control form-control-sm" name="" id="view-options-sort" (change)="onSortChange($event.target.value)">
+                    <select class="form-control form-control-sm" name="" id="view-options-sort"
+                        (change)="onSortChange($event.target.value)">
                         <option *ngFor="let item of sorts" [value]="item.key">{{ item.name }}</option>
                     </select>
                 </div>
@@ -48,15 +29,36 @@
         </div>
     </div>
 
-    <div class="products-view__list products-list" [attr.data-layout]="layout != 'list' ? grid : layout" [attr.data-with-features]="layout == 'grid-with-features' ? 'true' : 'false'">
-        <div class="products-list__body">
-            <div *ngFor="let product of products" class="products-list__item">
-                <app-product-card [product]="product"></app-product-card>
+    <div class="block block--highlighted block-categories block-categories--layout--compact">
+        <div class="container">
+            <div class="block-categories__list">
+                <div *ngFor="let product of products"
+                    class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <img defaultImage="/App_Themes/Ann/image/placeholder.png" [lazyLoad]="getImageThumbnail(product.thumbnails, '85x113')"
+                                offset="100">
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name">
+                                {{ product.name }}
+                            </div>
+                            <div class="category-card__products">
+                                Mã: {{ product.sku }}
+                            </div>
+                            <div class="category-card__buttons">
+                                <button class="btn btn-primary" type="button" appClick (click)="clickWebPublish(btWebPublish, product)" [ngClass]="{'btn-loading': updatingWebPublish}" #btWebPublish>{{ product.webPublish ? 'Hiện' : 'Ẩn' }}</button>
+                                <button class="btn btn-primary" type="button" appClick (click)="clickWebUpdate(product)" [ngClass]="{'btn-loading': updatingWebUpdate}">Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div *ngIf="pagingHeaders.totalPages && pagingHeaders.totalPages !== 1" class="products-view__pagination">
-        <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages" (pageChange)="onPageChange($event)"></app-pagination>
+        <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages"
+            (pageChange)="onPageChange($event)"></app-pagination>
     </div>
 </div>

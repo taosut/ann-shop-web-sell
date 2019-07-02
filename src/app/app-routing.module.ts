@@ -4,34 +4,26 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 // import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.component';
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 import { RootComponent } from './components/root/root.component';
+import { PageLoginComponent } from './modules/account/pages/page-login/page-login.component';
+import { AdminGuard } from './modules/shop/guards/admin.guard';
 
 export function makeRoutes(homeComponent: Type<any>): Routes {
     return [
-        // {
-        //     path: '',
-        //     pathMatch: 'full',
-        //     redirectTo: 'home'
-        // },
         {
             path: '',
-            component: homeComponent
-        },
-        {
-            path: 'blog',
-            loadChildren: './modules/blog/blog.module#BlogModule'
+            pathMatch: 'full',
+            redirectTo: 'shop',
         },
         {
             path: 'shop',
+            canActivate: [AdminGuard],
+            canActivateChild: [AdminGuard],
             loadChildren: './modules/shop/shop.module#ShopModule'
         },
-        // {
-        //     path: 'account',
-        //     loadChildren: './modules/account/account.module#AccountModule'
-        // },
-        // {
-        //     path: 'site',
-        //     loadChildren: './modules/site/site.module#SiteModule'
-        // },
+        {
+            path: 'login',
+            component: PageLoginComponent
+        },
         {
             path: '**',
             component: PageNotFoundComponent
@@ -40,19 +32,6 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
 }
 
 const routes: Routes = [
-    // {
-    //     path: '',
-    //     pathMatch: 'full',
-    //     redirectTo: 'home'
-    // },
-    // {
-    //     path: 'classic',
-    //     component: RootComponent,
-    //     data: {
-    //         headerLayout: 'classic'
-    //     },
-    //     children: makeRoutes(PageHomeOneComponent)
-    // },
     {
         path: '',
         component: RootComponent,
@@ -61,10 +40,6 @@ const routes: Routes = [
         },
         children: makeRoutes(PageHomeTwoComponent)
     },
-    // {
-    //     path: '**',
-    //     redirectTo: 'classic'
-    // }
 ];
 
 @NgModule({

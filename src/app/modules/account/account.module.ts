@@ -13,7 +13,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 // pages
 import { PageAddressesListComponent } from './pages/page-addresses-list/page-addresses-list.component';
 import { PageDashboardComponent } from './pages/page-dashboard/page-dashboard.component';
-import { PageLoginComponent } from './pages/page-login/page-login.component';
+// import { PageLoginComponent } from './pages/page-login/page-login.component';
 import { PageOrdersListComponent } from './pages/page-orders-list/page-orders-list.component';
 import { PagePasswordComponent } from './pages/page-password/page-password.component';
 import { PageProfileComponent } from './pages/page-profile/page-profile.component';
@@ -25,7 +25,7 @@ import { PageProfileComponent } from './pages/page-profile/page-profile.componen
         // pages
         PageAddressesListComponent,
         PageDashboardComponent,
-        PageLoginComponent,
+        // PageLoginComponent,
         PageOrdersListComponent,
         PagePasswordComponent,
         PageProfileComponent

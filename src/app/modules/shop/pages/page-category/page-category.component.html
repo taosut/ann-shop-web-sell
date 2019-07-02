@@ -1,12 +1,9 @@
 <app-page-header [header]="pageHeading" [breadcrumbs]="[
-    {label: 'Trang chủ',         url: '/'},
     {label: pageHeading, url: '/shop/category/' + productCategory?.slug}
 ]"></app-page-header>
 
-<ng-container *ngIf="columns > 3">
-    <div class="container">
-        <div class="block">
-            <app-products-view [layout]="viewMode" [grid]="'grid-'+columns+'-full'" [products]="products" [pagingHeaders]="pagingHeaders"></app-products-view>
-        </div>
+<div class="container">
+    <div class="block">
+        <app-products-view [products]="products" [pagingHeaders]="pagingHeaders"></app-products-view>
     </div>
-</ng-container>
+</div>

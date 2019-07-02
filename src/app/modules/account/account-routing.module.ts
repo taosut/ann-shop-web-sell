@@ -40,10 +40,10 @@ const routes: Routes = [
             }
         ]
     },
-    {
-        path: 'login',
-        component: PageLoginComponent
-    }
+    // {
+    //     path: 'login',
+    //     component: PageLoginComponent
+    // }
 ];
 
 @NgModule({

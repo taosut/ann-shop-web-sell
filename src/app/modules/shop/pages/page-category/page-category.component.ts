@@ -14,15 +14,11 @@ import { combineLatest } from 'rxjs';
     styleUrls: ['./page-category.component.scss']
 })
 export class PageCategoryComponent implements OnInit {
-    limit:number = 20;
-
-    columns: 3|4|5 = 3;
-    viewMode: 'grid'|'grid-with-features'|'list' = 'grid';
-    sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
     private _category: string = "";
     search: string = "";
     productCategory: ProductCategory;
     products: Product[] = [];
+    limit:number = 20;
     pagingHeaders: PagingHeaders =  {
         totalCount: 0,
         pageSize: 0,
@@ -38,13 +34,7 @@ export class PageCategoryComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private titleService: Title,
-        ) {
-        this.route.data.subscribe(data => {
-            this.columns = 'columns' in data ? data.columns : this.columns;
-            this.viewMode = 'viewMode' in data ? data.viewMode : this.viewMode;
-            this.sidebarPosition = 'sidebarPosition' in data ? data.sidebarPosition : this.sidebarPosition;
-        });
-    }
+        ) { }
 
     private getProductURL(category: string, page: number, limit: number, search: string): string {
         let paramCategory = category ? `category=${category}&` : '';

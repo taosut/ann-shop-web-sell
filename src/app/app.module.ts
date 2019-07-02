@@ -32,6 +32,8 @@ import { RootComponent } from './components/root/root.component';
 import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
+import { PageLoginComponent } from './modules/account/pages/page-login/page-login.component';
+import { AdminGuard } from './modules/shop/guards/admin.guard';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
         // pages
         PageHomeOneComponent,
         PageNotFoundComponent,
-        PageHomeTwoComponent
+        PageHomeTwoComponent,
+        // Login
+        PageLoginComponent
     ],
     imports: [
         // modules (angular)
@@ -65,6 +69,7 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
     ],
     providers: [
         // { provide: LOCALE_ID, useValue: 'it' }
+        AdminGuard,
     ],
     bootstrap: [AppComponent]
 })

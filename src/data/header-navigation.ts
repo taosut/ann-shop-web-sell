@@ -1,13 +1,12 @@
 import { NavigationLink } from '../app/shared/interfaces/navigation-link';
 
 export const navigation: NavigationLink[] = [
-    {label: 'Trang chủ', url: '/'},
     {label: 'Hàng mới về', url:'/shop', menu: {
         type: 'menu',
         items: [
             {label: 'Quần áo nam', url: '/shop/category/quan-ao-nam'},
             {label: 'Quần áo nữ', url: '/shop/category/quan-ao-nu'}
-        ] 
+        ]
     }},
     {label: 'Danh mục sản phẩm', url:'/blog/post/danh-muc-san-pham', menu: {
         type: 'menu',
@@ -41,8 +40,6 @@ export const navigation: NavigationLink[] = [
                 {label: 'Áo dài cách tân', url: '/shop/category/ao-dai-cach-tan'},
             ]},
             {label: 'Nước hoa', url: '/shop/category/nuoc-hoa'},
-        ] 
+        ]
     }},
-    {label: 'Chính sách bán sỉ', url: '/blog/post/chinh-sach-ban-si'},
-    {label: 'Sản phẩm đã lưu', url: '/shop/wishlist'},
 ];

@@ -9,6 +9,7 @@ export const _api = "/api/v1";
 export const environment = {
     production: false,
     api: _api,
+    apiAccountLogin: _api + "/account/login",
     apiProduct: _api + "/product",
     apiProductSort: _api + "/product/sort",
     apiProductImage: "/tat-ca-san-pham.aspx/getAllProductImage",

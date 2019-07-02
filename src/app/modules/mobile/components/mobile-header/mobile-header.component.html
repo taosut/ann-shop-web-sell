@@ -10,11 +10,14 @@
                 </a>
                 <div class="mobile-header__search" appDropdown="mobile-header__search--opened" #search="appDropdown">
                     <form class="mobile-header__search-form" action="/shop">
-                        <input class="mobile-header__search-input" name="search" placeholder="Hơn 2.000 sản phẩm khác nhau" aria-label="Tìm sản phẩm" type="text" autocomplete="off" (keydown.escape)="search.close()" #searchInput>
+                        <input class="mobile-header__search-input" name="search"
+                            placeholder="Hơn 2.000 sản phẩm khác nhau" aria-label="Tìm sản phẩm" type="text"
+                            autocomplete="off" (keydown.escape)="search.close()" #searchInput>
                         <button class="mobile-header__search-button mobile-header__search-button--submit" type="submit">
                             <app-icon name="search-20" size="20"></app-icon>
                         </button>
-                        <button class="mobile-header__search-button mobile-header__search-button--close" type="button" (click)="search.close()">
+                        <button class="mobile-header__search-button mobile-header__search-button--close" type="button"
+                            (click)="search.close()">
                             <app-icon name="cross-20" size="20"></app-icon>
                         </button>
                         <div class="mobile-header__search-body"></div>
@@ -28,29 +31,6 @@
                                 <app-icon name="search-20" size="20"></app-icon>
                             </span>
                         </button>
-                    </div>
-
-                    <div class="indicator indicator--mobile">
-                        <a routerLink="/shop/wishlist" class="indicator__button">
-                            <span class="indicator__area">
-                                <app-icon name="heart-20" size="20"></app-icon>
-                                <span class="indicator__value">{{ wishlist.count$|async }}</span>
-                            </span>
-                        </a>
-                    </div>
-
-                    <div class="indicator indicator--mobile">
-                        <!-- <a routerLink="./shop/cart" class="indicator__button">
-                            <span class="indicator__area">
-                                <app-icon name="cart-20" size="20"></app-icon>
-                                <span class="indicator__value">{{ cart.quantity$|async }}</span>
-                            </span>
-                        </a> -->
-                        <a class="indicator__button">
-                            <span class="indicator__area" appClick (click)="showCopyConfig()" [ngClass]="{'btn-loading': copyingProductInfo}">
-                                <app-icon name="gear-512" size="20"></app-icon>
-                            </span>
-                        </a>
                     </div>
                 </div>
             </div>

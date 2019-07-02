@@ -57,6 +57,8 @@ export interface Product {
     // ----------------------------
     // features: ProductFeature[];
     // options: Array<any>;
+    webPublish: boolean;
+    webUpdate: Date;
 }
 
 export interface ProductRelated extends Product {

@@ -1,0 +1,43 @@
+.block {
+    margin-bottom: 0;
+}
+
+.block--highlighted {
+    padding: 0;
+
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+.block-categories__list {
+    margin: 0;
+}
+
+.category-card--layout--compact {
+    .category-card__image {
+        width: 85px;
+        margin-right: 19px;
+    }
+
+    .category-card__content {
+        width: 100%;
+    }
+
+    .category-card__buttons {
+        margin-top: 10px;
+
+        button:first-child {
+            float: left;
+        }
+
+        button:last-child {
+            float: right;
+        }
+    }
+}
+
+
+
+
