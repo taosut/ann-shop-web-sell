@@ -1,30 +1,12 @@
-<!-- <app-block-slideshow></app-block-slideshow> -->
-
 <app-block-categories header="Danh mục sản phẩm" layout="compact" [categories]="categories"></app-block-categories>
 
-<!-- <app-block-features layout="boxed"></app-block-features> -->
-
-<!-- <app-block-products-carousel header="Quần áo nam" layout="grid-5" [rows]="2"
-                             [loading]="featuredProducts.loading"
-                             [products]="featuredProducts.products"
-                             [groups]="featuredProducts.groups"
-                             (groupChange)="featuredProducts.groupChange($event)"></app-block-products-carousel>
-
-<app-block-banner></app-block-banner> -->
-
-<app-block-products header="Đồ bộ nữ" layout="normal" categorySlug="do-bo-nu" limit="8"></app-block-products>
-
-<app-block-products header="Váy đầm" layout="normal" categorySlug="vay-dam" limit="8"></app-block-products>
-
-<app-block-products header="Áo thun nữ" layout="normal" categorySlug="ao-thun-nu" limit="8"></app-block-products>
-
-<app-block-products header="Áo khoác nữ" layout="normal" categorySlug="ao-khoac-nu" limit="8"></app-block-products>
-
-<app-block-products header="Đồ lót nữ" layout="normal" categorySlug="do-lot-nu" limit="8"></app-block-products>
-
-
-<!-- <app-block-posts header="Latest News" layout="grid-nl" [posts]="posts"></app-block-posts>
-
-<app-block-brands [brands]="brands"></app-block-brands>
-
-<app-block-product-columns [columns]="columns"></app-block-product-columns> -->
+<!-- Block product 1 -->
+<app-block-products header="Đồ bộ nữ" layout="normal" slug="do-bo-nu" limit="8" (loadingEvent)='loadingBlockProduct1($event)'></app-block-products>
+<!-- Block product 2 -->
+<app-block-products header="Váy đầm" layout="normal" slug="vay-dam" limit="8" (loadingEvent)='loadingBlockProduct2($event)'></app-block-products>
+<!-- Block product 3 -->
+<app-block-products header="Áo thun nữ" layout="normal" slug="ao-thun-nu" limit="8" (loadingEvent)='loadingBlockProduct3($event)'></app-block-products>
+<!-- Block product 4 -->
+<app-block-products header="Áo khoác nữ" layout="normal" slug="ao-khoac-nu" limit="8" (loadingEvent)='loadingBlockProduct4($event)'></app-block-products>
+<!-- Block product 5 -->
+<app-block-products header="Đồ lót nữ" layout="normal" slug="do-lot-nu" limit="8" (loadingEvent)='loadingBlockProduct5($event)'></app-block-products>

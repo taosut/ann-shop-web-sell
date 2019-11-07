@@ -1,88 +1,59 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Location, ViewportScroller } from '@angular/common'
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { Product } from '../../../../shared/interfaces/product';
-import { ProductSort } from '../../../../shared/interfaces/product-sort';
-import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
+// Angular
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export type Layout = 'grid'|'grid-with-features'|'list';
+
+// ANN Shop
+// Interface
+import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
+import { CategoryProduct } from 'src/app/shared/interfaces/category/category-product';
+import { CategorySort } from 'src/app/shared/interfaces/category/category-sort';
+
+export type Layout = 'grid' | 'grid-with-features' | 'list';
 
 @Component({
-    selector: 'app-products-view',
-    templateUrl: './products-view.component.html',
-    styleUrls: ['./products-view.component.scss']
+  selector: 'app-products-view',
+  templateUrl: './products-view.component.html',
+  styleUrls: ['./products-view.component.scss']
 })
-export class ProductsViewComponent implements OnInit {
-    @Input() layout: Layout = 'grid';
-    @Input() grid: 'grid-3-sidebar'|'grid-4-full'|'grid-5-full' = 'grid-3-sidebar';
-    @Input() limit:number = 20;
-    @Input() products: Product[] = [];
-    @Input() pagingHeaders: PagingHeaders =  {
-        totalCount: 0,
-        pageSize: 0,
-        currentPage: 0,
-        totalPages: 0,
-        previousPage: "No",
-        nextPage: "No"
-    };
+export class ProductsViewComponent {
+  @Input() layout: Layout;
+  @Input() grid: 'grid-3-sidebar' | 'grid-4-full' | 'grid-5-full' = 'grid-3-sidebar';
+  @Input() sorts: CategorySort[];
+  @Input() products: CategoryProduct[];
+  @Input() pagingHeaders: PagingHeaders;
 
-    private _url:string =  window.location.pathname.split('/').join('/');
-    private _category: number = 0;
-    public sorts: ProductSort[] = [];
-    public sort: string = "";
+  @Output('sortChange') sortEvent: EventEmitter<number>;
+  @Output('pageChange') pageEvent: EventEmitter<number>;
 
-    constructor(
-            private http: HttpClient,
-            private location: Location,
-            private scroller: ViewportScroller
-        ) { }
-
-    private getProductURL(category: number, page: number, limit: number, sort: string): string {
-        let paramCategory = category ? `category=${category}&` : '';
-        let paramPage = page ? `pageNumber=${page}&` : '';
-        let paramLimit = limit ? `pageSize=${limit}&` : '';
-        let paramSort = sort ? `sort=${sort}&` : '';
-
-
-        let url = environment.apiProduct + '?' + paramPage + paramLimit + paramCategory + paramSort ;
-        return url.replace(/(\?|\&)+$/g, '');
+  constructor() {
+    // @Input
+    this.layout = 'grid';
+    this.sorts = [];
+    this.products = [];
+    this.pagingHeaders = {
+      totalCount: 0,
+      pageSize: 0,
+      currentPage: 1,
+      totalPages: 0,
+      previousPage: "No",
+      nextPage: "No"
     }
 
-    ngOnInit(): void {
-        this.http.get(environment.apiProductSort)
-            .subscribe((data: ProductSort[]) => this.sorts = data);
-    }
+    // Output
+    this.sortEvent = new EventEmitter<number>();
+    this.pageEvent = new EventEmitter<number>();
+  }
 
-    setLayout(value: Layout): void {
-        this.layout = value;
-    }
+  setLayout(value: Layout): void {
+    this.layout = value;
+  }
 
-    private changeUrl(url: string)
-    {
-        this.location.replaceState(url);
-    }
+  sortChange(key: number) {
+    this.sortEvent.emit(key);
+  }
 
-    onPageChange(page: number): void {
-        this.http
-            .get(this.getProductURL(this._category, page, this.limit, this.sort), { observe: 'response'})
-            .subscribe(resp  => {
-                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                this.products = <Product[]>resp.body;
-                this.changeUrl(this._url + `?page=${page}&limt=${this.limit}`);
+  pageChange(key: number) {
+    this.pageEvent.emit(key);
+  }
 
-                // Move the pointer to page top
-                this.scroller.scrollToPosition([0, 0]);
-            });
-    }
-
-    onSortChange(key: string): void {
-        this.sort = key;
-        this.http
-            .get(this.getProductURL(this._category, 0, this.limit, this.sort), { observe: 'response'})
-            .subscribe(resp  => {
-                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                this.products = <Product[]>resp.body;
-            });
-    }
 }

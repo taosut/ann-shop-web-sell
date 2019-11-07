@@ -10,11 +10,6 @@ import { PageWishlistComponent } from './pages/page-wishlist/page-wishlist.compo
 import { PageProductComponent } from './pages/page-product/page-product.component';
 
 const routes: Routes = [
-    // {
-    //     path: '',
-    //     pathMatch: 'full',
-    //     redirectTo: 'all'
-    // },
     {
         path: '',
         component: PageCategoryComponent,
@@ -24,7 +19,15 @@ const routes: Routes = [
         }
     },
     {
-        path: 'category/:slug',
+      path: 'danh-muc',
+      component: PageCategoryComponent,
+      data: {
+          columns: 4,
+          viewMode: 'grid'
+      }
+    },
+    {
+        path: 'danh-muc/:slug',
         component: PageCategoryComponent,
         data: {
             columns: 4,
@@ -32,18 +35,14 @@ const routes: Routes = [
         }
     },
     {
-        path: 'product/:slug',
+        path: 'san-pham/:slug',
         component: PageProductComponent,
         data: {
             layout: 'standard'
         }
     },
-    // {
-    //     path: 'cart',
-    //     component: PageCartComponent
-    // },
     {
-        path: 'wishlist',
+        path: 'danh-sach-san-pham-yeu-thich',
         component: PageWishlistComponent
     }
 ];

@@ -1,103 +1,78 @@
-import { Component } from '@angular/core';
-// import { products } from '../../../data/shop-products';
+// Angular
+import { Component, OnInit } from '@angular/core';
+
+// ANN Shop
+// Data Hard
 import { categories } from '../../../data/shop-block-categories';
-import { posts } from '../../../data/blog-posts';
-import { brands } from '../../../data/shop-brands';
+// Service
+import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
+
 
 @Component({
-    selector: 'app-page-home-two',
-    templateUrl: './page-home-two.component.html',
-    styleUrls: ['./page-home-two.component.scss']
+  selector: 'app-page-home-two',
+  templateUrl: './page-home-two.component.html',
+  styleUrls: ['./page-home-two.component.scss']
 })
-export class PageHomeTwoComponent {
-    // products = products;
-    categories = categories;
-    posts = posts;
-    brands = brands;
+export class PageHomeTwoComponent implements OnInit {
+  private loading1: boolean;
+  private loading2: boolean;
+  private loading3: boolean;
+  private loading4: boolean;
+  private loading5: boolean;
 
-    columns = [
-        {
-            header: 'Top Rated Products',
-            // products: products.slice(0, 3)
-            products: []
-        },
-        {
-            header: 'Special Offers',
-            // products: products.slice(3, 6)
-            products: []
-        },
-        {
-            header: 'Bestsellers',
-            // products: products.slice(6, 9)
-            products: []
-        }
-    ];
+  categories: any;
 
-    featuredProducts = {
-        loading: false,
-        // products: products.slice(),
-        products: [],
-        groups: [
-            {name: 'All', current: true},
-            {name: 'Power Tools', current: false},
-            {name: 'Hand Tools', current: false},
-            {name: 'Plumbing', current: false}
-        ],
+  constructor(private loadingSpinner: LoadingSpinnerService) {
+    this.loading1 = false;
+    this.loading2 = false;
+    this.loading3 = false;
+    this.loading4 = false;
+    this.loading5 = false;
 
-        timeout: null, // only for demo
+    this.categories = categories
+  }
 
-        groupChange: group => {
-            // only for demo
-            this.featuredProducts.loading = true;
+  ngOnInit() {
+    this.startLoading();
+  }
 
-            clearTimeout(this.featuredProducts.timeout);
+  private startLoading() {
+    this.loading1 = true;
+    this.loading2 = true;
+    this.loading3 = true;
+    this.loading4 = true;
+    this.loading5 = true;
 
-            this.featuredProducts.timeout = setTimeout(() => {
-                const itemsArray = this.featuredProducts.products;
-                const newItemsArray = [];
-                while (itemsArray.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * itemsArray.length);
-                    const randomItem = itemsArray.splice(randomIndex, 1)[0];
-                    newItemsArray.push(randomItem);
-                }
-                this.featuredProducts.products = newItemsArray;
-                this.featuredProducts.loading = false;
-            }, 1000);
-        }
-    };
+    this.loadingSpinner.show();
+  }
 
-    newArrivals = {
-        loading: false,
-        // products: products.slice(),
-        products: [],
-        groups: [
-            {name: 'All', current: true},
-            {name: 'Power Tools', current: false},
-            {name: 'Hand Tools', current: false},
-            {name: 'Plumbing', current: false}
-        ],
+  private finishLoading() {
+    if (!this.loading1 && !this.loading2 && !this.loading3 && !this.loading4 && !this.loading5)
+      this.loadingSpinner.close();
+  }
 
-        timeout: null, // only for demo
+  loadingBlockProduct1(value: boolean) {
+    this.loading1 = value;
+    this.finishLoading();
+  }
 
-        groupChange: group => {
-            // only for demo
-            this.newArrivals.loading = true;
+  loadingBlockProduct2(value: boolean) {
+    this.loading2 = value;
+    this.finishLoading();
+  }
 
-            clearTimeout(this.newArrivals.timeout);
+  loadingBlockProduct3(value: boolean) {
+    this.loading3 = value;
+    this.finishLoading();
+  }
 
-            this.newArrivals.timeout = setTimeout(() => {
-                const itemsArray = this.newArrivals.products;
-                const newItemsArray = [];
-                while (itemsArray.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * itemsArray.length);
-                    const randomItem = itemsArray.splice(randomIndex, 1)[0];
-                    newItemsArray.push(randomItem);
-                }
-                this.newArrivals.products = newItemsArray;
-                this.newArrivals.loading = false;
-            }, 1000);
-        }
-    };
+  loadingBlockProduct4(value: boolean) {
+    this.loading4 = value;
+    this.finishLoading();
+  }
 
-    constructor() { }
+  loadingBlockProduct5(value: boolean) {
+    this.loading5 = value;
+    this.finishLoading();
+  }
 }

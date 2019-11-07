@@ -11,14 +11,12 @@ import { SharedModule } from '../../shared/shared.module';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { FooterComponent } from './footer.component';
 import { LinksComponent } from './components/links/links.component';
-import { NewsletterComponent } from './components/newsletter/newsletter.component';
 
 @NgModule({
     declarations: [
         ContactsComponent,
         FooterComponent,
         LinksComponent,
-        NewsletterComponent
     ],
     imports: [
         // modules (angular)

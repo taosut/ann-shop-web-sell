@@ -1,61 +1,68 @@
+// Angular
 import { Component } from '@angular/core';
-import { WishlistService } from '../../../../shared/services/wishlist.service';
-import { Product } from '../../../../shared/interfaces/product';
-import { Thumbnail } from '../../../../shared/interfaces/thumbnail';
-import { CartService } from '../../../../shared/services/cart.service';
+
+// ANN Shop
+// Interface
+import { Thumbnail } from '../../../../shared/interfaces/common/thumbnail';
+import { WishlistProduct } from 'src/app/shared/interfaces/wishlist/wishlist-product';
+// Service
 import { RootService } from '../../../../shared/services/root.service';
+import { WishlistService } from '../../../../shared/services/wishlist.service';
 
 @Component({
-    selector: 'app-wishlist',
-    templateUrl: './page-wishlist.component.html',
-    styleUrls: ['./page-wishlist.component.scss']
+  selector: 'app-wishlist',
+  templateUrl: './page-wishlist.component.html',
+  styleUrls: ['./page-wishlist.component.scss']
 })
 export class PageWishlistComponent {
-    constructor(
-        public root: RootService,
-        public wishlist: WishlistService,
-        public cart: CartService
-    ) { }
+  addedToCartProducts: WishlistProduct[];
+  removedProducts: WishlistProduct[];
 
-    addedToCartProducts: Product[] = [];
-    removedProducts: Product[] = [];
 
-    addToCart(product: Product): void {
-        if (this.addedToCartProducts.includes(product)) {
-            return;
-        }
+  constructor(
+    private root: RootService,
+    private wishlist: WishlistService,
+  ) {
+    this.addedToCartProducts = [];
+    this.removedProducts = [];
+  }
 
-        this.addedToCartProducts.push(product);
-        this.cart.add(product, 1).subscribe({
-            complete: () => {
-                this.addedToCartProducts = this.addedToCartProducts.filter(eachProduct => eachProduct !== product);
-            }
-        });
+
+  addToCart(product: WishlistProduct): void {
+    if (this.addedToCartProducts.includes(product)) {
+      return;
     }
 
-    remove(product: Product): void {
-        if (this.removedProducts.includes(product)) {
-            return;
-        }
+    this.addedToCartProducts.push(product);
+    this.wishlist.add(product).subscribe({
+      complete: () => {
+        this.addedToCartProducts = this.addedToCartProducts.filter(eachProduct => eachProduct !== product);
+      }
+    });
+  }
 
-        this.removedProducts.push(product);
-        this.wishlist.remove(product).subscribe({
-            complete: () => {
-                this.removedProducts = this.removedProducts.filter(eachProduct => eachProduct !== product);
-            }
-        });
+  remove(product: WishlistProduct): void {
+    if (this.removedProducts.includes(product)) {
+      return;
     }
 
-    getImageThumbnail(thumbnails: Thumbnail[], size: string): string {
-        let url: string = "";
-        thumbnails.forEach(item => {
-            if (item.size === size)
-            {
-                url = item.url;
-                return false;
-            }
-        });
+    this.removedProducts.push(product);
+    this.wishlist.remove(product).subscribe({
+      complete: () => {
+        this.removedProducts = this.removedProducts.filter(eachProduct => eachProduct !== product);
+      }
+    });
+  }
 
-        return url
-    }
+  getImageThumbnail(thumbnails: Thumbnail[], size: string): string {
+    let url: string = "";
+    thumbnails.forEach(item => {
+      if (item.size === size) {
+        url = item.url;
+        return false;
+      }
+    });
+
+    return url
+  }
 }

@@ -5,26 +5,13 @@
     'product-card--layout--list':                        layout === 'list',
     'product-card--layout--horizontal':                  layout === 'horizontal'
 }">
-    <!-- Chưa sử dụng -->
-    <!-- <button class="product-card__quickview" type="button" appClick (click)="showQuickview()" [ngClass]="{'product-card__quickview--preload': showingQuickview}">
-        <app-icon name="quickview-16" size="16"></app-icon>
-        <span class="fake-svg-icon"></span>
-    </button> -->
-
-    <!-- Chưa sử dụng -->
-    <!-- <div *ngIf="product.badges.length" class="product-card__badges-list">
-        <div *ngIf="product.badges.includes('sale')" class="product-card__badge product-card__badge--sale">Sale</div>
-        <div *ngIf="product.badges.includes('hot')" class="product-card__badge product-card__badge--hot">Hot</div>
-        <div *ngIf="product.badges.includes('new')" class="product-card__badge product-card__badge--new">New</div>
-    </div> -->
-
     <div class="product-card__image">
         <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
             <picture>
                 <source media="(max-width: 478px)"
-                    defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
+                    defaultImage="/assets/images/350x467/placeholder.png"
                     [attr.lazyLoad]="getImageThumbnail(product.thumbnails, '350x467')">
-                <img defaultImage="/App_Themes/Ann/image/placeholder_loading.png"
+                <img defaultImage="/assets/images/240x320/placeholder.png"
                      [lazyLoad]="getImageThumbnail(product.thumbnails, '240x320')"
                      offset="100">
             </picture>
@@ -34,13 +21,9 @@
         <div class="product-card__name">
             <a appClick [routerLink]="root.product(product.slug)">{{ product.name }}</a>
         </div>
-        <!-- Chưa sử dụng -->
         <div class="product-card__sku">
             Mã: {{ product.sku }}
         </div>
-        <!-- <ul *ngIf="product.features.length" class="product-card__features-list">
-            <li *ngFor="let feature of product.features">{{ feature.name }}: {{ feature.value }}</li>
-        </ul> -->
         <ul *ngIf="product.materials" class="product-card__features-list">
             <li>{{ product.materials }}</li>
         </ul>
@@ -51,14 +34,6 @@
             <span [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
         </div>
         <div class="product-card__prices">
-            <!-- Chưa sử dụng -->
-            <!-- <ng-container *ngIf="product.compareAtPrice">
-                <span class="product-card__new-price">{{ product.price|currencyFormat }}</span>{{ ' ' }}
-                <span class="product-card__old-price">{{ product.compareAtPrice|currencyFormat }}</span>
-            </ng-container>
-            <ng-container *ngIf="!product.compareAtPrice">
-                {{ product.price|currencyFormat }}
-            </ng-container> -->
             <ng-container>
                 Giá sỉ: {{ product.regularPrice|currencyFormat }}
             </ng-container>

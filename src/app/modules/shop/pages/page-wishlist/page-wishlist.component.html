@@ -23,7 +23,6 @@
                 <th class="wishlist__column wishlist__column--product">Sản phẩm</th>
                 <th class="wishlist__column wishlist__column--stock">Kho</th>
                 <th class="wishlist__column wishlist__column--price">Giá sỉ</th>
-                <!-- <th class="wishlist__column wishlist__column--tocart"></th> -->
                 <th class="wishlist__column wishlist__column--remove"></th>
             </tr>
             </thead>
@@ -42,10 +41,6 @@
                     <div class="wishlist__product-sku">
                         Mã: {{ product.sku }}
                     </div>
-                    <!-- <div class="wishlist__product-rating">
-                        <app-rating [value]="product.rating"></app-rating>
-                        <div class="wishlist__product-rating-legend">{{ product.reviews }} Reviews</div>
-                    </div> -->
                 </td>
                 <td class="wishlist__column wishlist__column--stock">
                     <div [className]="'badge' + product.availability ? 'badge-success' : 'badge-danger'">
@@ -53,9 +48,6 @@
                     </div>
                 </td>
                 <td class="wishlist__column wishlist__column--price">{{ product.regularPrice|currencyFormat }}</td>
-                <!-- <td class="wishlist__column wishlist__column--tocart">
-                    <button type="button" class="btn btn-primary btn-sm" (click)="addToCart(product)" [ngClass]="{'btn-loading': addedToCartProducts.includes(product)}">Add To Cart</button>
-                </td> -->
                 <td class="wishlist__column wishlist__column--remove">
                     <button type="button" class="btn btn-light btn-sm btn-svg-icon" (click)="remove(product)" [ngClass]="{'btn-loading': removedProducts.includes(product)}">
                         <app-icon name="cross-12" size="12"></app-icon>

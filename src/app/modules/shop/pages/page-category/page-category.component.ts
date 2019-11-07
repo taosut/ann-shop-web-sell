@@ -1,128 +1,212 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute  } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { Product } from '../../../../shared/interfaces/product';
-import { ProductCategory } from '../../../../shared/interfaces/product-category';
-import { PagingHeaders } from '../../../../shared/interfaces/paging-headers';
-import { Title } from "@angular/platform-browser";
-import { combineLatest } from 'rxjs';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
+// RxJS
+import { combineLatest, BehaviorSubject } from 'rxjs';
+
+// ANN Shop
+// Interface
+import { CategoryCategory } from 'src/app/shared/interfaces/category/category-category';
+import { CategorySort, CategorySortKind } from 'src/app/shared/interfaces/category/category-sort';
+import { CategoryProduct } from 'src/app/shared/interfaces/category/category-product';
+import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
+// Service
+import { CategoryService } from 'src/app/shared/services/pages/category.service';
+import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
+
 
 @Component({
-    selector: 'app-grid',
-    templateUrl: './page-category.component.html',
-    styleUrls: ['./page-category.component.scss']
+  selector: 'app-grid',
+  templateUrl: './page-category.component.html',
+  styleUrls: ['./page-category.component.scss']
 })
 export class PageCategoryComponent implements OnInit {
-    limit:number = 20;
+  private loadingCategory: BehaviorSubject<boolean>;
+  private loadingSort: BehaviorSubject<boolean>;
+  private loadingProduct: BehaviorSubject<boolean>;
 
-    columns: 3|4|5 = 3;
-    viewMode: 'grid'|'grid-with-features'|'list' = 'grid';
-    sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
-    private _category: string = "";
-    search: string = "";
-    productCategory: ProductCategory;
-    products: Product[] = [];
-    pagingHeaders: PagingHeaders =  {
-        totalCount: 0,
-        pageSize: 0,
-        currentPage: 0,
-        totalPages: 0,
-        previousPage: "No",
-        nextPage: "No"
+  columns: 3 | 4 | 5;
+  viewMode: 'grid' | 'grid-with-features' | 'list';
+  sidebarPosition: 'start' | 'end';
+
+  // Query Params
+  slug: string;
+  search: string;
+  sort: number;
+
+  category: CategoryCategory;
+  sorts: CategorySort[];
+  products: CategoryProduct[];
+  pagingHeaders: PagingHeaders;
+
+  constructor(
+    private location: Location,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private service: CategoryService,
+    private loadingSpinner: LoadingSpinnerService
+  ) {
+    this.loadingCategory = new BehaviorSubject<boolean>(false);
+    this.loadingSort = new BehaviorSubject<boolean>(false);
+    this.loadingProduct = new BehaviorSubject<boolean>(false);
+
+    this.columns = 3;
+    this.viewMode = 'grid';
+    // For LTR scripts "start" is "left" and "end" is "right"
+    this.sidebarPosition = 'start';
+
+    this.route.data.subscribe(data => {
+      this.columns = 'columns' in data ? data.columns : this.columns;
+      this.viewMode = 'viewMode' in data ? data.viewMode : this.viewMode;
+      this.sidebarPosition = 'sidebarPosition' in data ? data.sidebarPosition : this.sidebarPosition;
+    });
+
+    // Query Params
+    this.slug = "";
+    this.search = "";
+    this.sort = CategorySortKind.ProductNew;
+    this.pagingHeaders = {
+      totalCount: 0,
+      pageSize: 20,
+      currentPage: 1,
+      totalPages: 0,
+      previousPage: "No",
+      nextPage: "No"
     };
-    pageHeading: string = "";
+  }
 
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute,
-        private titleService: Title,
-        ) {
-        this.route.data.subscribe(data => {
-            this.columns = 'columns' in data ? data.columns : this.columns;
-            this.viewMode = 'viewMode' in data ? data.viewMode : this.viewMode;
-            this.sidebarPosition = 'sidebarPosition' in data ? data.sidebarPosition : this.sidebarPosition;
+  ngOnInit() {
+    // Thức show thông tin sản phẩm theo slug danh mục
+    const urlParams = combineLatest(
+      this.route.params,
+      this.route.queryParams,
+      (params, queryParams) => ({ ...params, ...queryParams })
+    );
+
+    urlParams.subscribe(routeParams => {
+      // Mở màn hình loanding
+      this.loadingSpinner.show();
+
+      this.slug = routeParams["slug"] || this.slug;
+      this.search = routeParams["search"] || this.search;
+      this.sort = routeParams["sort"] || this.sort;
+      this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
+      this.pagingHeaders.pageSize = +routeParams["limt"] || this.pagingHeaders.pageSize;
+
+      // Lấy thông tin category
+      this.loadingCategory.next(true);
+      this.service.getCategory(this.slug)
+        .subscribe((value: CategoryCategory) => {
+          this.category = value;
+          this.titleService.setTitle(this.category.name);
+          this.loadingCategory.next(false);
         });
-    }
 
-    private getProductURL(category: string, page: number, limit: number, search: string): string {
-        let paramCategory = category ? `category=${category}&` : '';
-        let paramPage = page ? `pageNumber=${page}&` : '';
-        let paramLimit = limit ? `pageSize=${limit}&` : '';
-        let paramSearch = search ? `search=${search}&` : '';
-
-        let url = environment.apiProduct + '?' + paramPage + paramLimit + paramCategory + paramSearch;
-        return url.replace(/(\?|\&)+$/g, '');
-    }
-
-    private getProducts(url: string): void {
-        this.http.get(url, { observe: 'response'}).subscribe(
-            resp  => {
-                this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-                this.products = <Product[]>resp.body;
-            },
-            (err) => {
-                if (err.status === 404)
-                {
-                    this.router.navigate(['/not-found']);
-                }
-            }
-        );
-    }
-
-    private getProductCategoryURL(slug: string): string {
-        let url = `${environment.apiProductCategory}/${slug}` ;
-        return url.replace(/(\?|\&)+$/g, '');
-    }
-
-    private getProdcutCategory(url: string): void {
-        this.http.get(url).subscribe(
-            (data: ProductCategory)  => {
-                this.productCategory = data;
-                this.pageHeading = this.productCategory.title;
-                this.titleService.setTitle(this.productCategory.title);
-            },
-            (err) => {
-                if (err.status === 404)
-                {
-                    this.router.navigate(['/not-found']);
-                }
-            }
-        );
-    }
-
-    ngOnInit(): void {
-        let pageNumber = 0;
-        const urlParams = combineLatest(
-            this.route.params,
-            this.route.queryParams,
-            (params, queryParams) => ({ ...params, ...queryParams})
-        );
-
-        urlParams.subscribe(routeParams => {
-            pageNumber = +routeParams["page"] || 0;
-            this.limit = +routeParams["limt"] || this.limit;
-            this.search = routeParams["search"] || "";
-            this._category = routeParams['slug'];
-
-            if (!this.search)
-            {
-                if (this._category)
-                {
-                    this.getProdcutCategory(this.getProductCategoryURL(this._category));
-                }
-                else
-                {
-                    this.pageHeading = "Hàng mới về";
-                }
-            }
-            else
-            {
-                this.pageHeading = "Kết quả tìm kiếm: " + this.search;
-            }
-
-            this.getProducts(this.getProductURL(this._category, pageNumber, this.limit, this.search));
+      // Lấy thông tin sorts
+      this.loadingSort.next(true);
+      this.service.getSort()
+        .subscribe((value: CategorySort[]) => {
+          this.sorts = value;
+          this.loadingSort.next(false);
         });
-    }
+
+      // Lấy danh sách sản phẩm
+      this.loadingProduct.next(true);
+      this.service.getProduct(this.slug, this.search, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize)
+        .subscribe(
+          resp => {
+            this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+            this.products = <CategoryProduct[]>resp.body;
+            this.loadingProduct.next(false);
+          },
+          (err) => {
+            if (err.status === 404) {
+              this.router.navigate(['/not-found']);
+            }
+          }
+        );
+    })
+
+    combineLatest(this.loadingCategory, this.loadingSort, this.loadingProduct)
+      .subscribe(([loadingCategory, loadingSort, loadingProduct]) => {
+        if (!loadingCategory && !loadingSort && !loadingProduct) {
+          this.loadingSpinner.close();
+        }
+      });
+  }
+
+  sortChange(value: number) {
+    // Mở màn hình loanding
+    this.loadingSpinner.show();
+
+    this.sort = value;
+    this.pagingHeaders.currentPage = 1;
+
+    // Lấy danh sách sản phẩm
+    this.loadingProduct.next(true);
+    this.service.getProduct(this.slug, this.search, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize)
+      .subscribe(
+        resp => {
+          this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+          this.products = <CategoryProduct[]>resp.body;
+          this.changeURL();
+          this.loadingProduct.next(false);
+        },
+        (err) => {
+          if (err.status === 404) {
+            this.router.navigate(['/not-found']);
+          }
+        }
+      );
+
+    this.loadingProduct.subscribe((value: boolean) => value ? this.loadingSpinner.close : '');
+  }
+
+  pageChange(value: number) {
+    // Mở màn hình loanding
+    this.loadingSpinner.show();
+
+    // Lấy danh sách sản phẩm
+    this.loadingProduct.next(true);
+    this.service.getProduct(this.slug, this.search, this.sort, value, this.pagingHeaders.pageSize)
+      .subscribe(
+        resp => {
+          this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+          this.products = <CategoryProduct[]>resp.body;
+          this.changeURL();
+          window.scrollTo(0, 0);
+          this.loadingProduct.next(false);
+        },
+        (err) => {
+          if (err.status === 404) {
+            this.router.navigate(['/not-found']);
+          }
+        }
+      );
+
+    this.loadingProduct.subscribe((value: boolean) => value ? this.loadingSpinner.close : '');
+  }
+
+  private changeURL() {
+    let url = window.location.pathname.split('/').join('/');
+    let query = "";
+
+    if (this.search)
+      query += `&search=${this.search}`;
+    if (this.sort)
+      query += `&sort=${this.sort}`;
+    if (this.pagingHeaders.currentPage)
+      query += `&page=${this.pagingHeaders.currentPage}`;
+    if (this.pagingHeaders.pageSize)
+      query += `&limit=${this.pagingHeaders.pageSize}`;
+
+    if (query)
+      query = query.replace(/^&/g, '');
+
+    this.location.replaceState(url, query);
+  }
 }

@@ -1,16 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
-import { Product } from '../../interfaces/product';
 import { User } from '../../interfaces/user';
 import { WishlistService } from '../../services/wishlist.service';
-import { CompareService } from '../../services/compare.service';
 import { CopyConfigService } from '../../services/copy-config.service';
 import { RootService } from '../../services/root.service';
 import { CurrencyService } from '../../services/currency.service';
 import { takeUntil, map } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
-import { Thumbnail } from '../../interfaces/thumbnail';
-import { ProductService } from '../../services/product.service';
+import { Thumbnail } from '../../interfaces/common/thumbnail';
+// import { ProductService } from '../../services/product.service';
 
 @Component({
     selector: 'app-product-card',
@@ -21,7 +18,7 @@ import { ProductService } from '../../services/product.service';
 export class ProductCardComponent implements OnInit, OnDestroy {
     private destroy$: Subject<void> = new Subject();
 
-    @Input() product: Product;
+    @Input() product: any;
     @Input() layout: 'grid-sm' | 'grid-nl' | 'grid-lg' | 'list' | 'horizontal' | null = null;
 
     addingToCart = false;
@@ -32,11 +29,9 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
     constructor(
         private cd: ChangeDetectorRef,
-        private service: ProductService,
+        // private service: ProductService,
         public root: RootService,
-        public cart: CartService,
         public wishlist: WishlistService,
-        public compare: CompareService,
         public copyConfig: CopyConfigService,
         public currency: CurrencyService
     ) { }
@@ -52,20 +47,6 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    addToCart(): void {
-        if (this.addingToCart) {
-            return;
-        }
-
-        this.addingToCart = true;
-        this.cart.add(this.product, 1).subscribe({
-            complete: () => {
-                this.addingToCart = false;
-                this.cd.markForCheck();
-            }
-        });
-    }
-
     addToWishlist(): void {
         if (this.addingToWishlist) {
             return;
@@ -75,20 +56,6 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         this.wishlist.add(this.product).subscribe({
             complete: () => {
                 this.addingToWishlist = false;
-                this.cd.markForCheck();
-            }
-        });
-    }
-
-    addToCompare(): void {
-        if (this.addingToCompare) {
-            return;
-        }
-
-        this.addingToCompare = true;
-        this.compare.add(this.product).subscribe({
-            complete: () => {
-                this.addingToCompare = false;
                 this.cd.markForCheck();
             }
         });
@@ -123,24 +90,24 @@ export class ProductCardComponent implements OnInit, OnDestroy {
         return url
     }
 
-    copyProductInfo(product: Product, btCopy1: HTMLButtonElement, btCopy2: HTMLButtonElement): void {
-        if (this.copyingProductInfo) {
-            return;
-        }
+    // copyProductInfo(product: Product, btCopy1: HTMLButtonElement, btCopy2: HTMLButtonElement): void {
+    //     if (this.copyingProductInfo) {
+    //         return;
+    //     }
 
-        this.copyingProductInfo = true;
-        let result = this.service.copyInfo(product);
-        this.copyingProductInfo = false;
-        this.cd.markForCheck();
+    //     this.copyingProductInfo = true;
+    //     let result = this.service.copyInfo(product);
+    //     this.copyingProductInfo = false;
+    //     this.cd.markForCheck();
 
-        if (result)
-        {
-            btCopy1.innerHTML = "Đã COPY";
-            btCopy2.innerHTML = "Đã COPY";
-        }
-    }
+    //     if (result)
+    //     {
+    //         btCopy1.innerHTML = "Đã COPY";
+    //         btCopy2.innerHTML = "Đã COPY";
+    //     }
+    // }
 
-    saveProductImage(product: Product): void {
-        this.service.saveProductImage(product.sku)
-    }
+    // saveProductImage(product: Product): void {
+    //     this.service.saveProductImage(product.sku)
+    // }
 }

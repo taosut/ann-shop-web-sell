@@ -29,7 +29,6 @@ import { AppComponent } from './app.component';
 import { RootComponent } from './components/root/root.component';
 
 // pages
-import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 
@@ -39,7 +38,6 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
         AppComponent,
         RootComponent,
         // pages
-        PageHomeOneComponent,
         PageNotFoundComponent,
         PageHomeTwoComponent
     ],
