@@ -1,7 +1,7 @@
 import { Thumbnail } from '../common/thumbnail';
 
 
-export interface CategoryProduct {
+export interface SearchProductProduct {
   productID: number;
   tilte: string;
   sku: string;

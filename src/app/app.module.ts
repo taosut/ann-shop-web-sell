@@ -22,7 +22,6 @@ import { FooterModule } from './modules/footer/footer.module';
 import { HeaderModule } from './modules/header/header.module';
 import { MobileModule } from './modules/mobile/mobile.module';
 import { SharedModule } from './shared/shared.module';
-import { WidgetsModule } from './modules/widgets/widgets.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -59,7 +58,6 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
         HeaderModule,
         MobileModule,
         SharedModule,
-        WidgetsModule
     ],
     providers: [
         // { provide: LOCALE_ID, useValue: 'it' }

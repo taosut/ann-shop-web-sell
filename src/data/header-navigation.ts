@@ -9,7 +9,7 @@ export const navigation: NavigationLink[] = [
             {label: 'Quần áo nữ', url: '/cua-hang/danh-muc/quan-ao-nu'}
         ]
     }},
-    {label: 'Danh mục sản phẩm', url:'/blog/post/danh-muc-san-pham', menu: {
+    {label: 'Danh mục sản phẩm', url:'/cua-hang', menu: {
         type: 'menu',
         items: [
             {label: 'Quần áo nam', url: '/cua-hang/danh-muc/quan-ao-nam', items: [

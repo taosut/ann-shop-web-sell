@@ -9,7 +9,7 @@
           <img src="assets/images/ANNlogo.png" height="28" alt="ANN">
         </a>
         <div class="mobile-header__search" appDropdown="mobile-header__search--opened" #search="appDropdown">
-          <form class="mobile-header__search-form" action="/cua-hang">
+          <form class="mobile-header__search-form" action="/cua-hang/tim-kiem-san-pham">
             <input class="mobile-header__search-input" name="search" placeholder="Hơn 2.000 sản phẩm khác nhau"
               aria-label="Tìm sản phẩm" type="text" autocomplete="off" (keydown.escape)="search.close()" #searchInput>
             <button class="mobile-header__search-button mobile-header__search-button--submit" type="submit">
@@ -44,7 +44,7 @@
           <div class="indicator indicator--mobile">
             <a class="indicator__button">
               <span class="indicator__area" appClick (click)="showCopyConfig()"
-                [ngClass]="{'btn-loading': copyingProductInfo}">
+                [ngClass]="{'btn-loading': showingCopyConfig}">
                 <app-icon name="gear-512" size="20"></app-icon>
               </span>
             </a>

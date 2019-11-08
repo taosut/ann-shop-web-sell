@@ -74,72 +74,28 @@ export class CategoryService {
   /**
    * Lấy sản phẩm theo slug category
    * @param slug category slug
-   * @param search product title
    * @param sort product new | price asc | price desc | model new
    * @param page number
    * @param limit number
    */
-  public getProduct(slug: string, search: string, sort: number, page: number, limit: number): Observable<any> {
+  public getProduct(slug: string, sort: number, page: number, limit: number): Observable<any> {
     const observe = 'response';
     let params: HttpParams
 
-    if (search && sort > 0) {
+    if (sort) {
       params = new HttpParams()
-        .set('search', search)
         .set('sort', sort.toString())
         .set('pageNumber', page.toString())
         .set('pageSize', limit.toString());
+
     }
     else {
-      if (search)
-        params = new HttpParams()
-          .set('search', search)
-          .set('pageNumber', page.toString())
-          .set('pageSize', limit.toString());
-
-      if (sort)
-        params = new HttpParams()
-          .set('sort', sort.toString())
-          .set('pageNumber', page.toString())
-          .set('pageSize', limit.toString());
+      params = new HttpParams()
+        .set('pageNumber', page.toString())
+        .set('pageSize', limit.toString());
     }
 
     return this.http.get(this.urlProduct(slug), { observe, params });
-  }
-
-  /**
-   * Lấy sản phẩm theo từ khóa
-   * @param search product title
-   * @param sort product new | price asc | price desc | model new
-   * @param page number
-   * @param limit number
-   */
-  public getProductSearch(search: string, sort: number, page: number, limit: number): Observable<any> {
-    const observe = 'response';
-    let params: HttpParams
-
-    if (search && sort > 0) {
-      params = new HttpParams()
-        .set('search', search)
-        .set('sort', sort.toString())
-        .set('pageNumber', page.toString())
-        .set('pageSize', limit.toString());
-    }
-    else {
-      if (search)
-        params = new HttpParams()
-          .set('search', search)
-          .set('pageNumber', page.toString())
-          .set('pageSize', limit.toString());
-
-      if (sort)
-        params = new HttpParams()
-          .set('sort', sort.toString())
-          .set('pageNumber', page.toString())
-          .set('pageSize', limit.toString());
-    }
-
-    return this.http.get(this.urlProductSearch(), { observe, params });
   }
 
 }

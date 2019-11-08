@@ -20,8 +20,8 @@ export class PageWishlistComponent {
 
 
   constructor(
-    private root: RootService,
-    private wishlist: WishlistService,
+    public root: RootService,
+    public wishlist: WishlistService,
   ) {
     this.addedToCartProducts = [];
     this.removedProducts = [];

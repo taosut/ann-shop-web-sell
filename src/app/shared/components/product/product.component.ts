@@ -12,12 +12,14 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-
 
 // third-party
 import { CarouselComponent, SlidesOutputData } from 'ngx-owl-carousel-o';
 import { OwlCarouselOConfig } from 'ngx-owl-carousel-o/lib/carousel/owl-carousel-o-config';
+
+// RxJS
+import { timer } from 'rxjs';
+
 
 // ANN Shop
 // Interface
@@ -76,19 +78,18 @@ export class ProductComponent implements OnInit {
     this.dataProduct = value;
     if (value) {
       let carousel_image: ProductImage[] = [];
-      // Add avatar làm anh chính
-      carousel_image.push({
-        id: '0',
-        url: value.avatar,
-        active: true
-      })
 
       // Add product image
       this.dataProduct.images.map((url, index) => {
+        let active: boolean = false;
+
+        if (url === value.avatar)
+          active = true;
+
         carousel_image.push({
-          id: (index + 1).toString(),
+          id: index.toString(),
           url,
-          active: false
+          active: active
         });
       })
 
@@ -123,22 +124,22 @@ export class ProductComponent implements OnInit {
     rtl: this.direction.isRTL()
   };
 
-  addingToCart = false;
   addingToWishlist = false;
-  addingToCompare = false;
   showingCopyConfig = false;
   copyingProductInfo = false;
+  downloadingImages: boolean;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
-    private wishlist: WishlistService,
-    private photoSwipe: PhotoSwipeService,
-    private direction: DirectionService,
-    private http: HttpClient,
     private cd: ChangeDetectorRef,
+    private direction: DirectionService,
     private copyConfig: CopyConfigService,
+    private photoSwipe: PhotoSwipeService,
+    private wishlist: WishlistService,
     private service: ProductService
-  ) { }
+  ) {
+    this.downloadingImages = false;
+  }
 
   ngOnInit(): void {
     if (this.layout !== 'quickview' && isPlatformBrowser(this.platformId)) {
@@ -302,19 +303,29 @@ export class ProductComponent implements OnInit {
 
 
   copyProductInfo(btCopy: HTMLButtonElement): void {
-    // if (this.copyingProductInfo) {
-    //   return;
-    // }
+    if (this.copyingProductInfo) {
+      return;
+    }
 
-    // this.copyingProductInfo = true;
-    // let result = this.service.copyInfo(this.product);
-    // this.copyingProductInfo = false;
-    // this.cd.markForCheck();
+    this.copyingProductInfo = true;
+    timer(500).subscribe((_) =>
+      this.service.getContentProductAdvertisement(this.product)
+        .subscribe((copying: boolean) => {
+          this.copyingProductInfo = copying;
+          this.cd.markForCheck();
+          btCopy.innerHTML = "Đã COPY";
+        })
+    );
 
-    // if (result) btCopy.innerHTML = "Đã COPY";
   }
 
   saveProductImage(): void {
-    // this.service.saveProductImage(this.product.sku)
+    if (this.product && this.product.id && this.product.sku) {
+      this.downloadingImages = true;
+      this.service.downloadAdvertisementImage(this.product.id, this.product.sku)
+        .subscribe((downloading: boolean) => {
+          this.downloadingImages = downloading
+        });
+    }
   }
 }

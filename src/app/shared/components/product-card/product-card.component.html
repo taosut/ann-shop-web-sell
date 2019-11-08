@@ -46,10 +46,10 @@
         </div>
         <!-- Chưa sử dụng -->
         <div class="product-card__buttons">
-            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="copyProductInfo(product, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1>COPY</button>
-            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)">Tải hình</button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="copyProductInfo(product, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2>COPY</button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="saveProductImage(product)">Tải hình</button>
+            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1>COPY</button>
+            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}" >Tải hình</button>
+            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2>COPY</button>
+            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}">Tải hình</button>
             <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" appClick (click)="addToWishlist()" [ngClass]="{'btn-loading': addingToWishlist}">
                 <app-icon name="wishlist-16" size="16"></app-icon>
                 <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
