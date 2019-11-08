@@ -48,28 +48,28 @@ export class ProductService implements OnDestroy {
    * Lấy url api product theo slug
    */
   private urlProduct(slug: string): string {
-    return `${environment.api}/product/${slug}`;
+    return `${environment.apiPageProduct}/${slug}`;
   }
 
   /**
    * Lấy url api product related theo slug
    */
   private urlProductRelated(slug: string): string {
-    return `${environment.api}/product/${slug}/related`;
+    return `${environment.apiPageProduct}/${slug}/related`;
   }
 
   /**
    * Lấy url api image của product
    */
   private urlImage(id: number): string {
-    return `${environment.api}/product/${id}/image`;
+    return `${environment.apiPageProduct}/${id}/image`;
   }
 
   /**
    * Lấy url api hình anh quảng cáo
    */
   private urlAdvertisementImage(id: number): string {
-    return `${environment.api}/product/${id}/advertisement-image`;
+    return `${environment.apiPageProduct}/${id}/advertisement-image`;
   }
 
   /**

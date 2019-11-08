@@ -8,16 +8,16 @@ import { PageProductComponent } from './pages/page-product/page-product.componen
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/not-found'
-  },
-  {
     path: ':slug',
     component: PageProductComponent,
     data: {
       layout: 'standard'
     }
   },
+  {
+    path: '**',
+    redirectTo: '/not-found'
+  }
 ];
 
 @NgModule({

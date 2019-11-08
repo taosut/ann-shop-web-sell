@@ -8,16 +8,16 @@ import { PageCategoryComponent } from './pages/page-category/page-category.compo
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/not-found'
-  },
-  {
     path: ':slug',
     component: PageCategoryComponent,
     data: {
       columns: 4,
       viewMode: 'grid'
     }
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 

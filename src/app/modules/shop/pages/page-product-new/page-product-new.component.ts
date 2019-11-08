@@ -113,27 +113,12 @@ export class PageProductNewComponent implements OnInit {
 
   private getCategory(slug: string) {
     this.loadingCategory.next(true);
-    if (!this.slug) {
-      this.category = {
-        name: "Hàng mới về",
-        slug: this.slug
-      }
-      this.titleService.setTitle(this.category.name);
-      this.loadingCategory.next(false);
+    this.category = {
+      name: "Hàng mới về",
+      slug: slug
     }
-    else {
-      this.service.getCategory(this.slug)
-        .subscribe(
-          (value: CategoryCategory) => {
-            this.category = value;
-            this.titleService.setTitle(this.category.name);
-            this.loadingCategory.next(false);
-          },
-          (_) => {
-            this.loadingCategory.next(false);
-          }
-        );
-    }
+    this.titleService.setTitle(this.category.name);
+    this.loadingCategory.next(false);
   }
 
   private getSorts() {
