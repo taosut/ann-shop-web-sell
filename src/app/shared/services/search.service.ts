@@ -22,14 +22,14 @@ export class SearchService {
    * Lấy url api sort cho màn hình search product
    */
   private urlSearchProductSort(): string {
-    return `${environment.api}/search/search-product/sort`;
+    return `${environment.apiPageSearch}/search-product/sort`;
   }
 
   /**
    * Lấy url api sản phẩm theo từ khóa cho màn hình search product
    */
   private urlSearchProductProduct(search: string): string {
-    return `${environment.api}/search/search-product/${search}`;
+    return `${environment.apiPageSearch}/search-product/${search}`;
   }
 
   /**

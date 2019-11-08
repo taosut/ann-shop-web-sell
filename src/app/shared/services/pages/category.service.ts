@@ -24,28 +24,28 @@ export class CategoryService {
    * Lấy url api category theo slug
    */
   private urlCategory(slug: string): string {
-    return `${environment.api}/category/${slug}`;
+    return `${environment.apiPgaeCategory}/${slug}`;
   }
 
   /**
    * Lấy url api sorts trong danh mục
    */
   private urlSort(): string {
-    return `${environment.api}/category/sort`;
+    return `${environment.apiPgaeCategory}/sort`;
   }
 
   /**
    * Lấy url api sản phẩm theo slug category
    */
   private urlProduct(slug: string): string {
-    return `${environment.api}/category/${slug}/product`;
+    return `${environment.apiPgaeCategory}/${slug}/product`;
   }
 
   /**
    * Lấy url api sản phẩm theo từ khóa
    */
   private urlProductSearch(): string {
-    return `${environment.api}/category/product`;
+    return `${environment.apiPgaeCategory}/product`;
   }
 
   /**

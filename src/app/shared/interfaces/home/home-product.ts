@@ -4,7 +4,7 @@ import { Thumbnail } from '../common/thumbnail';
 
 export interface HomeProduct {
   productID: number;
-  tilte: string;
+  name: string;
   sku: string;
   kind: ProductStyle;
   thumbnails: Thumbnail[];

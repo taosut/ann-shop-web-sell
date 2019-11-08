@@ -24,7 +24,7 @@ export class HomeService {
    * Lấy url api sản phẩm theo slug category
    */
   private urlProductCategory(slug: string): string {
-    return `${environment.api}/home/category/${slug}`;
+    return `${environment.apiPageHome}/category/${slug}`;
   }
 
   /**

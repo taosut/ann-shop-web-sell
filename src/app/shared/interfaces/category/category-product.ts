@@ -3,7 +3,7 @@ import { Thumbnail } from '../common/thumbnail';
 
 export interface CategoryProduct {
   productID: number;
-  tilte: string;
+  name: string;
   sku: string;
   thumbnails: Thumbnail[];
   regularPrice: number;

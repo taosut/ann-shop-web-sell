@@ -10,16 +10,16 @@ import { PageWholsalePolicyComponent } from './pages/page-wholsale-policy/page-w
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/not-found'
-  },
-  {
     path: 'chinh-sach-giao-hang',
     component: PageDeliveryPolicyComponent
   },
   {
     path: 'chi-sach-ban-si',
     component: PageWholsalePolicyComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 
