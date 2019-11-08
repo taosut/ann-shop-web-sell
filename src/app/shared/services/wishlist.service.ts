@@ -1,12 +1,19 @@
+// Angular
 import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
-import { Product } from '../interfaces/product';
-import { map, takeUntil } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 
+// RxJS
+import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+
+// ANN Shop
+// Interface
+import { WishlistProduct } from '../interfaces/wishlist/wishlist-product';
+
 interface WishlistData {
-    items: Product[];
+    items: WishlistProduct[];
 }
+
 
 @Injectable({
     providedIn: 'root'
@@ -17,12 +24,12 @@ export class WishlistService implements OnDestroy {
     };
 
     private destroy$: Subject<void> = new Subject();
-    private itemsSubject$: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-    private onAddingSubject$: Subject<Product> = new Subject();
+    private itemsSubject$: BehaviorSubject<WishlistProduct[]> = new BehaviorSubject([]);
+    private onAddingSubject$: Subject<WishlistProduct> = new Subject();
 
-    readonly items$: Observable<Product[]> = this.itemsSubject$.pipe(takeUntil(this.destroy$));
+    readonly items$: Observable<WishlistProduct[]> = this.itemsSubject$.pipe(takeUntil(this.destroy$));
     readonly count$: Observable<number> = this.itemsSubject$.pipe(map(items => items.length));
-    readonly onAdding$: Observable<Product> = this.onAddingSubject$.asObservable();
+    readonly onAdding$: Observable<WishlistProduct> = this.onAddingSubject$.asObservable();
 
     constructor(
         @Inject(PLATFORM_ID)
@@ -33,7 +40,7 @@ export class WishlistService implements OnDestroy {
         }
     }
 
-    add(product: Product): Observable<void> {
+    add(product: WishlistProduct): Observable<void> {
         // timer only for demo
         return timer(1000).pipe(map(() => {
             this.onAddingSubject$.next(product);
@@ -47,7 +54,7 @@ export class WishlistService implements OnDestroy {
         }));
     }
 
-    remove(product: Product): Observable<void> {
+    remove(product: WishlistProduct): Observable<void> {
         // timer only for demo
         return timer(1000).pipe(map(() => {
             const index = this.data.items.findIndex(item => item.id === product.id);

@@ -1,42 +1,36 @@
 import { Component, Input } from '@angular/core';
-import { ProductFeaturesSection, ProductReview, ProductDetail } from '../../../../shared/interfaces/product';
-import { specification } from '../../../../../data/shop-product-spec';
-import { reviews } from '../../../../../data/shop-product-reviews';
+
+export type TabType = 'description' | 'specification' | 'reviews';
 
 @Component({
-    selector: 'app-product-tabs',
-    templateUrl: './product-tabs.component.html',
-    styleUrls: ['./product-tabs.component.scss']
+  selector: 'app-product-tabs',
+  templateUrl: './product-tabs.component.html',
+  styleUrls: ['./product-tabs.component.scss']
 })
-export class ProductTabsComponent{
-    @Input() withSidebar = false;
-    @Input() tab: 'description'|'specification'|'reviews' = 'description';
-    @Input() product: ProductDetail;
+export class ProductTabsComponent {
+  @Input() withSidebar: boolean;
+  @Input() tab: TabType;
+  @Input() product: any;
 
-    specification: ProductFeaturesSection[] = specification;
-    reviews: ProductReview[] = reviews;
+  constructor() {
+    this.withSidebar = false;
+    this.tab = 'description';
+  }
 
-    constructor() { }
+  get content(): string {
+    let content: string = "";
 
-    get content(): string {
-        if (this.product)
-        {
-            let content: string = `<h2>${this.product.name}</h2>` + (this.product.content ? `${this.product.content}<br>` : "");
-            let contentImages: string[] = content.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
+    if (this.product) {
+      let contentImages: string[] = content.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
 
-            this.product.images
-                .filter(item => !(item in contentImages) )
-                .forEach((item: string) => {
-                    let alt: string = this.product.name;
-
-                    content += `<img alt="${alt}" class="img-download" src="${item}"><br>`;
-                });
-
-            return content;
-        }
-        else
-        {
-            return "";
-        }
+      content = `<h2>${this.product.name}</h2>${this.product.content ? this.product.content + "<br>" : ""}`;
+      this.product.images
+        .filter((item: string) => !(item in contentImages))
+        .forEach((item: string) => {
+          content += `<img alt="${this.product.name}" class="img-download" src="${item}"><br>`;
+        });
     }
+
+    return content;
+  }
 }

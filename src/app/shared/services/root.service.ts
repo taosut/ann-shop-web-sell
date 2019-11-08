@@ -8,8 +8,8 @@ export class RootService {
 
     constructor() { }
 
-    product(id: number): any[] | string {
-        return `${this.path}/shop/product/${id}`;
+    product(slug: string): any[] | string {
+        return `${this.path}/cua-hang/san-pham/${slug}`;
     }
 
     post(): string {

@@ -7,14 +7,8 @@
 <div class="container">
     <ng-container *ngIf="layout === 'classic'">
         <div class="row">
-            <div *ngIf="sidebarPosition === 'start'" class="col-12 col-lg-4 order-1 order-lg-0">
-                <app-sidebar position="start"></app-sidebar>
-            </div>
             <div class="col-12 col-lg-8">
                 <app-post-details layout="classic" [post]="post"></app-post-details>
-            </div>
-            <div *ngIf="sidebarPosition === 'end'" class="col-12 col-lg-4">
-                <app-sidebar position="end"></app-sidebar>
             </div>
         </div>
     </ng-container>

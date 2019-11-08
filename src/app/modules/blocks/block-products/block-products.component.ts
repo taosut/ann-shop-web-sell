@@ -1,52 +1,49 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-import { Product } from '../../../shared/interfaces/product';
+// Angular
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+
+// RxJS
+import { Observable } from 'rxjs';
+
+// ANN Shop
+// Interface
+import { HomeProduct } from '../../../shared/interfaces/home/home-product';
+// Service
+import { HomeService } from 'src/app/shared/services/pages/home.service';
+
 
 @Component({
-    selector: 'app-block-products',
-    templateUrl: './block-products.component.html',
-    styleUrls: ['./block-products.component.scss']
+  selector: 'app-block-products',
+  templateUrl: './block-products.component.html',
+  styleUrls: ['./block-products.component.scss']
 })
 export class BlockProductsComponent implements OnInit {
-    @Input() header: string;
-    @Input() layout: 'normal'|'large-first'|'large-last' = 'large-first';
-    @Input() products: any[] = [];
-    @Input() categorySlug: string;
-    @Input() limit: number = 7;
+  @Input() header: string;
+  @Input() slug: string;
+  @Input() limit: number;
 
-    get large(): any {
-        if (this.layout === 'large-first' && this.products.length > 0) {
-            return this.products[0];
-        } else if (this.layout === 'large-last' && this.products.length > 6) {
-            return this.products[6];
-        }
+  products$: Observable<HomeProduct[]>;
 
-        return null;
+  @Output() loadingEvent: EventEmitter<boolean>;
+
+  constructor(private service: HomeService) {
+    this.limit = 8;
+    this.products$ = new Observable();
+    this.loadingEvent = new EventEmitter<boolean>();
+  }
+
+  ngOnInit(): void {
+    if (this.slug) {
+      // Bắt đầu loading
+      this.loading(true);
+      // Lấy thông tin sản phẩm
+      this.products$ = this.service.getProductCategory(this.slug, this.limit);
     }
+  }
 
-    get smalls(): any[] {
-        if (this.layout === 'large-first') {
-            return this.products.slice(1, 7);
-        } else if(this.layout === 'large-last')  {
-            return this.products.slice(0, 6);
-        } else if(this.layout === 'normal') {
-            return this.products;
-        }
-    }
-
-    constructor(private http: HttpClient) { }
-
-    ngOnInit(): void {
-        if(this.layout !== 'normal') {
-            this.limit = 7;
-        }
-        if (this.categorySlug !== "") {
-            this.http
-            .get<Product[]>(environment.apiProduct + `?pageSize=${this.limit}&category=${this.categorySlug}`)
-            .subscribe(resp  => {
-                this.products = resp;
-            });
-        }
-    }
+  /**
+   * Output trạng thái loading
+   */
+  loading(value: boolean) {
+    this.loadingEvent.emit(value);
+  }
 }

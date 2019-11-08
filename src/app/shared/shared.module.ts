@@ -21,17 +21,17 @@ import { InputCurrencyDirective } from './directives/input-currency.directive';
 
 // components
 import { AlertComponent } from './components/alert/alert.component';
+import { CopyConfigComponent } from './components/copy-config/copy-config.component';
 import { IconComponent } from './components/icon/icon.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductComponent } from './components/product/product.component';
-import { QuickviewComponent } from './components/quickview/quickview.component';
-import { RatingComponent } from './components/rating/rating.component';
-import { CopyConfigComponent } from './components/copy-config/copy-config.component';
+import { ScrollComponent } from './components/scroll/scroll.component';
 
 // pipes
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
@@ -51,17 +51,17 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         InputCurrencyDirective,
         // components
         AlertComponent,
+        CopyConfigComponent,
         IconComponent,
         InputNumberComponent,
         LoadingBarComponent,
+        LoadingSpinnerComponent,
         PageHeaderComponent,
         PaginationComponent,
         PostCardComponent,
         ProductCardComponent,
         ProductComponent,
-        QuickviewComponent,
-        RatingComponent,
-        CopyConfigComponent,
+        ScrollComponent,
         // pipes
         CurrencyFormatPipe
     ],
@@ -89,17 +89,17 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         InputCurrencyDirective,
         // components
         AlertComponent,
+        CopyConfigComponent,
         IconComponent,
         InputNumberComponent,
         LoadingBarComponent,
+        LoadingSpinnerComponent,
         PageHeaderComponent,
         PaginationComponent,
         PostCardComponent,
         ProductCardComponent,
         ProductComponent,
-        QuickviewComponent,
-        RatingComponent,
-        CopyConfigComponent,
+        ScrollComponent,
         // pipes
         CurrencyFormatPipe
     ]

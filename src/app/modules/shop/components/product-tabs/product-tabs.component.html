@@ -1,22 +1,17 @@
-<div class="product-tabs" [ngClass]="{'product-tabs--layout--sidebar': withSidebar}">
-    <div class="product-tabs__list">
-        <a href="#tab-description" class="product-tabs__item"
-           [ngClass]="{'product-tabs__item--active': tab === 'description'}"
-           (click)="$event.preventDefault(); tab = 'description'">Thông tin sản phẩm</a>
+<div *ngIf="product" class="product-tabs" [ngClass]="{'product-tabs--layout--sidebar': withSidebar}">
+  <div class="product-tabs__list">
+    <a href="#tab-description" class="product-tabs__item"
+      [ngClass]="{'product-tabs__item--active': tab === 'description'}"
+      (click)="$event.preventDefault(); tab = 'description'">
+      Thông tin sản phẩm
+    </a>
+  </div>
+  <div class="product-tabs__content">
 
-        <!-- <a href="#tab-specification" class="product-tabs__item"
-           [ngClass]="{'product-tabs__item--active': tab === 'specification'}"
-           (click)="$event.preventDefault(); tab = 'specification'">Specification</a>
-
-        <a href="#tab-reviews" class="product-tabs__item"
-           [ngClass]="{'product-tabs__item--active': tab === 'reviews'}"
-           (click)="$event.preventDefault(); tab = 'reviews'">Reviews</a> -->
+    <div class="product-tabs__pane" id="tab-description"
+      [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
+      <div class="typography" [innerHTML]="content"></div>
     </div>
-    <div class="product-tabs__content">
 
-        <div class="product-tabs__pane" id="tab-description" [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
-            <div class="typography" [innerHTML]="content"></div>
-        </div>
-
-    </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="block block-empty" *ngIf="!products.length">
+<div class="block block-empty" *ngIf="!products?.length">
     <div class="container">
         <div class="block-empty__body">
             <div class="block-empty__message">Đang tải sản phẩm...</div>
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="products-view" *ngIf="products.length">
+<div class="products-view" *ngIf="products?.length">
     <div class="products-view__options">
         <div class="view-options">
             <div class="view-options__layout">
@@ -40,7 +40,7 @@
             <div class="view-options__control">
                 <label for="view-options-sort">Sắp xếp</label>
                 <div>
-                    <select class="form-control form-control-sm" name="" id="view-options-sort" (change)="onSortChange($event.target.value)">
+                    <select class="form-control form-control-sm" name="" id="view-options-sort" (change)="sortChange($event.target.value)">
                         <option *ngFor="let item of sorts" [value]="item.key">{{ item.name }}</option>
                     </select>
                 </div>
@@ -50,13 +50,13 @@
 
     <div class="products-view__list products-list" [attr.data-layout]="layout != 'list' ? grid : layout" [attr.data-with-features]="layout == 'grid-with-features' ? 'true' : 'false'">
         <div class="products-list__body">
-            <div *ngFor="let product of products" class="products-list__item">
-                <app-product-card [product]="product"></app-product-card>
+            <div *ngFor="let item of products; last as isLast" class="products-list__item">
+                <app-product-card [product]="item"></app-product-card>
             </div>
         </div>
     </div>
 
     <div *ngIf="pagingHeaders.totalPages && pagingHeaders.totalPages !== 1" class="products-view__pagination">
-        <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages" (pageChange)="onPageChange($event)"></app-pagination>
+        <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages" (pageChange)="pageChange($event)"></app-pagination>
     </div>
 </div>

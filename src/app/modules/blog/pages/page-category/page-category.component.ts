@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Post } from '../../../../shared/interfaces/post';
-import { posts } from '../../../../../data/blog-posts';
 
 @Component({
     selector: 'app-category',
@@ -16,7 +15,7 @@ export class PageCategoryComponent implements OnDestroy {
     sidebarPosition: 'start'|'end' = 'end'; // For LTR scripts "start" is "left" and "end" is "right"
     layout: 'classic'|'grid'|'list' = 'classic';
 
-    posts: Post[] = posts;
+    posts: Post[] = [];
 
     constructor(private route: ActivatedRoute) {
         this.route.data.pipe(takeUntil(this.destroy$)).subscribe(data => {
