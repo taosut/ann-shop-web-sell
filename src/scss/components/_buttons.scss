@@ -16,6 +16,14 @@ $local-transition-duration: .1s;
     border-radius: 2px;
     transition: all $local-transition-duration ease-in-out;
 
+    app-icon {
+        display: inline;
+
+        svg {
+            display: inline;
+        }
+    }
+
     @include btn-nl();
 }
 .btn-lg {
