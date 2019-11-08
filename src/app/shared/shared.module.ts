@@ -29,6 +29,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
+import { ProductsViewComponent } from './components/products-view/products-view.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductComponent } from './components/product/product.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
@@ -59,6 +60,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         PageHeaderComponent,
         PaginationComponent,
         PostCardComponent,
+        ProductsViewComponent,
         ProductCardComponent,
         ProductComponent,
         ScrollComponent,
@@ -97,6 +99,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         PageHeaderComponent,
         PaginationComponent,
         PostCardComponent,
+        ProductsViewComponent,
         ProductCardComponent,
         ProductComponent,
         ScrollComponent,

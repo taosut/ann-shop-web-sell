@@ -24,7 +24,7 @@
 
           <div class="indicator__dropdown">
             <div class="drop-search">
-              <form action="/cua-hang/tim-kiem-san-pham" class="drop-search__form">
+              <form action="/search/product" class="drop-search__form">
                 <input class="drop-search__input" name="search" (keydown.escape)="search.close()"
                   placeholder="Hơn 2.000 sản phẩm khác nhau" aria-label="Tìm sản phẩm" type="text" autocomplete="off"
                   #searchField>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="indicator">
-          <a [routerLink]="root.url('/cua-hang/danh-sach-san-pham-yeu-thich')" class="indicator__button">
+          <a [routerLink]="root.url('/wishlist')" class="indicator__button">
             <span class="indicator__area">
               <app-icon name="heart-20" size="20"></app-icon>
               <span class="indicator__value">{{ wishlist.count$|async }}</span>

@@ -9,7 +9,7 @@ export class RootService {
     constructor() { }
 
     product(slug: string): any[] | string {
-        return `${this.path}/cua-hang/san-pham/${slug}`;
+        return `${this.path}/product/${slug}`;
     }
 
     post(): string {
