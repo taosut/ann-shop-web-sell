@@ -104,22 +104,16 @@
           <div class="product__actions">
             <div class="product__actions-item product__actions-item--copy">
               <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': copyingProductInfo}"
-                appClick (click)="copyProductInfo(copy)" #copy>COPY</button>
+                appClick (click)="copyProductInfo(copy)" #copy><app-icon name="copy-16" size="16"></app-icon> Copy</button>
             </div>
             <div class="product__actions-item product__actions-item--save-image">
               <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': downloadingImages}"
-                appClick (click)="saveProductImage()">Tải hình</button>
+                appClick (click)="saveProductImage()"><app-icon name="download-16" size="16"></app-icon> Tải hình</button>
             </div>
             <div class="product__actions-item product__actions-item--wishlist">
               <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip"
                 title="Lưu sản phẩm" [ngClass]="{'btn-loading': addingToWishlist}" appClick (click)="addToWishlist()">
                 <app-icon name="wishlist-16" size="16"></app-icon>
-              </button>
-            </div>
-            <div class="product__actions-item product__actions-item--gear">
-              <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip"
-                title="Cài đặt COPY" [ngClass]="{'btn-loading': showingCopyConfig}" appClick (click)="showCopyConfig()">
-                <app-icon name="gear-512" size="16"></app-icon>
               </button>
             </div>
           </div>

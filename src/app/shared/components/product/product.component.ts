@@ -125,7 +125,6 @@ export class ProductComponent implements OnInit {
   };
 
   addingToWishlist = false;
-  showingCopyConfig = false;
   copyingProductInfo = false;
   downloadingImages: boolean;
 
@@ -283,24 +282,6 @@ export class ProductComponent implements OnInit {
     let regexFiles: string[] = imageURL.match(/[a-z0-9\-\.]+$/g);
     return regexFiles.length ? `/uploads/images/${size}/${regexFiles[0]}` : "";
   }
-
-  showCopyConfig(): void {
-    if (this.showingCopyConfig) {
-      return;
-    }
-
-    this.showingCopyConfig = true;
-    const userJSON = localStorage.getItem('user');
-    let user: User = userJSON ? JSON.parse(userJSON) : null;
-
-    this.copyConfig.show(user).subscribe({
-      complete: () => {
-        this.showingCopyConfig = false;
-        this.cd.markForCheck();
-      }
-    });
-  }
-
 
   copyProductInfo(btCopy: HTMLButtonElement): void {
     if (this.copyingProductInfo) {

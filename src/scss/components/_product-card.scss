@@ -180,15 +180,9 @@
 .product-card__buttons {
     display: flex;
     margin-top: 24px;
-
-    > *:first-child {
-        @include direction {
-            #{$margin-inline-end}: auto;
-        }
-    }
     > * + * {
         @include direction {
-            #{$margin-inline-start}: 4px;
+            #{$margin-inline-start}: 5px;
         }
     }
 }

@@ -36,7 +36,6 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   addingToCart = false;
   addingToWishlist = false;
   addingToCompare = false;
-  showingCopyConfig = false;
   copyingProductInfo = false;
   downloadingImages: boolean;
 
@@ -72,23 +71,6 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     this.wishlist.add(this.product).subscribe({
       complete: () => {
         this.addingToWishlist = false;
-        this.cd.markForCheck();
-      }
-    });
-  }
-
-  showCopyConfig(): void {
-    if (this.showingCopyConfig) {
-      return;
-    }
-
-    this.showingCopyConfig = true;
-    const userJSON = localStorage.getItem('user');
-    let user: User = userJSON ? JSON.parse(userJSON) : null;
-
-    this.copyConfig.show(user).subscribe({
-      complete: () => {
-        this.showingCopyConfig = false;
         this.cd.markForCheck();
       }
     });
