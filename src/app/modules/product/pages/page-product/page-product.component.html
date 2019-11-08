@@ -1,0 +1,47 @@
+<app-page-header [breadcrumbs]="[
+    {label: 'Trang chủ',         url: '/'},
+    {label: product?.categoryName,   url: '/category/' + product?.categorySlug},
+    {label: product?.name, url: '/product/' + product?.slug}
+]"></app-page-header>
+
+<ng-container *ngIf="layout !== 'sidebar'">
+  <div class="block">
+    <div class="container">
+      <app-product [product]="product" [layout]="layout"></app-product>
+      <app-product-tabs [product]="product"></app-product-tabs>
+    </div>
+  </div>
+
+  <!-- Custom show product variable list -->
+  <div *ngIf="productRelateds.length > 0"
+    class="block block--highlighted block-categories block-categories--layout--compact">
+    <div class="container">
+      <div class="block-header">
+        <h3 class="block-header__title">Màu & Size</h3>
+        <div class="block-header__divider"></div>
+      </div>
+      <div class="block-categories__list">
+        <div *ngFor="let product of productRelateds"
+          class="block-categories__item category-card category-card--layout--compact">
+          <div class="category-card__body">
+            <div class="category-card__image">
+              <img defaultImage="/assets/images/85x113/placeholder.png" [lazyLoad]="product.avatar" offset="100">
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__name">
+                {{ product.name }}
+              </div>
+              <div class="category-card__products">
+                Mã: {{ product.sku }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="pagingHeaders.totalPages && pagingHeaders.totalPages !== 1" class="products-view__pagination">
+        <app-pagination [current]="pagingHeaders.currentPage" [siblings]="2" [total]="pagingHeaders.totalPages"
+          (pageChange)="pageChange($event)"></app-pagination>
+      </div>
+    </div>
+  </div>
+</ng-container>

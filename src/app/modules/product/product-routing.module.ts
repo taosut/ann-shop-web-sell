@@ -3,21 +3,25 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // ANN Shop
-import { PageProductNewComponent } from './pages/page-product-new/page-product-new.component';
+import { PageProductComponent } from './pages/page-product/page-product.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: PageProductNewComponent,
+    redirectTo: '/not-found'
+  },
+  {
+    path: ':slug',
+    component: PageProductComponent,
     data: {
-      columns: 4,
-      viewMode: 'grid'
+      layout: 'standard'
     }
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ShopRoutingModule { }
+export class ProductRoutingModule { }

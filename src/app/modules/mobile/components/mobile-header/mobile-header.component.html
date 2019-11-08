@@ -9,7 +9,7 @@
           <img src="assets/images/ANNlogo.png" height="28" alt="ANN">
         </a>
         <div class="mobile-header__search" appDropdown="mobile-header__search--opened" #search="appDropdown">
-          <form class="mobile-header__search-form" action="/cua-hang/tim-kiem-san-pham">
+          <form class="mobile-header__search-form" action="/search/product">
             <input class="mobile-header__search-input" name="search" placeholder="Hơn 2.000 sản phẩm khác nhau"
               aria-label="Tìm sản phẩm" type="text" autocomplete="off" (keydown.escape)="search.close()" #searchInput>
             <button class="mobile-header__search-button mobile-header__search-button--submit" type="submit">
@@ -33,7 +33,7 @@
           </div>
 
           <div class="indicator indicator--mobile">
-            <a routerLink="/cua-hang/danh-sach-san-pham-yeu-thich" class="indicator__button">
+            <a routerLink="/wishlist" class="indicator__button">
               <span class="indicator__area">
                 <app-icon name="heart-20" size="20"></app-icon>
                 <span class="indicator__value">{{ wishlist.count$|async }}</span>

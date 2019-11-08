@@ -1,46 +1,66 @@
+// Angular
 import { NgModule, Type } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+// ANN Shop
+// Component
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 import { RootComponent } from './components/root/root.component';
 
 export function makeRoutes(homeComponent: Type<any>): Routes {
-    return [
-        {
-            path: '',
-            component: homeComponent
-        },
-        {
-            path: 'blog',
-            loadChildren: './modules/blog/blog.module#BlogModule'
-        },
-        {
-            path: 'cua-hang',
-            loadChildren: './modules/shop/shop.module#ShopModule'
-        },
-        {
-            path: '**',
-            component: PageNotFoundComponent
-        }
-    ];
+  return [
+    {
+      path: '',
+      component: homeComponent
+    },
+    {
+      path: 'shop',
+      loadChildren: './modules/shop/shop.module#ShopModule'
+    },
+    {
+      path: 'category',
+      loadChildren: './modules/category/category.module#CategoryModule'
+    },
+    {
+      path: 'product',
+      loadChildren: './modules/product/product.module#ProductModule'
+    },
+    {
+      path: 'search',
+      loadChildren: './modules/search/search.module#SearchModule'
+    },
+    {
+      path: 'site',
+      loadChildren: './modules/site/site.module#SiteModule'
+    },
+    {
+      path: 'wishlist',
+      loadChildren: './modules/wishlist/wishlist.module#WishlistModule'
+    },
+    {
+      path: '**',
+      component: PageNotFoundComponent
+    }
+  ];
 }
 
 const routes: Routes = [
-    {
-        path: '',
-        component: RootComponent,
-        data: {
-            headerLayout: 'compact'
-        },
-        children: makeRoutes(PageHomeTwoComponent)
-    }
+  {
+    path: '',
+    component: RootComponent,
+    data: {
+      headerLayout: 'compact'
+    },
+    children: makeRoutes(PageHomeTwoComponent)
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {
-        scrollPositionRestoration: 'enabled',
-        anchorScrolling: 'enabled'
-    })],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled'
+  })],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
