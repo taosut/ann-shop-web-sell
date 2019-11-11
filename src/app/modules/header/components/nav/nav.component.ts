@@ -3,10 +3,10 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
 
 // ANN Shop
 // Interface
-import { User } from 'src/app/shared/interfaces/user';
+import { User } from '../../../../shared/interfaces/user';
 // Service
-import { CopyConfigService } from 'src/app/shared/services/copy-config.service';
-import { RootService } from 'src/app/shared/services/root.service';
+import { CopyConfigService } from '../../../../shared/services/copy-config.service';
+import { RootService } from '../../../../shared/services/root.service';
 import { WishlistService } from '../../../../shared/services/wishlist.service';
 
 

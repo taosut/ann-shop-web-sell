@@ -5,8 +5,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 // ANN Shop
 // Interface
 import { PagingHeaders } from '../../interfaces/common/paging-headers';
-import { CategoryProduct } from 'src/app/shared/interfaces/category/category-product';
-import { CategorySort } from 'src/app/shared/interfaces/category/category-sort';
+import { CategoryProduct } from '../../interfaces/category/category-product';
+import { CategorySort } from '../../interfaces/category/category-sort';
 
 export type Layout = 'grid' | 'grid-with-features' | 'list';
 

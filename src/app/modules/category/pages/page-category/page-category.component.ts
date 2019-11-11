@@ -9,13 +9,13 @@ import { combineLatest, BehaviorSubject } from 'rxjs';
 
 // ANN Shop
 // Interface
-import { CategoryCategory } from 'src/app/shared/interfaces/category/category-category';
-import { CategorySort, CategorySortKind } from 'src/app/shared/interfaces/category/category-sort';
-import { CategoryProduct } from 'src/app/shared/interfaces/category/category-product';
+import { CategoryCategory } from '../../../../shared/interfaces/category/category-category';
+import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/category/category-sort';
+import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 // Service
-import { CategoryService } from 'src/app/shared/services/pages/category.service';
-import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
+import { CategoryService } from '../../../../shared/services/pages/category.service';
+import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
 
 
 @Component({

@@ -12,7 +12,7 @@ import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
 
 // ANN Shop
 // Environment
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 // Interface
 import { ProductProduct } from '../../interfaces/product/product-product';
 import { User } from '../../interfaces/user';
@@ -209,7 +209,7 @@ export class ProductService implements OnDestroy {
           content += '\n';
         }
       }
-      
+
       // Config phone
       if (user.shop.phone) {
         content += '\n';
