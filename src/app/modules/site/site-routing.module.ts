@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 // components
 import { PageDeliveryPolicyComponent } from './pages/page-delivery-policy/page-delivery-policy.component';
 import { PageWholsalePolicyComponent } from './pages/page-wholsale-policy/page-wholsale-policy.component';
+import { TestComponent } from './pages/test/test.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'chi-sach-ban-si',
     component: PageWholsalePolicyComponent
+  },
+  {
+    path: 'test',
+    component: TestComponent
   },
   {
     path: '**',

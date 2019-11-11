@@ -294,7 +294,7 @@ export class ProductComponent implements OnInit {
         .subscribe((copying: boolean) => {
           this.copyingProductInfo = copying;
           this.cd.markForCheck();
-          btCopy.innerHTML = "Đã COPY";
+          btCopy.innerHTML = "Đã Copy";
         })
     );
 

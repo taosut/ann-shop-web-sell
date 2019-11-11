@@ -19,6 +19,9 @@ export class PageHomeTwoComponent implements OnInit {
   private loading3: boolean;
   private loading4: boolean;
   private loading5: boolean;
+  private loading6: boolean;
+  private loading7: boolean;
+  private loading8: boolean;
 
   categories: any;
 
@@ -28,8 +31,11 @@ export class PageHomeTwoComponent implements OnInit {
     this.loading3 = false;
     this.loading4 = false;
     this.loading5 = false;
+    this.loading6 = false;
+    this.loading7 = false;
+    this.loading8 = false;
 
-    this.categories = categories
+    this.categories = categories;
   }
 
   ngOnInit() {
@@ -42,12 +48,15 @@ export class PageHomeTwoComponent implements OnInit {
     this.loading3 = true;
     this.loading4 = true;
     this.loading5 = true;
+    this.loading6 = true;
+    this.loading7 = true;
+    this.loading8 = true;
 
     this.loadingSpinner.show();
   }
 
   private finishLoading() {
-    if (!this.loading1 && !this.loading2 && !this.loading3 && !this.loading4 && !this.loading5)
+    if (!this.loading1 && !this.loading2 && !this.loading3 && !this.loading4 && !this.loading5 && !this.loading6 && !this.loading7 && !this.loading8)
       this.loadingSpinner.close();
   }
 
@@ -73,6 +82,21 @@ export class PageHomeTwoComponent implements OnInit {
 
   loadingBlockProduct5(value: boolean) {
     this.loading5 = value;
+    this.finishLoading();
+  }
+
+  loadingBlockProduct6(value: boolean) {
+    this.loading6 = value;
+    this.finishLoading();
+  }
+
+  loadingBlockProduct7(value: boolean) {
+    this.loading7 = value;
+    this.finishLoading();
+  }
+
+  loadingBlockProduct8(value: boolean) {
+    this.loading8 = value;
     this.finishLoading();
   }
 }

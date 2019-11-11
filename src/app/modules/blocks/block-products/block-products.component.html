@@ -2,7 +2,6 @@
 <div class="block block-products block-products--layout--normal">
   <div class="container">
     <app-block-header [header]="header"></app-block-header>
-
     <div class="block-products__body">
       <div class="block-products__list">
         <div *ngFor="let product of products$ | async; last as isLast" class="block-products__list-item-normal">

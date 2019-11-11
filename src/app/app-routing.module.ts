@@ -31,7 +31,7 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
       loadChildren: './modules/search/search.module#SearchModule'
     },
     {
-      path: 'site',
+      path: 'page',
       loadChildren: './modules/site/site.module#SiteModule'
     },
     {

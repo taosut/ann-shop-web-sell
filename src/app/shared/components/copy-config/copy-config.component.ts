@@ -28,7 +28,7 @@ export class CopyConfigComponent implements OnDestroy, OnInit {
         setting: {
             showSKU: true,
             showProductName: true,
-            increntPrice: 0
+            increntPrice: 50000
         }
     };
     // formattedAmount: string;

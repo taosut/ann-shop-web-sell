@@ -100,8 +100,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
           .subscribe((copying: boolean) => {
             this.copyingProductInfo = copying;
             this.cd.markForCheck();
-            btCopy1.innerHTML = "Đã COPY";
-            btCopy2.innerHTML = "Đã COPY";
+            btCopy1.innerHTML = "Đã Copy";
+            btCopy2.innerHTML = "Đã Copy";
           })
       );
   }

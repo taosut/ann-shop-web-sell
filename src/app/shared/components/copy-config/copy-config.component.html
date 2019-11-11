@@ -1,6 +1,6 @@
 <ng-template #modal>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Cài đặt COPY</h4>
+        <h4 class="modal-title pull-left">Cài đặt Copy sản phẩm</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -8,7 +8,7 @@
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label class="col-form-label">Mã sản phẩm :</label>
+                <label class="col-form-label">Mã sản phẩm:</label>
                 <div class="custom-control custom-switch">
                     <div>
                         <input type="checkbox"
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-form-label">Tên sản phẩm :</label>
+                <label class="col-form-label">Tên sản phẩm:</label>
                 <div class="custom-control custom-switch">
                     <div>
                         <input type="checkbox"
@@ -40,25 +40,24 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-form-label">Giá lẻ cộng thêm :</label>
+                <label class="col-form-label">Giá lẻ cộng thêm:</label>
                 <div class="input-currency">
                     <input type="text"
                         class="form-control"
                         [(ngModel)]="increntPrice"
                         [ngModelOptions]="{standalone: true}"
                         appInputCurrency>
-                    <span>{{ currencySymbol }}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-form-label">Điên thoại đặt hàng :</label>
+                <label class="col-form-label">Điện thoại của khách:</label>
                 <input type="text"
                     class="form-control"
                     [(ngModel)]="user.shop.phone"
                     [ngModelOptions]="{standalone: true}">
             </div>
             <div class="form-group">
-                <label class="col-form-label">Địa chỉ shop :</label>
+                <label class="col-form-label">Địa chỉ của khách:</label>
                 <input type="text"
                     class="form-control"
                     [(ngModel)]="user.shop.address"

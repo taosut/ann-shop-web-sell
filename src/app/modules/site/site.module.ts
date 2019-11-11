@@ -8,6 +8,7 @@ import { SiteRoutingModule } from './site-routing.module';
 // components
 import { PageWholsalePolicyComponent } from './pages/page-wholsale-policy/page-wholsale-policy.component';
 import { PageDeliveryPolicyComponent } from './pages/page-delivery-policy/page-delivery-policy.component';
+import { TestComponent } from './pages/test/test.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { PageDeliveryPolicyComponent } from './pages/page-delivery-policy/page-d
     // pages
     PageDeliveryPolicyComponent,
     PageWholsalePolicyComponent,
+    TestComponent,
   ],
   imports: [
     CommonModule,

@@ -172,16 +172,15 @@ export class ProductService implements OnDestroy {
 
       // Config RegularPrice and RetailPrice
       if (user.setting.increntPrice) {
-        let regularPrice = (+product.regularPrice || 0) + user.setting.increntPrice;
-        let retailPrice = (+product.retailPrice || 0) + user.setting.increntPrice;
+        let retailPrice = (+product.regularPrice || 0) + user.setting.increntPrice;
 
-        content += `📌 Giá: ${formatNumber(retailPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
+        content += `📌 ${formatNumber(retailPrice, this.currency.options.locale, this.currency.options.digitsInfo) || ""} \n`;
         content += '\n';
       }
 
-      content += `🔖 Chất liệu: ${product.materials || ""}\n`;
+      content += `🔖 ${product.materials || ""}\n`;
       content += '\n';
-      content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
+      content += `🔖 ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
       content += '\n';
 
       if (product.colors && product.colors.length) {
@@ -206,13 +205,14 @@ export class ProductService implements OnDestroy {
         });
 
         if (strSize) {
-          content += `📚 Sizes: ${strSize}`;
+          content += `📚 Size: ${strSize}`;
           content += '\n';
         }
       }
-
+      
       // Config phone
       if (user.shop.phone) {
+        content += '\n';
         content += `📌 Điện thoại: ${user.shop.phone || ""}\n`;
         content += '\n';
       }
@@ -226,11 +226,11 @@ export class ProductService implements OnDestroy {
     else {
       content += `${product.sku || ""} - ${product.name || ""}\n`;
       content += '\n';
-      content += `📌 Giá lẻ: ${formatNumber(+product.retailPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || ""} VND\n`;
+      content += `📌 ${formatNumber(+product.retailPrice || 0, this.currency.options.locale, this.currency.options.digitsInfo) || ""}\n`;
       content += '\n';
-      content += `🔖 Chất liệu: ${product.materials || ""}\n`;
+      content += `🔖 ${product.materials || ""}\n`;
       content += '\n';
-      content += `🔖 Mô tả: ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
+      content += `🔖 ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
       if (product.colors && product.colors.length) {
 
         let strColor: string = "";
@@ -253,7 +253,7 @@ export class ProductService implements OnDestroy {
         });
 
         if (strSize) {
-          content += `📚 Sizes: ${strSize}`;
+          content += `📚 Size: ${strSize}`;
           content += '\n';
         }
       }

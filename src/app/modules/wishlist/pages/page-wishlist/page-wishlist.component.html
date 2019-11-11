@@ -1,5 +1,5 @@
 <app-page-header [header]="'Danh sách ưa thích'" [breadcrumbs]="[
-    {label: 'Trang chủ',      url: '../../'},
+    {label: 'Trang chủ',      url: '/'},
     {label: 'Danh sách ưa thích', url: ''}
 ]"></app-page-header>
 
@@ -8,7 +8,7 @@
         <div class="block-empty__body">
             <div class="block-empty__message">Chưa có sản phẩm!</div>
             <div class="block-empty__actions">
-                <a routerLink="../../" class="btn btn-primary btn-sm">Xem sản phẩm</a>
+                <a routerLink="/" class="btn btn-primary btn-sm">Xem sản phẩm</a>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                 <th class="wishlist__column wishlist__column--image">Hình</th>
                 <th class="wishlist__column wishlist__column--product">Sản phẩm</th>
                 <th class="wishlist__column wishlist__column--stock">Kho</th>
-                <th class="wishlist__column wishlist__column--price">Giá sỉ</th>
+                <th class="wishlist__column wishlist__column--price">Giá</th>
                 <th class="wishlist__column wishlist__column--remove"></th>
             </tr>
             </thead>
@@ -43,11 +43,14 @@
                     </div>
                 </td>
                 <td class="wishlist__column wishlist__column--stock">
-                    <div [className]="'badge' + product.availability ? 'badge-success' : 'badge-danger'">
+                    <div [className]="product.availability ? 'badge-success' : 'badge-danger'">
                         {{ product.availability ? 'Còn hàng' : 'Hết hàng' }}
                     </div>
                 </td>
-                <td class="wishlist__column wishlist__column--price">{{ product.regularPrice|currencyFormat }}</td>
+                <td class="wishlist__column wishlist__column--price">
+                    <div>Giá sỉ: {{ product.regularPrice|currencyFormat }}</div>
+                    <div>Giá lẻ: {{ product.retailPrice|currencyFormat }}</div>
+                </td>
                 <td class="wishlist__column wishlist__column--remove">
                     <button type="button" class="btn btn-light btn-sm btn-svg-icon" (click)="remove(product)" [ngClass]="{'btn-loading': removedProducts.includes(product)}">
                         <app-icon name="cross-12" size="12"></app-icon>
