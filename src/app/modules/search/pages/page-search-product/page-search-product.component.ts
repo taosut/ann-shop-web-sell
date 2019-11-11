@@ -9,12 +9,12 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 
 // ANN Shop
 // Interface
-import { PagingHeaders } from 'src/app/shared/interfaces/common/paging-headers';
-import { SearchProductSort, SearchProductSortKind } from 'src/app/shared/interfaces/search/search-product-sort';
-import { SearchProductProduct } from 'src/app/shared/interfaces/search/search-product-product';
+import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
+import { SearchProductSort, SearchProductSortKind } from '../../../../shared/interfaces/search/search-product-sort';
+import { SearchProductProduct } from '../../../../shared/interfaces/search/search-product-product';
 // Service
-import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
-import { SearchService } from 'src/app/shared/services/search.service';
+import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
+import { SearchService } from '../../../../shared/services/search.service';
 
 
 @Component({

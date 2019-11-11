@@ -4,12 +4,13 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 
 // RxJS
 import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 // ANN Shop
 // Enviroment
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
+// Interface
 import { CategoryCategory } from '../../interfaces/category/category-category';
-import { map, catchError } from 'rxjs/operators';
 import { CategorySort } from '../../interfaces/category/category-sort';
 
 

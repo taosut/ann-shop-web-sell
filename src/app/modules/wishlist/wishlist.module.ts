@@ -7,7 +7,7 @@ import { LazyLoadImageModule, intersectionObserverPreset  } from 'ng-lazyload-im
 
 // ANN Shop
 // modules
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { WishlistRoutingModule } from './wishlist-routing.module';
 // pages
 import { PageWishlistComponent } from './pages/page-wishlist/page-wishlist.component';

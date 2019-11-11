@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 
 // ANN Shop
 // Environment
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 // Interface
 import { HomeProduct } from '../../interfaces/home/home-product';
 

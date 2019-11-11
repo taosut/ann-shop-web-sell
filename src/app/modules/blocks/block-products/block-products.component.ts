@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 // Interface
 import { HomeProduct } from '../../../shared/interfaces/home/home-product';
 // Service
-import { HomeService } from 'src/app/shared/services/pages/home.service';
+import { HomeService } from '../../../shared/services/pages/home.service';
 
 
 @Component({

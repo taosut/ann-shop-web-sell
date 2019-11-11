@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 // ANN Shop
 // Interface
 import { Thumbnail } from '../../../../shared/interfaces/common/thumbnail';
-import { WishlistProduct } from 'src/app/shared/interfaces/wishlist/wishlist-product';
+import { WishlistProduct } from '../../../../shared/interfaces/wishlist/wishlist-product';
 // Service
 import { RootService } from '../../../../shared/services/root.service';
 import { WishlistService } from '../../../../shared/services/wishlist.service';

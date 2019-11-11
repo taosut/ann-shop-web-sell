@@ -7,7 +7,7 @@ import { LazyLoadImageModule, intersectionObserverPreset  } from 'ng-lazyload-im
 
 // ANN Shop
 // modules
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ProductRoutingModule } from './product-routing.module';
 // components
 import { ProductTabsComponent } from './components/product-tabs/product-tabs.component';

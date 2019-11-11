@@ -11,4 +11,5 @@ export interface HomeProduct {
   regularPrice: number;
   retailPrice: number;
   slug: string;
+  availability: boolean;
 }
