@@ -5,54 +5,55 @@
     'product-card--layout--list':                        layout === 'list',
     'product-card--layout--horizontal':                  layout === 'horizontal'
 }">
-    <div class="product-card__image">
-        <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
-            <picture>
-                <source media="(max-width: 478px)"
-                    defaultImage="/assets/images/350x467/placeholder.png"
-                    [attr.lazyLoad]="getImageThumbnail(product.thumbnails, '350x467')">
-                <img defaultImage="/assets/images/240x320/placeholder.png"
-                     [lazyLoad]="getImageThumbnail(product.thumbnails, '240x320')"
-                     offset="100">
-            </picture>
-        </a>
+  <div *ngIf="product" class="product-card__badges-list">
+    <div *ngIf="!product.availability" class="product-card__badge product-card__badge--sale">Hết hàng</div>
+  </div>
+  <div class="product-card__image">
+    <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
+      <picture>
+        <source media="(max-width: 478px)" defaultImage="/assets/images/350x467/placeholder.png"
+          [attr.lazyLoad]="getImageThumbnail(product.thumbnails, '350x467')">
+        <img defaultImage="/assets/images/240x320/placeholder.png"
+          [lazyLoad]="getImageThumbnail(product.thumbnails, '240x320')" offset="100">
+      </picture>
+    </a>
+  </div>
+  <div class="product-card__info">
+    <div class="product-card__name">
+      <a appClick [routerLink]="root.product(product.slug)">{{ product.name }}</a>
     </div>
-    <div class="product-card__info">
-        <div class="product-card__name">
-            <a appClick [routerLink]="root.product(product.slug)">{{ product.name }}</a>
-        </div>
-        <div class="product-card__sku">
-            Mã: {{ product.sku }}
-        </div>
-        <ul *ngIf="product.materials" class="product-card__features-list">
-            <li>{{ product.materials }}</li>
-        </ul>
+    <div class="product-card__sku">
+      Mã: {{ product.sku }}
     </div>
-    <div class="product-card__actions">
-        <div class="product-card__availability">
-            Tình trạng:
-            <span [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
-        </div>
-        <div class="product-card__prices">
-            <ng-container>
-                Giá sỉ: {{ product.regularPrice|currencyFormat }}
-            </ng-container>
-
-        </div>
-        <div class="product-card__prices">
-            <ng-container>
-                Giá lẻ: {{ product.retailPrice|currencyFormat }}
-            </ng-container>
-        </div>
-        <!-- Chưa sử dụng -->
-        <div class="product-card__buttons">
-            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1><app-icon name="copy-16" size="16"></app-icon></button>
-            <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}" ><app-icon name="download-16" size="16"></app-icon></button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2><app-icon name="copy-16" size="16"></app-icon> Copy</button>
-            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}"><app-icon name="download-16" size="16"></app-icon> Tải hình</button>
-            <button class="btn btn-primary product-card__wishlist" type="button" appClick (click)="addToWishlist()" [ngClass]="{'btn-loading': addingToWishlist}">
-                <app-icon name="wishlist-16" size="16"></app-icon> <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-            </button>
-        </div>
+    <ul *ngIf="product.materials" class="product-card__features-list">
+      <li>{{ product.materials }}</li>
+    </ul>
+  </div>
+  <div class="product-card__actions">
+    <div class="product-card__availability">
+      Tình trạng:
+      <span
+        [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
     </div>
+    <div class="product-card__prices">
+      <ng-container>
+        Giá sỉ: {{ product.regularPrice|currencyFormat }}
+      </ng-container>
+      </div>
+      <div class="product-card__prices">
+          <ng-container>
+              Giá lẻ: {{ product.retailPrice|currencyFormat }}
+          </ng-container>
+      </div>
+      <div class="product-card__buttons">
+          <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1><app-icon name="copy-16" size="16"></app-icon></button>
+          <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}" ><app-icon name="download-16" size="16"></app-icon></button>
+          <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2><app-icon name="copy-16" size="16"></app-icon> Copy</button>
+          <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}"><app-icon name="download-16" size="16"></app-icon> Tải hình</button>
+          <button class="btn btn-primary product-card__wishlist" type="button" appClick (click)="addToWishlist()" [ngClass]="{'btn-loading': addingToWishlist}">
+              <app-icon name="wishlist-16" size="16"></app-icon> <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+          </button>
+      </div>
+    </div>
+  </div>
 </div>
