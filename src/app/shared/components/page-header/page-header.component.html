@@ -16,5 +16,7 @@
         <div *ngIf="header" class="page-header__title">
             <h1>{{ header }}</h1>
         </div>
+        <div *ngIf="description" [innerHTML]="description">
+        </div>
     </div>
 </div>

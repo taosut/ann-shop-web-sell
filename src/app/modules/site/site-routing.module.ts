@@ -1,26 +1,46 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DanhMucSanPhamComponent } from './pages/danh-muc-san-pham/danh-muc-san-pham.component';
+import { LienHeComponent } from './pages/lien-he/lien-he.component';
+import { HuongDanDatHangComponent } from './pages/huong-dan-dat-hang/huong-dan-dat-hang.component';
+import { ZaloXemHangComponent } from './pages/zalo-xem-hang/zalo-xem-hang.component';
+import { ChinhSachBanSiComponent } from './pages/chinh-sach-ban-si/chinh-sach-ban-si.component';
+import { ThongBaoComponent } from './pages/thong-bao/thong-bao.component';
+import { GioiThieuComponent } from './pages/gioi-thieu/gioi-thieu.component';
 
 // ANN Shop
 // components
-import { PageDeliveryPolicyComponent } from './pages/page-delivery-policy/page-delivery-policy.component';
-import { PageWholsalePolicyComponent } from './pages/page-wholsale-policy/page-wholsale-policy.component';
-import { TestComponent } from './pages/test/test.component';
 
 
 const routes: Routes = [
   {
-    path: 'chinh-sach-giao-hang',
-    component: PageDeliveryPolicyComponent
+    path: 'danh-muc-san-pham',
+    component: DanhMucSanPhamComponent
   },
   {
-    path: 'chi-sach-ban-si',
-    component: PageWholsalePolicyComponent
+    path: 'gioi-thieu',
+    component: GioiThieuComponent
   },
   {
-    path: 'test',
-    component: TestComponent
+    path: 'lien-he',
+    component: LienHeComponent
+  },
+  {
+    path: 'thong-bao',
+    component: ThongBaoComponent
+  },
+  {
+    path: 'huong-dan-dat-hang',
+    component: HuongDanDatHangComponent
+  },
+  {
+    path: 'chinh-sach-ban-si',
+    component: ChinhSachBanSiComponent
+  },
+  {
+    path: 'zalo-xem-hang',
+    component: ZaloXemHangComponent
   },
   {
     path: '**',

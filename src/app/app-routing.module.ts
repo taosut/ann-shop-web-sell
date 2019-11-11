@@ -40,6 +40,10 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
     },
     {
       path: '**',
+      redirectTo: 'not-found'
+    },
+    {
+      path: 'not-found',
       component: PageNotFoundComponent
     }
   ];

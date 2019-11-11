@@ -1,8 +1,7 @@
 export const categories = [
-    {title: 'Quần áo nữ', url: '/category/quan-ao-nu', description: "Quần áo nữ hotgirl các loại", image: 'assets/images/categories/category-15.jpg'},
-    {title: 'Đồ bộ nữ', url: '/category/do-bo-nu', description: "Đồ bộ nữ mặc nhà giá rẻ", image: 'assets/images/categories/category-18.jpg'},
-    {title: 'Váy đầm', url: '/category/vay-dam', description: "Váy đầm hotgirl, Quảng Châu", image: 'assets/images/categories/category-17.jpg'},
-    {title: 'Quần áo nam', url: '/category/quan-ao-nam', description: "Quần áo nam VNXK các loại", image: 'assets/images/categories/category-1.jpg'},
-    {title: 'Áo thun nam', url: '/category/ao-thun-nam', description: "Áo thun nam VNXK giá rẻ", image: 'assets/images/categories/category-3.jpg'},
-    {title: 'Quần nam', url: '/category/quan-nam', description: "Quần thun, jeans, kaki...", image: 'assets/images/categories/category-11.jpg'},
+    {title: 'Quần áo nữ có sẵn', url: '/category/quan-ao-nu', description: "Quần áo nữ mới về hàng", image: 'assets/images/categories/category-15.jpg'},
+    {title: 'Quần áo nam có sẵn', url: '/category/quan-ao-nam', description: "Quần áo nam VNXK mới về", image: 'assets/images/categories/category-1.jpg'},
+    {title: 'Quần áo nam order', url: '/shop-order/nam', description: "Không có sẵn ở kho", image: 'assets/images/categories/category-nam-order.jpg'},
+    {title: 'Quần áo nữ order', url: '/shop-order/nu', description: "Không có sẵn ở kho", image: 'assets/images/categories/category-nu-order.jpg'},
+    {title: 'Nước hoa giá rẻ', url: '/category/nuoc-hoa', description: "Nước hoa giá rẻ", image: 'assets/images/categories/category-44.jpg'},
 ];

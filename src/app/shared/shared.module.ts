@@ -33,6 +33,7 @@ import { ProductsViewComponent } from './components/products-view/products-view.
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductComponent } from './components/product/product.component';
 import { ScrollComponent } from './components/scroll/scroll.component';
+import { ShortcodeComponent } from '../shared/components/shortcode/shortcode.component';
 
 // pipes
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
@@ -64,8 +65,9 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         ProductCardComponent,
         ProductComponent,
         ScrollComponent,
+        ShortcodeComponent,
         // pipes
-        CurrencyFormatPipe
+        CurrencyFormatPipe,
     ],
     imports: [
         // modules (angular)
@@ -103,6 +105,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         ProductCardComponent,
         ProductComponent,
         ScrollComponent,
+        ShortcodeComponent,
         // pipes
         CurrencyFormatPipe
     ]

@@ -35,7 +35,8 @@
                 "input": "node_modules/@fortawesome/fontawesome-free",
                 "output": "assets/vendor/fontawesome"
               },
-              "src/web.config"
+              "src/web.config",
+              "src/uploads"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

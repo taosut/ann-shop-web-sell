@@ -8,6 +8,8 @@ import { Title } from '@angular/platform-browser';
 import { combineLatest, BehaviorSubject } from 'rxjs';
 
 // ANN Shop
+// data
+import { categoryDecriptions } from '../../../../../data/category-description'
 // Interface
 import { CategoryCategory } from 'src/app/shared/interfaces/category/category-category';
 import { CategorySort, CategorySortKind } from 'src/app/shared/interfaces/category/category-sort';
@@ -27,6 +29,7 @@ export class PageCategoryComponent implements OnInit {
   private loadingCategory: BehaviorSubject<boolean>;
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
+  private categoryDicriptions = categoryDecriptions;
 
   columns: 3 | 4 | 5;
   viewMode: 'grid' | 'grid-with-features' | 'list';
@@ -207,5 +210,11 @@ export class PageCategoryComponent implements OnInit {
       query = query.replace(/^&/g, '');
 
     this.location.replaceState(url, query);
+  }
+
+  getDecription(slug: string) {
+    let description = this.categoryDicriptions.filter(x => x.slug === slug);
+
+    return description.length > 0 ? description[0].decription : '';
   }
 }

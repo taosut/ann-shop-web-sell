@@ -8,6 +8,7 @@ import { Link } from '../../interfaces/link';
 })
 export class PageHeaderComponent {
     @Input() header: string;
+    @Input() description: string;
     @Input() breadcrumbs: Link[] = [];
 
     constructor() { }

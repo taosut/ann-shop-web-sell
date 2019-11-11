@@ -1,6 +1,6 @@
-<app-page-header [header]="'Danh sách ưa thích'" [breadcrumbs]="[
+<app-page-header [header]="'Sản phẩm đã lưu'" [breadcrumbs]="[
     {label: 'Trang chủ',      url: '/'},
-    {label: 'Danh sách ưa thích', url: ''}
+    {label: 'Danh sách ưa thích', url: '/wishlist'}
 ]"></app-page-header>
 
 <div class="block block-empty" *ngIf="!(wishlist.items$|async).length">
@@ -8,7 +8,7 @@
         <div class="block-empty__body">
             <div class="block-empty__message">Chưa có sản phẩm!</div>
             <div class="block-empty__actions">
-                <a routerLink="/" class="btn btn-primary btn-sm">Xem sản phẩm</a>
+                <a routerLink="/shop" class="btn btn-primary btn-sm">Xem sản phẩm</a>
             </div>
         </div>
     </div>

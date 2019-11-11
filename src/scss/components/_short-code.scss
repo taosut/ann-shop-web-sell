@@ -1,0 +1,93 @@
+.register-btn {
+    width: 100%;
+    max-width: 400px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .heading-label {
+    background-color: #ececec;
+    width: fit-content;
+    width: -moz-fit-content;
+    padding: 10px 15px;
+    border-left-width: 5px;
+    margin-bottom: 15px;
+    
+    .heading-text {
+      margin-top: 0 !important;
+      margin-bottom: 10px !important;
+      font-weight: 600;
+      font-size: 21px !important;
+      letter-spacing: 0 !important;
+    }
+  }
+  
+  .add-btn {
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    user-select: none;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+    height: 41px;
+    line-height: 41px;
+    color: #fff !important;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    padding: 0px;
+    border-radius: 4px;
+    outline: none;
+  
+    &:hover {
+      opacity: 0.85;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+  
+  .reg-btn {
+    background: rgb(223, 74, 50);
+  }
+  
+  .facebook-btn {
+    background: rgb(59, 89, 152);
+  }
+  
+  .zalo-btn {
+    background: rgb(15, 142, 221);
+  }
+  
+  .icon-span {
+    float: left;
+    height: 41px;
+    width: 41px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .icon-btn {
+    background-image: url(/assets/images/sprite@2x.png?v=15092019);
+    background-size: 404px 383px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+  
+    &.icon-reg {
+      background-position: -362px 0px;
+    }
+  
+    &.icon-zalo {
+      background-position: -240px -72px;
+    }
+  
+    &.icon-facebook {
+      background-position: -290px -288px;
+    }
+  }
