@@ -1,3 +1,4 @@
+import { ProductBadge } from '../common/product-bage';
 import { Thumbnail } from '../common/thumbnail';
 
 
@@ -8,7 +9,7 @@ export interface CategoryProduct {
   thumbnails: Thumbnail[];
   regularPrice: number;
   retailPrice: number;
-  availability: boolean;
   materials: string;
   slug: string;
+  badge: ProductBadge;
 }

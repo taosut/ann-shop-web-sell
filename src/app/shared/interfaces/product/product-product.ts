@@ -1,3 +1,4 @@
+import { ProductBadge } from '../common/product-bage';
 import { ProductColor } from './product-color';
 import { ProductSize } from './product-size';
 import { Thumbnail } from '../common/thumbnail';
@@ -19,5 +20,5 @@ export interface ProductProduct {
   images: string[];
   colors: ProductColor[];
   sizes: ProductSize[];
-  availability: boolean;
+  badge: ProductBadge;
 }

@@ -51,8 +51,12 @@
       </div>
       <ul class="product__meta">
         <li class="product__meta-availability">
-          Tình trạng: <span
-            [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
+          Tình trạng:
+          <ng-template [ngIf]="product?.badge">
+            <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Sản phẩm có sẳn</span>
+            <span *ngIf="product.badge === ProductBadgeEnum.stockOut" class="text-danger">Hết hàng</span>
+            <span *ngIf="product.badge === ProductBadgeEnum.order" class="text-danger">Hàng order</span>
+          </ng-template>
         </li>
         <li>Danh mục: <a href="/category/{{ product.categorySlug }}" appClick>{{ product.categoryName }}</a>
         </li>
@@ -104,11 +108,15 @@
           <div class="product__actions">
             <div class="product__actions-item product__actions-item--copy">
               <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': copyingProductInfo}"
-                appClick (click)="copyProductInfo(copy)" #copy><app-icon name="copy-16" size="16"></app-icon> Copy</button>
+                appClick (click)="copyProductInfo(copy)" #copy>
+                <app-icon name="copy-16" size="16"></app-icon> Copy
+              </button>
             </div>
             <div class="product__actions-item product__actions-item--save-image">
               <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': downloadingImages}"
-                appClick (click)="saveProductImage()"><app-icon name="download-16" size="16"></app-icon> Tải hình</button>
+                appClick (click)="saveProductImage()">
+                <app-icon name="download-16" size="16"></app-icon> Tải hình
+              </button>
             </div>
             <div class="product__actions-item product__actions-item--wishlist">
               <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip"

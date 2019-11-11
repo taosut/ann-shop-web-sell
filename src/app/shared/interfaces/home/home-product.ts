@@ -1,4 +1,5 @@
 import { ProductStyle } from '../common/product-style';
+import { ProductBadge } from '../common/product-bage';
 import { Thumbnail } from '../common/thumbnail';
 
 
@@ -11,5 +12,5 @@ export interface HomeProduct {
   regularPrice: number;
   retailPrice: number;
   slug: string;
-  availability: boolean;
+  badge: ProductBadge;
 }

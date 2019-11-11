@@ -8,6 +8,8 @@ import { Title } from "@angular/platform-browser";
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
 // ANN Shop
+// Enum
+import { ProductBadge } from 'src/app/shared/interfaces/common/product-bage';
 // Interface
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 import { ProductProduct } from '../../../../shared/interfaces/product/product-product';
@@ -35,6 +37,8 @@ export class PageProductComponent implements OnInit {
   product: ProductProduct;
   pagingHeaders: PagingHeaders;
   productRelateds: ProductRelated[];
+
+  ProductBadgeEnum = ProductBadge;
 
   constructor(
     private http: HttpClient,

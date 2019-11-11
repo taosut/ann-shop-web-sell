@@ -22,11 +22,12 @@ import { timer } from 'rxjs';
 
 
 // ANN Shop
+// Enum
+import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
 import { ProductProduct } from '../../interfaces/product/product-product';
 import { ProductImage } from '../../interfaces/product/product-image';
 import { ProductService } from '../../services/pages/product.service';
-import { User } from '../../interfaces/user';
 import { WishlistProduct } from '../../../shared/interfaces/wishlist/wishlist-product'
 // Service
 import { CopyConfigService } from '../../services/copy-config.service';
@@ -128,6 +129,8 @@ export class ProductComponent implements OnInit {
   copyingProductInfo = false;
   downloadingImages: boolean;
 
+  ProductBadgeEnum = ProductBadge;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private cd: ChangeDetectorRef,
@@ -178,7 +181,7 @@ export class ProductComponent implements OnInit {
         name: this.product.name,
         sku: this.product.sku,
         thumbnails: this.product.thumbnails,
-        availability: this.product.availability,
+        badge: this.product.badge,
         regularPrice: this.product.regularPrice,
       }
       this.addingToWishlist = true;

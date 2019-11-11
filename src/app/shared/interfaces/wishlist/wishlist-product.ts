@@ -1,3 +1,4 @@
+import { ProductBadge } from '../common/product-bage';
 import { Thumbnail } from '../common/thumbnail';
 
 
@@ -6,6 +7,6 @@ export interface WishlistProduct {
   name: string;
   sku: string;
   thumbnails: Thumbnail[];
-  availability: boolean;
-  regularPrice: number
+  regularPrice: number;
+  badge: ProductBadge;
 }
