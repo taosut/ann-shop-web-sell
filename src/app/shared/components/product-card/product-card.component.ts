@@ -9,10 +9,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 // ANN Shop
+// Enum
+import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
-import { User } from '../../interfaces/user';
 import { Thumbnail } from '../../interfaces/common/thumbnail';
-
 // Service
 import { CopyConfigService } from '../../services/copy-config.service';
 import { CurrencyService } from '../../services/currency.service';
@@ -39,6 +39,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   copyingProductInfo = false;
   downloadingImages: boolean;
 
+  ProductBadgeEnum = ProductBadge;
+
   constructor(
     private cd: ChangeDetectorRef,
     private toastr: ToastrService,
@@ -46,7 +48,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     public copyConfig: CopyConfigService,
     public currency: CurrencyService,
     public root: RootService,
-    public wishlist: WishlistService
+    public wishlist: WishlistService,
   ) {
     this.downloadingImages = false;
   }

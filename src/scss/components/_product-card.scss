@@ -248,17 +248,17 @@
         #{$margin-inline-end}: 4px;
     }
 }
-.product-card__badge--sale {
-    background: $product-card-badge-sale-bg;
-    color: $product-card-badge-sale-color;
+.product-card__badge--stockOut {
+    background: $product-card-badge-stockOut-bg;
+    color: $product-card-badge-stockOut-color;
 }
-.product-card__badge--new {
-    background: $product-card-badge-new-bg;
-    color: $product-card-badge-new-color;
+.product-card__badge--stockIn {
+    background: $product-card-badge-stockIn-bg;
+    color: $product-card-badge-stockIn-color;
 }
-.product-card__badge--hot {
-    background: $product-card-badge-hot-bg;
-    color: $product-card-badge-hot-color;
+.product-card__badge--order {
+    background: $product-card-badge-order-bg;
+    color: $product-card-badge-order-color;
 }
 
 

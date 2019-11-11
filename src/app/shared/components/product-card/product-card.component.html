@@ -5,8 +5,10 @@
     'product-card--layout--list':                        layout === 'list',
     'product-card--layout--horizontal':                  layout === 'horizontal'
 }">
-  <div *ngIf="product" class="product-card__badges-list">
-    <div *ngIf="!product.availability" class="product-card__badge product-card__badge--sale">Hết hàng</div>
+  <div *ngIf="product?.badge"class="product-card__badges-list">
+    <div *ngIf="product.badge === ProductBadgeEnum.stockIn" class="product-card__badge product-card__badge--stockIn">Sản phẩm có sẳn</div>
+    <div *ngIf="product.badge === ProductBadgeEnum.stockOut" class="product-card__badge product-card__badge--stockOut">Hết hàng</div>
+    <div *ngIf="product.badge === ProductBadgeEnum.order" class="product-card__badge product-card__badge--order">Hàng order</div>
   </div>
   <div class="product-card__image">
     <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
@@ -32,8 +34,11 @@
   <div class="product-card__actions">
     <div class="product-card__availability">
       Tình trạng:
-      <span
-        [className]="product.availability ? 'text-success' : 'text-danger'">{{ product.availability ? 'Còn hàng' : 'Hết hàng' }}</span>
+      <ng-template [ngIf]="product?.badge">
+        <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Sản phẩm có sẳn</span>
+        <span *ngIf="product.badge === ProductBadgeEnum.stockOut" class="text-danger">Hết hàng</span>
+        <span *ngIf="product.badge === ProductBadgeEnum.order" class="text-danger">Hàng order</span>
+      </ng-template>
     </div>
     <div class="product-card__prices">
       <ng-container>

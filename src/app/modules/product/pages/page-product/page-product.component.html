@@ -23,9 +23,14 @@
       <div class="block-categories__list">
         <div *ngFor="let product of productRelateds"
           class="block-categories__item category-card category-card--layout--compact" style="position: relative;">
-          <div *ngIf="product" class="product-card__badges-list">
-              <div *ngIf="!product.availability" class="product-card__badge product-card__badge--sale">Hết hàng</div>
-            </div>
+          <div *ngIf="product?.badge" class="product-card__badges-list">
+            <div *ngIf="product.badge === ProductBadgeEnum.stockIn"
+              class="product-card__badge product-card__badge--stockIn">Sản phẩm có sẳn</div>
+            <div *ngIf="product.badge === ProductBadgeEnum.stockOut"
+              class="product-card__badge product-card__badge--stockOut">Hết hàng</div>
+            <div *ngIf="product.badge === ProductBadgeEnum.order"
+              class="product-card__badge product-card__badge--order">Hàng order</div>
+          </div>
           <div class="category-card__body">
             <div class="category-card__image">
               <img defaultImage="/assets/images/85x113/placeholder.png" [lazyLoad]="product.avatar" offset="100">
