@@ -10,11 +10,11 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 // ANN Shop
 // Interface
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
-import { ProductProduct } from 'src/app/shared/interfaces/product/product-product';
-import { ProductRelated } from 'src/app/shared/interfaces/product/product-related';
+import { ProductProduct } from '../../../../shared/interfaces/product/product-product';
+import { ProductRelated } from '../../../../shared/interfaces/product/product-related';
 //Service
-import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
-import { ProductService } from 'src/app/shared/services/pages/product.service';
+import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
+import { ProductService } from '../../../../shared/services/pages/product.service';
 
 export type LayoutType = 'standard' | 'columnar' | 'sidebar';
 export type PositionType = 'start' | 'end';

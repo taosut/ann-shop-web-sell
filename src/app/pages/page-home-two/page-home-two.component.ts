@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // Data Hard
 import { categories } from '../../../data/shop-block-categories';
 // Service
-import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
+import { LoadingSpinnerService } from '../../shared/services/loading-spinner.service';
 
 
 @Component({
