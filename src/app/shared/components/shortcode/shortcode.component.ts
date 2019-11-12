@@ -1,19 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-shortcode',
   templateUrl: './shortcode.component.html',
   styleUrls: ['./shortcode.component.sass']
 })
-export class ShortcodeComponent implements OnInit {
+export class ShortcodeComponent {
   @Input() name: string;
 
-  constructor() { 
+  constructor() {
     this.name = "";
-  }
-
-  ngOnInit() {
-    console.log(this.name);
   }
 
 }
