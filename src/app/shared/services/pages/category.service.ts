@@ -43,10 +43,24 @@ export class CategoryService {
   }
 
   /**
-   * Lấy url api sản phẩm theo từ khóa
+   * Lấy url api sản phẩm mới về
    */
-  private urlProductSearch(): string {
+  private urlProductNew(): string {
     return `${environment.apiPgaeCategory}/product`;
+  }
+
+  /**
+   * Lấy url api sản phẩm order theo slug category
+   */
+  private urlProductOrder(slug: string, preOrder: string): string {
+    return `${environment.apiPgaeCategory}/${slug}/product/${preOrder}`;
+  }
+
+  /**
+   * Lấy url api sản phẩm order new
+   */
+  private urlProductOrderNew(preOrder: string): string {
+    return `${environment.apiPgaeCategory}/product/${preOrder}`;
   }
 
   /**
@@ -73,30 +87,84 @@ export class CategoryService {
   }
 
   /**
-   * Lấy sản phẩm theo slug category
-   * @param slug category slug
+   * Lấy danh sách sản phẩm
+   * @param slug
+   * @param preOrder 'hang-co-san' | 'hang-order'
+   * @param sort product new | price asc | price desc | model new
+   * @param page
+   * @param limit
+   */
+  private getProduct(slug: string, preOrder: string, sort: number, page: number, limit: number): Observable<any> {
+    const observe = 'response';
+    let url: string;
+    let params: HttpParams;
+
+    if (slug)
+    {
+      if (preOrder)
+        url = this.urlProductOrder(slug, preOrder);
+      else
+        url = this.urlProduct(slug);
+    }
+    else {
+      if (preOrder)
+        url = this.urlProductOrderNew(preOrder);
+      else
+        url = this.urlProductNew();
+    }
+
+    params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('pageSize', limit.toString());
+
+    if (sort) {
+      params = params.set('sort', sort.toString());
+    }
+
+    return this.http.get(url, { observe, params });
+  }
+
+  /**
+   * Lấy danh sách sản phẩm theo category
+   * @param slug
+   * @param sort product new | price asc | price desc | model new
+   * @param page
+   * @param limit
+   */
+  public getProductByCategory(slug: string, sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct("", slug, sort, page, limit);
+  }
+
+  /**
+   * Lấy sản phẩm mới về
    * @param sort product new | price asc | price desc | model new
    * @param page number
    * @param limit number
    */
-  public getProduct(slug: string, sort: number, page: number, limit: number): Observable<any> {
-    const observe = 'response';
-    let params: HttpParams
-
-    if (sort) {
-      params = new HttpParams()
-        .set('sort', sort.toString())
-        .set('pageNumber', page.toString())
-        .set('pageSize', limit.toString());
-
-    }
-    else {
-      params = new HttpParams()
-        .set('pageNumber', page.toString())
-        .set('pageSize', limit.toString());
-    }
-
-    return this.http.get(this.urlProduct(slug), { observe, params });
+  public getProductAll(sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct("", "", sort, page, limit);
   }
 
+  /**
+   * Lấy danh sách sản phẩm order theo category
+   * @param slug
+   * @param preOrder
+   * @param sort product new | price asc | price desc | model new
+   * @param page
+   * @param limit
+   */
+  public getProductOrderByCategory(slug: string, preOrder: string, sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct(slug, preOrder, sort, page, limit);
+  }
+
+  /**
+   * Lấy sản phẩm order mới về
+   * @param preOrder
+   * @param sort product new | price asc | price desc | model new
+   * @param page number
+   * @param limit number
+   */
+  public getProductOrderAll(preOrder: string, sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct("", preOrder, sort, page, limit);
+  }
 }

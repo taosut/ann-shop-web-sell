@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 // RxJS
-import { combineLatest, BehaviorSubject } from 'rxjs';
+import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 
 // ANN Shop
 // Interface
@@ -33,7 +33,6 @@ export class PageProductNewComponent implements OnInit {
   sidebarPosition: 'start' | 'end';
 
   // Query Params
-  slug: string;
   preOrder: string;
   sort: number;
 
@@ -66,7 +65,6 @@ export class PageProductNewComponent implements OnInit {
     });
 
     // Query Params
-    this.slug = "";
     this.preOrder = "";
     this.sort = CategorySortKind.ProductNew;
     this.pagingHeaders = {
@@ -91,19 +89,18 @@ export class PageProductNewComponent implements OnInit {
       // Mở màn hình loanding
       this.loadingSpinner.show();
 
-      this.slug = routeParams["slug"] || this.slug;
       this.preOrder = routeParams["preOrder"] || this.preOrder;
       this.sort = routeParams["sort"] || this.sort;
       this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
 
       // Lấy thông tin category
-      this.getCategory(this.slug);
+      this.getCategory();
 
       // Lấy thông tin sorts
       this.getSorts();
 
       // Lấy danh sách sản phẩm
-      this.getProducts(this.slug, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+      this.getProducts(this.preOrder, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
     })
 
     combineLatest(this.loadingCategory, this.loadingSort, this.loadingProduct)
@@ -114,11 +111,11 @@ export class PageProductNewComponent implements OnInit {
       });
   }
 
-  private getCategory(slug: string) {
+  private getCategory() {
     this.loadingCategory.next(true);
     this.category = {
       name: "Hàng mới về",
-      slug: slug
+      slug: ''
     }
     this.titleService.setTitle(this.category.name);
     this.loadingCategory.next(false);
@@ -138,10 +135,16 @@ export class PageProductNewComponent implements OnInit {
       );
   }
 
-  private getProducts(slug: string, sort: number, page: number, limit: number) {
+  private getProducts(preOrder: string, sort: number, page: number, limit: number) {
+    let products: Observable<any>;
+
+    if (preOrder)
+      products = this.service.getProductOrderAll(preOrder, sort, page, limit);
+    else
+      products = this.service.getProductAll(sort, page, limit);
+
     this.loadingProduct.next(true);
-    this.service.getProduct(slug, sort, page, limit)
-      .subscribe(
+    products.subscribe(
         resp => {
           this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
           this.products = <CategoryProduct[]>resp.body;
@@ -165,7 +168,7 @@ export class PageProductNewComponent implements OnInit {
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.slug, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.preOrder, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
@@ -182,7 +185,7 @@ export class PageProductNewComponent implements OnInit {
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.slug, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.preOrder, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
