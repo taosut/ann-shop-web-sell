@@ -9,7 +9,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 
 // ANN Shop
 // Enum
-import { ProductBadge } from 'src/app/shared/interfaces/common/product-bage';
+import { ProductBadge } from '../../../../shared/interfaces/common/product-bage';
 // Interface
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 import { ProductProduct } from '../../../../shared/interfaces/product/product-product';
