@@ -37,6 +37,7 @@ export class PageCategoryComponent implements OnInit {
 
   // Query Params
   slug: string;
+  preOrder: string;
   sort: number;
 
   category: CategoryCategory;
@@ -69,6 +70,7 @@ export class PageCategoryComponent implements OnInit {
 
     // Query Params
     this.slug = "";
+    this.preOrder = "";
     this.sort = CategorySortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
@@ -93,6 +95,7 @@ export class PageCategoryComponent implements OnInit {
       this.loadingSpinner.show();
 
       this.slug = routeParams["slug"] || this.slug;
+      this.preOrder = routeParams["preOrder"] || this.preOrder;
       this.sort = routeParams["sort"] || this.sort;
       this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
 

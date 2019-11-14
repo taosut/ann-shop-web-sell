@@ -16,6 +16,14 @@ const routes: Routes = [
     }
   },
   {
+    path: ':slug/:preOrder',
+    component: PageCategoryComponent,
+    data: {
+      columns: 4,
+      viewMode: 'grid'
+    }
+  },
+  {
     path: '**',
     redirectTo: '/not-found'
   }

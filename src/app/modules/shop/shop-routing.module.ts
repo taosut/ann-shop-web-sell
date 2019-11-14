@@ -13,6 +13,14 @@ const routes: Routes = [
       columns: 4,
       viewMode: 'grid'
     }
+  },
+  {
+    path: ':preOrder',
+    component: PageProductNewComponent,
+    data: {
+      columns: 4,
+      viewMode: 'grid'
+    }
   }
 ];
 
