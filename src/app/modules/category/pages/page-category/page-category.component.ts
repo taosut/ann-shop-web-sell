@@ -1,8 +1,7 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 // RxJS
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
@@ -16,8 +15,9 @@ import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/ca
 import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 // Service
-import { CategoryService } from '../../../../shared/services/pages/category.service';
+import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
+import { CategoryService } from '../../../../shared/services/pages/category.service';
 
 
 @Component({
@@ -47,9 +47,8 @@ export class PageCategoryComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private router: Router,
     private route: ActivatedRoute,
-    private titleService: Title,
+    private titleService: TitleService,
     private service: CategoryService,
     private loadingSpinner: LoadingSpinnerService
   ) {
@@ -163,9 +162,6 @@ export class PageCategoryComponent implements OnInit {
         },
         (err) => {
           this.loadingProduct.next(false);
-          if (err.status === 404) {
-            this.router.navigate(['/not-found']);
-          }
         }
       );
   }

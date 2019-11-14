@@ -131,14 +131,6 @@
             #{$margin-inline-end}: 18px;
         }
     }
-
-    a {
-        color: inherit;
-        transition: color .2s;
-    }
-    a:hover {
-        color: $link-hover-color;
-    }
 }
 .product__availability {
     display: none;
@@ -150,6 +142,14 @@
     font-weight: $font-weight-bold;
     letter-spacing: -.03em;
     color: $price-color;
+}
+.product__wholesale-prices {
+    margin-top: 18px;
+    margin-bottom: 14px;
+    font-size: 28px;
+    font-weight: $font-weight-bold;
+    letter-spacing: -.03em;
+    color: $wholesale-price-color;
 }
 .product__new-price {
     color: $price-new-color;

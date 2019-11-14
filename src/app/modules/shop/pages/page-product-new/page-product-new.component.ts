@@ -2,20 +2,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 
 // RxJS
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 
 // ANN Shop
 // Interface
-import { CategoryCategory } from '../../../../shared/interfaces/category/category-category';
 import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/category/category-sort';
 import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 // Service
-import { CategoryService } from '../../../../shared/services/pages/category.service';
+import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
+import { CategoryService } from '../../../../shared/services/pages/category.service';
 
 
 @Component({
@@ -24,7 +23,6 @@ import { LoadingSpinnerService } from '../../../../shared/services/loading-spinn
   styleUrls: ['./page-product-new.component.scss']
 })
 export class PageProductNewComponent implements OnInit {
-  private loadingCategory: BehaviorSubject<boolean>;
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
 
@@ -36,20 +34,17 @@ export class PageProductNewComponent implements OnInit {
   preOrder: string;
   sort: number;
 
-  category: CategoryCategory;
   sorts: CategorySort[];
   products: CategoryProduct[];
   pagingHeaders: PagingHeaders;
 
   constructor(
     private location: Location,
-    private router: Router,
     private route: ActivatedRoute,
-    private titleService: Title,
+    private titleService: TitleService,
     private service: CategoryService,
     private loadingSpinner: LoadingSpinnerService
   ) {
-    this.loadingCategory = new BehaviorSubject<boolean>(false);
     this.loadingSort = new BehaviorSubject<boolean>(false);
     this.loadingProduct = new BehaviorSubject<boolean>(false);
 
@@ -78,6 +73,8 @@ export class PageProductNewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Hàng mới về');
+
     // Thức show thông tin sản phẩm theo slug danh mục
     const urlParams = combineLatest(
       this.route.params,
@@ -93,9 +90,6 @@ export class PageProductNewComponent implements OnInit {
       this.sort = routeParams["sort"] || this.sort;
       this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
 
-      // Lấy thông tin category
-      this.getCategory();
-
       // Lấy thông tin sorts
       this.getSorts();
 
@@ -103,22 +97,12 @@ export class PageProductNewComponent implements OnInit {
       this.getProducts(this.preOrder, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
     })
 
-    combineLatest(this.loadingCategory, this.loadingSort, this.loadingProduct)
-      .subscribe(([loadingCategory, loadingSort, loadingProduct]) => {
-        if (!loadingCategory && !loadingSort && !loadingProduct) {
+    combineLatest(this.loadingSort, this.loadingProduct)
+      .subscribe(([loadingSort, loadingProduct]) => {
+        if (!loadingSort && !loadingProduct) {
           this.loadingSpinner.close();
         }
       });
-  }
-
-  private getCategory() {
-    this.loadingCategory.next(true);
-    this.category = {
-      name: "Hàng mới về",
-      slug: ''
-    }
-    this.titleService.setTitle(this.category.name);
-    this.loadingCategory.next(false);
   }
 
   private getSorts() {
@@ -152,9 +136,6 @@ export class PageProductNewComponent implements OnInit {
         },
         (err) => {
           this.loadingProduct.next(false);
-          if (err.status === 404) {
-            this.router.navigate(['/not-found']);
-          }
         }
       );
   }

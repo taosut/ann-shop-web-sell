@@ -51,9 +51,9 @@
       </div>
       <ul class="product__meta">
         <li class="product__meta-availability">
-          Tình trạng:
+          Trạng thái:
           <ng-template [ngIf]="product?.badge">
-            <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Sản phẩm có sẳn</span>
+            <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Có sẳn</span>
             <span *ngIf="product.badge === ProductBadgeEnum.stockOut" class="text-danger">Hết hàng</span>
             <span *ngIf="product.badge === ProductBadgeEnum.order" class="text-danger">Hàng order</span>
           </ng-template>
@@ -74,7 +74,7 @@
           </ng-template>
       </div>
 
-      <div class="product__prices">
+      <div class="product__wholesale-prices">
         <ng-container>
           Giá sỉ: <span class="product__price">{{ product.regularPrice|currencyFormat }}</span>
         </ng-container>

@@ -1,8 +1,6 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from "@angular/platform-browser";
 
 // Rxjs
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -15,6 +13,7 @@ import { PagingHeaders } from '../../../../shared/interfaces/common/paging-heade
 import { ProductProduct } from '../../../../shared/interfaces/product/product-product';
 import { ProductRelated } from '../../../../shared/interfaces/product/product-related';
 //Service
+import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
 import { ProductService } from '../../../../shared/services/pages/product.service';
 
@@ -41,12 +40,11 @@ export class PageProductComponent implements OnInit {
   ProductBadgeEnum = ProductBadge;
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private titleService: Title,
+    private titleService: TitleService,
+    private loadingSpinner: LoadingSpinnerService,
     private service: ProductService,
-    private loadingSpinner: LoadingSpinnerService
   ) {
     this.loadingProduct = new BehaviorSubject<boolean>(false);
     this.loadingProductRelated = new BehaviorSubject<boolean>(false);

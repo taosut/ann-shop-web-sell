@@ -21,6 +21,7 @@ export class ProductsViewComponent {
   @Input() sorts: CategorySort[];
   @Input() products: CategoryProduct[];
   @Input() pagingHeaders: PagingHeaders;
+  @Input() loading: boolean;
 
   @Output('sortChange') sortEvent: EventEmitter<number>;
   @Output('pageChange') pageEvent: EventEmitter<number>;

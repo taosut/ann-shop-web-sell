@@ -33,14 +33,14 @@
   </div>
   <div class="product-card__actions">
     <div class="product-card__availability">
-      Tình trạng:
+      Trạng thái:
       <ng-template [ngIf]="product?.badge">
         <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Có sẳn</span>
         <span *ngIf="product.badge === ProductBadgeEnum.stockOut" class="text-danger">Hết hàng</span>
         <span *ngIf="product.badge === ProductBadgeEnum.order" class="text-danger">Order</span>
       </ng-template>
     </div>
-    <div class="product-card__prices">
+    <div class="product-card__wholesale-prices">
       <ng-container>
         Giá sỉ: {{ product.regularPrice|currencyFormat }}
       </ng-container>

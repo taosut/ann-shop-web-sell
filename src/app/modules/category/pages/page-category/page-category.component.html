@@ -7,7 +7,8 @@
   <div class="container">
     <div class="block">
       <app-products-view [layout]="viewMode" [grid]="'grid-'+columns+'-full'" [sorts]="sorts" [products]="products"
-        [pagingHeaders]="pagingHeaders" (sortChange)="sortChange($event)" (pageChange)="pageChange($event)">
+        [pagingHeaders]="pagingHeaders" [loading]="loadingProduct | async" (sortChange)="sortChange($event)"
+        (pageChange)="pageChange($event)">
       </app-products-view>
     </div>
   </div>

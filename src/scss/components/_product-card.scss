@@ -168,6 +168,12 @@
     font-weight: $font-weight-bold;
     color: $price-color;
 }
+.product-card__wholesale-prices {
+    margin-top: 14px;
+    line-height: 1;
+    font-weight: $font-weight-bold;
+    color: $wholesale-price-color;
+}
 .product-card__new-price {
     color: $price-new-color;
 }
@@ -223,7 +229,7 @@
     }
 }
 .product-card__badges-list {
-    top: 18px;
+    top: 19px;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -231,7 +237,7 @@
     z-index: 1;
 
     @include direction {
-        #{$inset-inline-start}: 18px;
+        #{$inset-inline-start}: 19px;
     }
 }
 .product-card__badge {
@@ -246,6 +252,20 @@
 
     @include direction {
         #{$margin-inline-end}: 4px;
+    }
+}
+.product-card__badges-list-bottom-product-detail {
+    display: inline;
+
+    .product-card__badge {
+        display: inline;
+        font-size: 11px;
+        border-radius: 1.5px;
+        letter-spacing: .02em;
+        line-height: 1;
+        padding: 5px 8px 4px;
+        font-weight: $font-weight-medium;
+        text-transform: uppercase;
     }
 }
 .product-card__badge--stockOut {

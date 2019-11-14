@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 
 // RxJS
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -13,6 +12,8 @@ import { PagingHeaders } from '../../../../shared/interfaces/common/paging-heade
 import { SearchProductSort, SearchProductSortKind } from '../../../../shared/interfaces/search/search-product-sort';
 import { SearchProductProduct } from '../../../../shared/interfaces/search/search-product-product';
 // Service
+import { RootService } from '../../../../shared/services/root.service';
+import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
 import { SearchService } from '../../../../shared/services/search.service';
 
@@ -42,9 +43,10 @@ export class PageSearchProductComponent implements OnInit {
     private location: Location,
     private router: Router,
     private route: ActivatedRoute,
-    private titleService: Title,
-    private service: SearchService,
-    private loadingSpinner: LoadingSpinnerService
+    private rootService: RootService,
+    private titleService: TitleService,
+    private loadingSpinner: LoadingSpinnerService,
+    private service: SearchService
   ) {
     this.loadingSort = new BehaviorSubject<boolean>(false);
     this.loadingProduct = new BehaviorSubject<boolean>(false);
@@ -131,12 +133,15 @@ export class PageSearchProductComponent implements OnInit {
           this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
           this.products = <SearchProductProduct[]>resp.body;
           this.loadingProduct.next(false);
+
+          if (this.products.length === 1) 
+          {
+            let product = this.products[0];
+            this.router.navigate([this.rootService.product(product.slug)]);
+          }
         },
         (err) => {
           this.loadingProduct.next(false);
-          if (err.status === 404) {
-            this.router.navigate(['/not-found']);
-          }
         }
       );
   }

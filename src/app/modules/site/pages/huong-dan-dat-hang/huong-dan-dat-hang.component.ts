@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from '../../../../shared/services/title.service';
+
 
 @Component({
   selector: 'app-huong-dan-dat-hang',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HuongDanDatHangComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: TitleService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Hướng dẫn đặt hàng');
   }
 
 }
