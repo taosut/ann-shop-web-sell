@@ -53,7 +53,6 @@ export class ProductTabsComponent {
         });
     }
 
-    console.log(images)
     return images;
   }
 
