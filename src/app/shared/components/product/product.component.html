@@ -10,7 +10,7 @@
               <ng-template carouselSlide [id]="image.id">
                 <a appClick (click)="openPhotoSwipe($event, image);" [href]="image.url" target="_blank">
                   <img defaultImage="/assets/images/350x467/placeholder.png"
-                    [lazyLoad]="getImageThumbnail(image.url, '350x467')" offset="100" #imageElement>
+                    [lazyLoad]="getImageThumbnail(image.url, '350x467')" #imageElement>
                 </a>
               </ng-template>
             </ng-container>
@@ -25,7 +25,7 @@
                   [ngClass]="{'product-gallery__carousel-item--active': image.active}" appClick
                   (click)="featuredCarousel.to(image.id); setActiveImage(image)">
                   <img class="product-gallery__carousel-image" [defaultImage]="'/assets/images/85x113/placeholder.png'"
-                    [lazyLoad]="getImageThumbnail(image.url, '85x113')" [offset]="100">
+                    [lazyLoad]="getImageThumbnail(image.url, '85x113')">
                 </span>
               </ng-template>
             </ng-container>

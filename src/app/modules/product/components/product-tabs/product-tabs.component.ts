@@ -12,25 +12,49 @@ export class ProductTabsComponent {
   @Input() tab: TabType;
   @Input() product: any;
 
+  contentImages: string[];
   constructor() {
     this.withSidebar = false;
     this.tab = 'description';
+
+    this.contentImages = [];
   }
 
   get content(): string {
     let content: string = "";
 
-    if (this.product) {
-      let contentImages: string[] = content.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
+    if (this.product && this.product.content) {
+      let images: string[] = this.product.content.match(/<img[\w\W]+?>/g) || [];
 
-      content = `<h2>${this.product.name}</h2>${this.product.content ? this.product.content + "<br>" : ""}`;
-      this.product.images
-        .filter((item: string) => !(item in contentImages))
-        .forEach((item: string) => {
-          content += `<img alt="${this.product.name}" class="img-download" src="${item}"><br>`;
-        });
+      images.forEach((item) => {
+        let srcImage = item.match(/\/[a-zA-Z0-9\/\-\.]+\w/g) || [];
+
+        if (srcImage.length > 0)
+          this.contentImages.push(srcImage[0]);
+      })
+
+      this.product.content = this.product.content.replace(/<img[\w\W]+?>/g, '');
+      content += this.product.content ? this.product.content + "<br>" : "";
     }
 
     return content;
   }
+
+  get images(): string[] {
+    let images: string[] = [];
+
+    this.contentImages.forEach((item) => images.push(item));
+
+    if (this.product && this.product.images) {
+      this.product.images
+        .filter((item: string) => !(item in this.contentImages))
+        .forEach((item: string) => {
+          images.push(item);
+        });
+    }
+
+    console.log(images)
+    return images;
+  }
+
 }

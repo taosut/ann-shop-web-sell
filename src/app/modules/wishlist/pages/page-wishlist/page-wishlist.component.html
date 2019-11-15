@@ -29,7 +29,7 @@
             <tbody class="wishlist__body">
             <tr *ngFor="let product of wishlist.items$|async" class="wishlist__row">
                 <td class="wishlist__column wishlist__column--image">
-                    <a [routerLink]="root.product(product.id)" *ngIf="product.thumbnails.length">
+                    <a [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
                         <picture>
                             <source media="(max-width: 766px)" [srcset]="getImageThumbnail(product.thumbnails, '350x467')">
                             <img [src]="getImageThumbnail(product.thumbnails, '240x320')" alt="">
@@ -37,14 +37,19 @@
                     </a>
                 </td>
                 <td class="wishlist__column wishlist__column--product">
-                    <a [routerLink]="root.product(product.id)" class="wishlist__product-name">{{ product.name }}</a>
+                    <a [routerLink]="root.product(product.slug)" class="wishlist__product-name">{{ product.name }}</a>
                     <div class="wishlist__product-sku">
                         Mã: {{ product.sku }}
                     </div>
                 </td>
                 <td class="wishlist__column wishlist__column--stock">
-                    <div [className]="product.availability ? 'badge-success' : 'badge-danger'">
-                        {{ product.availability ? 'Còn hàng' : 'Hết hàng' }}
+                    <div *ngIf="product?.badge" class="product-card__badges-list-bottom-product-detail">
+                        <div *ngIf="product.badge === ProductBadgeEnum.stockIn"
+                            class="product-card__badge product-card__badge--stockIn">Có sẳn</div>
+                        <div *ngIf="product.badge === ProductBadgeEnum.stockOut"
+                            class="product-card__badge product-card__badge--stockOut">Hết hàng</div>
+                        <div *ngIf="product.badge === ProductBadgeEnum.order"
+                            class="product-card__badge product-card__badge--order">Order</div>
                     </div>
                 </td>
                 <td class="wishlist__column wishlist__column--price">

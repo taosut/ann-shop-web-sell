@@ -1,4 +1,4 @@
-<div *ngIf="product" class="product-tabs" [ngClass]="{'product-tabs--layout--sidebar': withSidebar}">
+<div *ngIf="content || images" class="product-tabs" [ngClass]="{'product-tabs--layout--sidebar': withSidebar}">
   <div class="product-tabs__list">
     <a href="#tab-description" class="product-tabs__item"
       [ngClass]="{'product-tabs__item--active': tab === 'description'}"
@@ -10,7 +10,13 @@
 
     <div class="product-tabs__pane" id="tab-description"
       [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
-      <div class="typography" [innerHTML]="content"></div>
+      <div class="typography">
+        <div class="content" *ngIf="content" [innerHTML]="content"></div>
+        <ng-template [ngIf]="images" ngFor let-image [ngForOf]="images" let-i="index">
+          Hình ảnh: {{i}} {{images.lenght}} {{image}}
+          <img *ngIf="i !== images.lenght - 1" [alt]="product?.name" defaultImage="/assets/images/350x467/placeholder.png" [lazyLoad]="image">
+        </ng-template>
+      </div>
     </div>
 
   </div>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 // ANN Shop
 // Interface
+import { ProductBadge } from '../../../../shared/interfaces/common/product-bage';
 import { Thumbnail } from '../../../../shared/interfaces/common/thumbnail';
 import { WishlistProduct } from '../../../../shared/interfaces/wishlist/wishlist-product';
 // Service
@@ -17,7 +18,7 @@ import { WishlistService } from '../../../../shared/services/wishlist.service';
 export class PageWishlistComponent {
   addedToCartProducts: WishlistProduct[];
   removedProducts: WishlistProduct[];
-
+  ProductBadgeEnum = ProductBadge;
 
   constructor(
     public root: RootService,

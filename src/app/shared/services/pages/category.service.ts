@@ -132,7 +132,7 @@ export class CategoryService {
    * @param limit
    */
   public getProductByCategory(slug: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct("", slug, sort, page, limit);
+    return this.getProduct(slug, "", sort, page, limit);
   }
 
   /**
