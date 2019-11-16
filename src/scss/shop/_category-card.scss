@@ -112,14 +112,14 @@
 
 .category-card--layout--compact {
     .category-card__body {
-        padding: 16px 30px;
+        padding: 10px 15px;
         align-items: center;
     }
     .category-card__image {
-        width: 74px;
+        width: 64px;
 
         @include direction {
-            #{$margin-inline-end}: 30px;
+            #{$margin-inline-end}: 20px;
         }
     }
     .category-card__links {

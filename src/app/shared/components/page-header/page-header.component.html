@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="page-header__container container">
-        <div class="page-header__breadcrumb">
+        <div *ngIf="breadcrumbs" class="page-header__breadcrumb">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <ng-container *ngFor="let breadcrumb of breadcrumbs; last as last">

@@ -1,7 +1,7 @@
 <!-- .block-categories -->
 <div class="block block--highlighted block-categories block-categories--layout--{{ layout }}">
   <div class="container">
-    <app-block-header [header]="header"></app-block-header>
+    <app-block-header *ngIf="header" [header]="header"></app-block-header>
     <div class="block-categories__list">
       <div *ngFor="let category of categories"
         class="block-categories__item category-card category-card--layout--{{ layout }}">

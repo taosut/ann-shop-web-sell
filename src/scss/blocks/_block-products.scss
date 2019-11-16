@@ -19,6 +19,16 @@ $local-product-margin: 6px;
         flex-grow: 1;
     }
 }
+.block-products__footer {
+    display: block;
+    margin-top: 15px;
+    
+    @media (max-width: 479px) {
+        .btn {
+            width: 100%;
+        }
+    }
+}
 .block-products__featured {
     display: flex;
     flex-direction: column;
