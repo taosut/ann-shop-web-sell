@@ -2,16 +2,16 @@ import { MobileMenuItem } from '../app/shared/interfaces/mobile-menu-item';
 
 export const mobileMenu: MobileMenuItem[] = [
     {type: 'link', label: 'Trang chủ', url: '/'},
-    {type: 'link', label: 'Hàng mới về', url: '/shop'},
+    {type: 'link', label: 'Hàng có sẵn mới về', url: '/shop/hang-co-san'},
+    {type: 'link', label: 'Hàng order mới về', url: '/shop/hang-order'},
     {type: 'button', label: 'Danh mục sản phẩm', children: [
+        {type: 'link', label: 'Bao lì xì tết', url: '/category/bao-li-xi-tet'},
         {type: 'link', label: 'Quần áo nam', url: '/category/quan-ao-nam', children: [
             {type: 'link', label: 'Áo thun nam', url: '/category/ao-thun-nam'},
             {type: 'link', label: 'Áo thun cá sấu',    url: '/category/ao-thun-ca-sau'},
             {type: 'link', label: 'Áo thun sọc ngang', url: '/category/ao-thun-soc-ngang'},
             {type: 'link', label: 'Áo thun thể thao',  url: '/category/ao-thun-the-thao'},
             {type: 'link', label: 'Sơ mi nam', url: '/category/ao-so-mi-nam'},
-            {type: 'link', label: 'Sơ mi nam VNXK',    url: '/category/ao-so-mi-nam-xuat-khau'},
-            {type: 'link', label: 'Sơ mi nam Hàn Quốc', url: '/category/ao-so-mi-nam-han-quoc'},
             {type: 'link', label: 'Áo khoác nam', url: '/category/ao-khoac-nam'},
             {type: 'link', label: 'Quần nam', url: '/category/quan-nam'},
             {type: 'link', label: 'Quần jeans nam',    url: '/category/quan-jeans-nam'},
@@ -40,6 +40,7 @@ export const mobileMenu: MobileMenuItem[] = [
         {type: 'link', label: 'Chính sách đổi trả', url: '/page/chinh-sach-doi-tra'},
         {type: 'link', label: 'Bảng size quần áo nam', url: '/page/bang-size-quan-ao-nam'},
         {type: 'link', label: 'Các Zalo xem hàng', url: '/page/zalo-xem-hang'},
+        {type: 'link', label: 'Danh mục sản phẩm', url: '/page/danh-muc-san-pham'},
     ]},
     {type: 'link', label: 'Liên hệ', url: '/page/lien-he'},
 ];

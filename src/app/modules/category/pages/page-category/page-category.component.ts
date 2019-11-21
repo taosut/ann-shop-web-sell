@@ -116,6 +116,20 @@ export class PageCategoryComponent implements OnInit {
       });
   }
 
+  get headerPage(): string {
+    let header: string = "";
+
+    if (this.category) {
+      header += this.category.name;
+
+      if (this.preOrder) {
+        header += ` (${this.preOrder === "hang-co-san"? "hàng có sẵn" : "hàng order"})`;
+      }
+    }
+
+    return header
+  }
+
   private getCategory(slug: string) {
     this.loadingCategory.next(true);
     this.service.getCategory(slug)
@@ -161,6 +175,7 @@ export class PageCategoryComponent implements OnInit {
           this.loadingProduct.next(false);
         },
         (err) => {
+          this.products = [];
           this.loadingProduct.next(false);
         }
       );

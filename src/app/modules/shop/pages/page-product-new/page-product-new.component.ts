@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 
 // ANN Shop
+// data
+import { categoryDecriptions } from '../../../../../data/category-description'
 // Interface
 import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/category/category-sort';
 import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
@@ -25,6 +27,7 @@ import { CategoryService } from '../../../../shared/services/pages/category.serv
 export class PageProductNewComponent implements OnInit {
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
+  private categoryDicriptions = categoryDecriptions;
 
   columns: 3 | 4 | 5;
   viewMode: 'grid' | 'grid-with-features' | 'list';
@@ -189,5 +192,21 @@ export class PageProductNewComponent implements OnInit {
       query = query.replace(/^&/g, '');
 
     this.location.replaceState(url, query);
+  }
+
+  get headerPage(): string {
+    let header: string = "Hàng mới về";
+
+    if (this.preOrder) {
+      header += ` (${this.preOrder === "hang-co-san"? "hàng có sẵn" : "hàng order"})`;
+    }
+
+    return header
+  }
+
+  getDecription(slug: string) {
+    let description = this.categoryDicriptions.filter(x => x.slug === slug);
+
+    return description.length > 0 ? description[0].decription : '';
   }
 }

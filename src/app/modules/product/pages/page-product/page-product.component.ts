@@ -84,6 +84,26 @@ export class PageProductComponent implements OnInit {
             this.product = value;
             this.titleService.setTitle(this.product.name);
             this.loadingProduct.next(false);
+            
+            if (this.product.colors.length > 0 || this.product.sizes.length > 0)
+            {
+              // Lấy thông tin sản phẩm con
+              this.loadingProductRelated.next(true);
+              this.service.getProductRelated(params.slug, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize)
+                .subscribe(
+                  resp => {
+                    this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+                    this.productRelateds = <ProductRelated[]>resp.body;
+                    this.loadingProductRelated.next(false);
+                  },
+                  (err) => {
+                    if (err.status === 404) {
+                      this.productRelateds = [];
+                      this.loadingProductRelated.next(false);
+                    }
+                  }
+                );
+            }
           },
           (err) => {
             this.loadingProduct.next(false);
@@ -94,23 +114,9 @@ export class PageProductComponent implements OnInit {
           }
         );
 
-      // Lấy thông tin sản phẩm con
-      this.loadingProductRelated.next(true);
-      this.service.getProductRelated(params.slug, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize)
-        .subscribe(
-          resp => {
-            this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-            this.productRelateds = <ProductRelated[]>resp.body;
-            this.loadingProductRelated.next(false);
-          },
-          (err) => {
-            if (err.status === 404) {
-              this.productRelateds = [];
-              this.loadingProductRelated.next(false);
-            }
-          }
-        );
-    });
+        
+      
+      });
 
     combineLatest(this.loadingProduct, this.loadingProductRelated)
       .subscribe(([loadingProduct, loadingProductRelated]) => {

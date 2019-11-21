@@ -1,18 +1,30 @@
 <app-block-categories header="" layout="compact" [categories]="categories"></app-block-categories>
 
-<!-- Block product 1 -->
-<app-block-products header="Đồ bộ nữ" layout="normal" slug="do-bo-nu" limit="8" (loadingEvent)='loadingBlockProduct1($event)'></app-block-products>
-<!-- Block product 2 -->
+<div class="block block-text-center">
+    <div class="container">
+        <p>
+            <img src="https://khohangsiann.com/wp-content/uploads/thoi-gian-lam-viec-tet-small.png" alt="Thông báo thời gian làm việc mùa tết">
+        </p>
+        <p>
+            <a href="/category/nuoc-hoa" title="Nước hoa giá rẻ"><img src="https://khohangsiann.com/wp-content/uploads/si-nuoc-hoa-gia-re-1.png" alt="Nước hoa giá rẻ"></a>
+        </p>
+    </div>
+</div>
+
+<app-block-products header="Bao lì xì tết" layout="normal" slug="bao-li-xi-tet" limit="4" (loadingEvent)='loadingBlockProduct9($event)'></app-block-products>
+
 <app-block-products header="Váy đầm" layout="normal" slug="vay-dam" limit="8" (loadingEvent)='loadingBlockProduct2($event)'></app-block-products>
-<!-- Block product 3 -->
+
+<app-block-products header="Đồ bộ nữ" layout="normal" slug="do-bo-nu" limit="8" (loadingEvent)='loadingBlockProduct1($event)'></app-block-products>
+
 <app-block-products header="Áo thun nữ" layout="normal" slug="ao-thun-nu" limit="8" (loadingEvent)='loadingBlockProduct3($event)'></app-block-products>
-<!-- Block product 4 -->
+
 <app-block-products header="Áo khoác nữ" layout="normal" slug="ao-khoac-nu" limit="8" (loadingEvent)='loadingBlockProduct4($event)'></app-block-products>
-<!-- Block product 5 -->
+
 <app-block-products header="Quần nữ" layout="normal" slug="quan-nu" limit="8" (loadingEvent)='loadingBlockProduct5($event)'></app-block-products>
-<!-- Block product 6 -->
+
 <app-block-products header="Áo thun nam" layout="normal" slug="ao-thun-nam" limit="8" (loadingEvent)='loadingBlockProduct6($event)'></app-block-products>
-<!-- Block product 7 -->
+
 <app-block-products header="Quần nam" layout="normal" slug="quan-nam" limit="8" (loadingEvent)='loadingBlockProduct7($event)'></app-block-products>
-<!-- Block product 8 -->
+
 <app-block-products header="Áo khoác nam" layout="normal" slug="ao-khoac-nam" limit="4" (loadingEvent)='loadingBlockProduct8($event)'></app-block-products>
