@@ -10,7 +10,7 @@ import { throwError, Observable } from 'rxjs';
 // Enviroment
 import { environment } from '../../../environments/environment';
 // Interface
-import { SearchProductSort } from '../interfaces/search/search-product-sort';
+import { ProductSort } from '../interfaces/common/product-sort';
 
 
 @Injectable({
@@ -23,24 +23,24 @@ export class SearchService {
   /**
    * Lấy url api sort cho màn hình search product
    */
-  private urlSearchProductSort(): string {
+  private urlProductSort(): string {
     return `${environment.apiPageSearch}/search-product/sort`;
   }
 
   /**
    * Lấy url api sản phẩm theo từ khóa cho màn hình search product
    */
-  private urlSearchProductProduct(search: string): string {
+  private urlProduct(search: string): string {
     return `${environment.apiPageSearch}/search-product/${search}`;
   }
 
   /**
    * Lấy danh sách sort trong danh mục
    */
-  public getSearchProductSort(): Observable<SearchProductSort[]> {
-    return this.http.get(this.urlSearchProductSort())
+  public getProductSort(): Observable<ProductSort[]> {
+    return this.http.get(this.urlProductSort())
       .pipe(
-        map((value: SearchProductSort[]) => value),
+        map((value: ProductSort[]) => value),
         catchError((err: Error) => throwError(err))
       )
   }
@@ -52,7 +52,7 @@ export class SearchService {
    * @param page number
    * @param limit number
    */
-  public getSearchProductProduct(search: string, sort: number, page: number, limit: number): Observable<any> {
+  public getProduct(search: string, sort: number, page: number, limit: number): Observable<any> {
     const observe = 'response';
     let params: HttpParams
 
@@ -68,7 +68,7 @@ export class SearchService {
         .set('pageSize', limit.toString());
     }
 
-    return this.http.get(this.urlSearchProductProduct(search), { observe, params });
+    return this.http.get(this.urlProduct(search), { observe, params });
   }
 
 }

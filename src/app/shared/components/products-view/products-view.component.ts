@@ -5,8 +5,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 // ANN Shop
 // Interface
 import { PagingHeaders } from '../../interfaces/common/paging-headers';
-import { CategoryProduct } from '../../interfaces/category/category-product';
-import { CategorySort } from '../../interfaces/category/category-sort';
+import { ProductCard } from '../../interfaces/common/product-card';
+import { ProductSort } from '../../interfaces/common/product-sort';
 
 export type Layout = 'grid' | 'grid-with-features' | 'list';
 
@@ -18,8 +18,8 @@ export type Layout = 'grid' | 'grid-with-features' | 'list';
 export class ProductsViewComponent {
   @Input() layout: Layout;
   @Input() grid: 'grid-3-sidebar' | 'grid-4-full' | 'grid-5-full' = 'grid-3-sidebar';
-  @Input() sorts: CategorySort[];
-  @Input() products: CategoryProduct[];
+  @Input() sorts: ProductSort[];
+  @Input() products: ProductCard[];
   @Input() pagingHeaders: PagingHeaders;
   @Input() loading: boolean;
 

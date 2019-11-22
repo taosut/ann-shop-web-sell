@@ -10,10 +10,11 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 // data
 import { categoryDecriptions } from '../../../../../data/category-description'
 // Interface
-import { CategoryCategory } from '../../../../shared/interfaces/category/category-category';
-import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/category/category-sort';
-import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
+import { Category } from '../../../../shared/interfaces/common/category';
+import { ProductSortKind } from '../../../../shared/interfaces/common/product-sort-kind';
+import { ProductSort } from '../../../../shared/interfaces/common/product-sort';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
+import { ProductCard } from '../../../../shared/interfaces/common/product-card';
 // Service
 import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
@@ -40,9 +41,9 @@ export class PageCategoryComponent implements OnInit {
   preOrder: string;
   sort: number;
 
-  category: CategoryCategory;
-  sorts: CategorySort[];
-  products: CategoryProduct[];
+  category: Category;
+  sorts: ProductSort[];
+  products: ProductCard[];
   pagingHeaders: PagingHeaders;
 
   constructor(
@@ -70,7 +71,7 @@ export class PageCategoryComponent implements OnInit {
     // Query Params
     this.slug = "";
     this.preOrder = "";
-    this.sort = CategorySortKind.ProductNew;
+    this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
       pageSize: 20,
@@ -134,7 +135,7 @@ export class PageCategoryComponent implements OnInit {
     this.loadingCategory.next(true);
     this.service.getCategory(slug)
       .subscribe(
-        (value: CategoryCategory) => {
+        (value: Category) => {
           this.category = value;
           this.titleService.setTitle(this.category.name);
           this.loadingCategory.next(false);
@@ -149,7 +150,7 @@ export class PageCategoryComponent implements OnInit {
     this.loadingSort.next(true);
     this.service.getSort()
       .subscribe(
-        (value: CategorySort[]) => {
+        (value: ProductSort[]) => {
           this.sorts = value;
           this.loadingSort.next(false);
         },
@@ -171,7 +172,7 @@ export class PageCategoryComponent implements OnInit {
     products.subscribe(
         resp => {
           this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-          this.products = <CategoryProduct[]>resp.body;
+          this.products = <ProductCard[]>resp.body;
           this.loadingProduct.next(false);
         },
         (err) => {

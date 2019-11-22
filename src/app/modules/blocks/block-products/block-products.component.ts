@@ -2,13 +2,14 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 // RxJS
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 // ANN Shop
 // Interface
-import { HomeProduct } from '../../../shared/interfaces/home/home-product';
+import { ProductCard } from '../../../shared/interfaces/common/product-card';
 // Service
 import { HomeService } from '../../../shared/services/pages/home.service';
+import { catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -21,13 +22,13 @@ export class BlockProductsComponent implements OnInit {
   @Input() slug: string;
   @Input() limit: number;
 
-  products$: Observable<HomeProduct[]>;
+  products: ProductCard[];
 
   @Output() loadingEvent: EventEmitter<boolean>;
 
   constructor(private service: HomeService) {
     this.limit = 8;
-    this.products$ = new Observable();
+    this.products = [];
     this.loadingEvent = new EventEmitter<boolean>();
   }
 
@@ -36,7 +37,11 @@ export class BlockProductsComponent implements OnInit {
       // Bắt đầu loading
       this.loading(true);
       // Lấy thông tin sản phẩm
-      this.products$ = this.service.getProductCategory(this.slug, this.limit);
+      this.service.getProductCategory(this.slug, this.limit)
+        .subscribe(
+          data => { this.products = data; },
+          err => { this.loading(false); }
+        );
     }
   }
 

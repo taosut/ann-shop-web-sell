@@ -1,10 +1,10 @@
-import { ProductBadge } from '../common/product-bage';
-import { ProductColor } from './product-color';
-import { ProductSize } from './product-size';
-import { Thumbnail } from '../common/thumbnail';
+import { ProductBadge } from './product-bage';
+import { Color } from './color';
+import { Size } from './size';
+import { Thumbnail } from './thumbnail';
 
 
-export interface ProductProduct {
+export interface Product {
   id: number;
   categoryName: string;
   categorySlug: string;
@@ -18,7 +18,7 @@ export interface ProductProduct {
   content: string;
   slug: string;
   images: string[];
-  colors: ProductColor[];
-  sizes: ProductSize[];
+  colors: Color[];
+  sizes: Size[];
   badge: ProductBadge;
 }

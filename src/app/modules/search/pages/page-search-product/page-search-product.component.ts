@@ -9,8 +9,10 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 // ANN Shop
 // Interface
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
-import { SearchProductSort, SearchProductSortKind } from '../../../../shared/interfaces/search/search-product-sort';
-import { SearchProductProduct } from '../../../../shared/interfaces/search/search-product-product';
+import { ProductSort } from '../../../../shared/interfaces/common/product-sort';
+import { ProductSortKind } from '../../../../shared/interfaces/common/product-sort-kind';
+import { ProductCard } from '../../../../shared/interfaces/common/product-card';
+
 // Service
 import { RootService } from '../../../../shared/services/root.service';
 import { TitleService } from '../../../../shared/services/title.service';
@@ -35,8 +37,8 @@ export class PageSearchProductComponent implements OnInit {
   search: string;
   sort: number;
 
-  sorts: SearchProductSort[];
-  products: SearchProductProduct[];
+  sorts: ProductSort[];
+  products: ProductCard[];
   pagingHeaders: PagingHeaders;
 
   constructor(
@@ -64,7 +66,7 @@ export class PageSearchProductComponent implements OnInit {
 
     // Query Params
     this.search = "";
-    this.sort = SearchProductSortKind.ProductNew;
+    this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
       pageSize: 20,
@@ -113,9 +115,9 @@ export class PageSearchProductComponent implements OnInit {
 
   private getSorts() {
     this.loadingSort.next(true);
-    this.service.getSearchProductSort()
+    this.service.getProductSort()
       .subscribe(
-        (value: SearchProductSort[]) => {
+        (value: ProductSort[]) => {
           this.sorts = value;
           this.loadingSort.next(false);
         },
@@ -127,14 +129,14 @@ export class PageSearchProductComponent implements OnInit {
 
   private getProducts(slug: string, sort: number, page: number, limit: number) {
     this.loadingProduct.next(true);
-    this.service.getSearchProductProduct(slug, sort, page, limit)
+    this.service.getProduct(slug, sort, page, limit)
       .subscribe(
         resp => {
           this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-          this.products = <SearchProductProduct[]>resp.body;
+          this.products = <ProductCard[]>resp.body;
           this.loadingProduct.next(false);
 
-          if (this.products.length === 1) 
+          if (this.products.length === 1)
           {
             let product = this.products[0];
             this.router.navigate([this.rootService.product(product.slug)]);

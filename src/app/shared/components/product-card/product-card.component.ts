@@ -5,13 +5,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 import { ToastrService } from 'ngx-toastr';
 
 // RxJS
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 // ANN Shop
 // Enum
 import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
+import { ProductCard } from '../../interfaces/common/product-card';
 import { Thumbnail } from '../../interfaces/common/thumbnail';
 // Service
 import { CopyConfigService } from '../../services/copy-config.service';
@@ -19,7 +20,6 @@ import { CurrencyService } from '../../services/currency.service';
 import { RootService } from '../../services/root.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/pages/product.service';
-import { ProductProduct } from '../../interfaces/product/product-product';
 
 @Component({
   selector: 'app-product-card',
@@ -90,22 +90,22 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     return url
   }
 
-  copyProductInfo(productSlug: string, btCopy1: HTMLButtonElement, btCopy2: HTMLButtonElement): void {
+  copyProductInfo(product: ProductCard, btCopy1: HTMLButtonElement, btCopy2: HTMLButtonElement): void {
     if (this.copyingProductInfo) {
       return;
     }
 
     this.copyingProductInfo = true;
-    this.productService.getProduct(productSlug)
-      .subscribe((product: ProductProduct) =>
-        this.productService.getContentProductAdvertisement(product)
-          .subscribe((copying: boolean) => {
-            this.copyingProductInfo = copying;
-            this.cd.markForCheck();
-            btCopy1.innerHTML = "Đã Copy";
-            btCopy2.innerHTML = "Đã Copy";
-          })
-      );
+    timer(500).subscribe(_ =>
+      this.productService.getContentProductAdvertisement(product)
+        .subscribe((copying: boolean) => {
+          this.copyingProductInfo = copying;
+          this.cd.markForCheck();
+          btCopy1.innerHTML = "Đã Copy";
+          btCopy2.innerHTML = "Đã Copy";
+        })
+    );
+
   }
 
   saveProductImage(product: any): void {

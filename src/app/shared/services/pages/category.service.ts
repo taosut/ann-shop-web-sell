@@ -10,8 +10,8 @@ import { map, catchError } from 'rxjs/operators';
 // Enviroment
 import { environment } from '../../../../environments/environment';
 // Interface
-import { CategoryCategory } from '../../interfaces/category/category-category';
-import { CategorySort } from '../../interfaces/category/category-sort';
+import { Category } from '../../interfaces/common/category';
+import { ProductSort } from '../../interfaces/common/product-sort';
 
 
 @Injectable({
@@ -67,10 +67,10 @@ export class CategoryService {
    * Lấy thông tin danh mục
    * @param slug category slug
    */
-  public getCategory(slug: string): Observable<CategoryCategory> {
+  public getCategory(slug: string): Observable<Category> {
     return this.http.get(this.urlCategory(slug))
       .pipe(
-        map((value: CategoryCategory) => value),
+        map((value: Category) => value),
         catchError((err: Error) => throwError(err))
       )
   }
@@ -78,10 +78,10 @@ export class CategoryService {
   /**
    * Lấy danh sách sort trong danh mục
    */
-  public getSort(): Observable<CategorySort[]> {
+  public getSort(): Observable<ProductSort[]> {
     return this.http.get(this.urlSort())
       .pipe(
-        map((value: CategorySort[]) => value),
+        map((value: ProductSort[]) => value),
         catchError((err: Error) => throwError(err))
       )
   }

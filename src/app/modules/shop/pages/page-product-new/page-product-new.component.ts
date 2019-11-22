@@ -10,9 +10,10 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 // data
 import { categoryDecriptions } from '../../../../../data/category-description'
 // Interface
-import { CategorySort, CategorySortKind } from '../../../../shared/interfaces/category/category-sort';
-import { CategoryProduct } from '../../../../shared/interfaces/category/category-product';
+import { ProductSortKind } from '../../../../shared/interfaces/common/product-sort-kind';
+import { ProductSort } from '../../../../shared/interfaces/common/product-sort';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
+import { ProductCard } from '../../../../shared/interfaces/common/product-card';
 // Service
 import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
@@ -37,8 +38,8 @@ export class PageProductNewComponent implements OnInit {
   preOrder: string;
   sort: number;
 
-  sorts: CategorySort[];
-  products: CategoryProduct[];
+  sorts: ProductSort[];
+  products: ProductCard[];
   pagingHeaders: PagingHeaders;
 
   constructor(
@@ -64,7 +65,7 @@ export class PageProductNewComponent implements OnInit {
 
     // Query Params
     this.preOrder = "";
-    this.sort = CategorySortKind.ProductNew;
+    this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
       pageSize: 20,
@@ -112,7 +113,7 @@ export class PageProductNewComponent implements OnInit {
     this.loadingSort.next(true);
     this.service.getSort()
       .subscribe(
-        (value: CategorySort[]) => {
+        (value: ProductSort[]) => {
           this.sorts = value;
           this.loadingSort.next(false);
         },
@@ -134,7 +135,7 @@ export class PageProductNewComponent implements OnInit {
     products.subscribe(
         resp => {
           this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-          this.products = <CategoryProduct[]>resp.body;
+          this.products = <ProductCard[]>resp.body;
           this.loadingProduct.next(false);
         },
         (err) => {

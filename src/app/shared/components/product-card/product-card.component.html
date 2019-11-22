@@ -52,7 +52,7 @@
     </div>
     <div class="product-card__buttons">
       <button class="btn btn-primary product-card__addtocart" type="button" appClick
-        (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1>
+        (click)="copyProductInfo(product, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy1>
         <app-icon name="copy-16" size="16"></app-icon>
       </button>
       <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)"
@@ -60,7 +60,7 @@
         <app-icon name="download-16" size="16"></app-icon>
       </button>
       <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick
-        (click)="copyProductInfo(product.slug, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2>
+        (click)="copyProductInfo(product, copy1, copy2)" [ngClass]="{'btn-loading': copyingProductInfo}" #copy2>
         <app-icon name="copy-16" size="16"></app-icon> Copy
       </button>
       <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick
