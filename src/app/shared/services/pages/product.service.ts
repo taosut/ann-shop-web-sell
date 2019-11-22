@@ -8,13 +8,14 @@ import { ToastrService } from 'ngx-toastr';
 
 // RxJS
 import { map, catchError, takeUntil } from 'rxjs/operators';
-import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, throwError, BehaviorSubject, Subject, timer } from 'rxjs';
 
 // ANN Shop
 // Environment
 import { environment } from '../../../../environments/environment';
 // Interface
-import { ProductProduct } from '../../interfaces/product/product-product';
+import { ProductCard } from '../../interfaces/common/product-card';
+import { Product } from '../../interfaces/common/product';
 import { User } from '../../interfaces/user';
 // Service
 import { CurrencyService } from '../currency.service';
@@ -76,10 +77,10 @@ export class ProductService implements OnDestroy {
    * Lấy thông tin sản phẩm
    * @param slug product slug
    */
-  public getProduct(slug: string): Observable<ProductProduct> {
+  public getProduct(slug: string): Observable<Product> {
     return this.http.get(this.urlProduct(slug))
       .pipe(
-        map((value: ProductProduct) => value),
+        map((value: Product) => value),
         catchError((err: Error) => throwError(err))
       );
   }
@@ -148,7 +149,7 @@ export class ProductService implements OnDestroy {
     return downloading.pipe(takeUntil(this.destroy$));
   }
 
-  private createContentProductAdvertisement(product: ProductProduct, user?: User): string {
+  private createContentProductAdvertisement(product: ProductCard, user?: User): string {
     let content: string = '';
     if (user) {
       // Config SKU - Product name
@@ -262,7 +263,7 @@ export class ProductService implements OnDestroy {
     return content;
   }
 
-  getContentProductAdvertisement(product: ProductProduct): Observable<boolean> {
+  getContentProductAdvertisement(product: ProductCard): Observable<boolean> {
     let copying: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     // Get user info
@@ -270,21 +271,30 @@ export class ProductService implements OnDestroy {
     let user: User = userJSON ? JSON.parse(userJSON) : null;
 
     if (user) {
-      var textArea = this.dom.createElement("textarea");
+      let textArea = this.dom.createElement("textarea");
+      let readOnly = textArea.readOnly;
+      let editable = textArea.contentEditable;
+
+      textArea.contentEditable = "true";
+      textArea.readOnly = false;
       textArea.style.position = 'fixed';
       textArea.style.left = '0';
       textArea.style.top = '0';
       textArea.style.opacity = '0';
+      textArea.style.height = '0';
+      textArea.style.width = '0';
       this.dom.body.appendChild(textArea);
       textArea.innerHTML = this.createContentProductAdvertisement(product, user);
       textArea.focus();
       // Select Text
-      var range = this.dom.createRange();
+      const range = this.dom.createRange();
       range.selectNodeContents(textArea);
-      let selection = window.getSelection();
+      const selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(range);
       textArea.setSelectionRange(0, 999999);
+      textArea.contentEditable = editable;
+      textArea.readOnly = readOnly;
       // Copy and remove textArea
       this.dom.execCommand('copy');
       this.dom.body.removeChild(textArea);

@@ -25,7 +25,7 @@ import { timer } from 'rxjs';
 // Enum
 import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
-import { ProductProduct } from '../../interfaces/product/product-product';
+import { Product } from '../../interfaces/common/product';
 import { ProductImage } from '../../interfaces/product/product-image';
 import { ProductService } from '../../services/pages/product.service';
 import { WishlistProduct } from '../../../shared/interfaces/wishlist/wishlist-product'
@@ -34,6 +34,7 @@ import { CopyConfigService } from '../../services/copy-config.service';
 import { DirectionService } from '../../services/direction.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { PhotoSwipeService } from '../../services/photo-swipe.service';
+import { ProductCard } from '../../interfaces/common/product-card';
 
 export type Layout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
@@ -44,7 +45,7 @@ export type Layout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  private dataProduct: ProductProduct;
+  private dataProduct: Product;
   private dataLayout: Layout = 'standard';
   private hasVariable: boolean = false;
   private colorElement: HTMLInputElement;
@@ -75,7 +76,7 @@ export class ProductComponent implements OnInit {
     return this.dataLayout;
   }
 
-  @Input() set product(value: ProductProduct) {
+  @Input() set product(value: Product) {
     this.dataProduct = value;
     if (value) {
       let carousel_image: ProductImage[] = [];
@@ -97,7 +98,7 @@ export class ProductComponent implements OnInit {
       this.images = carousel_image;
     }
   }
-  get product(): ProductProduct {
+  get product(): Product {
     return this.dataProduct;
   }
 
@@ -286,20 +287,20 @@ export class ProductComponent implements OnInit {
     return regexFiles.length ? `/uploads/images/${size}/${regexFiles[0]}` : "";
   }
 
-  copyProductInfo(btCopy: HTMLButtonElement): void {
+  copyProductInfo(product: ProductCard, btCopy: HTMLButtonElement): void {
     if (this.copyingProductInfo) {
       return;
     }
 
     this.copyingProductInfo = true;
-    timer(500).subscribe((_) =>
-      this.service.getContentProductAdvertisement(this.product)
+    timer(500).subscribe((_) => {
+      this.service.getContentProductAdvertisement(product)
         .subscribe((copying: boolean) => {
           this.copyingProductInfo = copying;
           this.cd.markForCheck();
           btCopy.innerHTML = "Đã Copy";
         })
-    );
+    });
 
   }
 

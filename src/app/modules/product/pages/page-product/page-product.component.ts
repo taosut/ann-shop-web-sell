@@ -10,7 +10,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 import { ProductBadge } from '../../../../shared/interfaces/common/product-bage';
 // Interface
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
-import { ProductProduct } from '../../../../shared/interfaces/product/product-product';
+import { Product } from '../../../../shared/interfaces/common/product';
 import { ProductRelated } from '../../../../shared/interfaces/product/product-related';
 //Service
 import { TitleService } from '../../../../shared/services/title.service';
@@ -33,7 +33,7 @@ export class PageProductComponent implements OnInit {
   layout: LayoutType;
   sidebarPosition: PositionType;
 
-  product: ProductProduct;
+  product: Product;
   pagingHeaders: PagingHeaders;
   productRelateds: ProductRelated[];
 
@@ -80,11 +80,11 @@ export class PageProductComponent implements OnInit {
       this.loadingProduct.next(true);
       this.service.getProduct(params.slug)
         .subscribe(
-          (value: ProductProduct) => {
+          (value: Product) => {
             this.product = value;
             this.titleService.setTitle(this.product.name);
             this.loadingProduct.next(false);
-            
+
             if (this.product.colors.length > 0 || this.product.sizes.length > 0)
             {
               // Lấy thông tin sản phẩm con
@@ -114,8 +114,8 @@ export class PageProductComponent implements OnInit {
           }
         );
 
-        
-      
+
+
       });
 
     combineLatest(this.loadingProduct, this.loadingProductRelated)

@@ -10,7 +10,7 @@ import { map, catchError } from 'rxjs/operators';
 // Environment
 import { environment } from '../../../../environments/environment';
 // Interface
-import { HomeProduct } from '../../interfaces/home/home-product';
+import { ProductCard } from '../../interfaces/common/product-card';
 
 
 @Injectable({
@@ -32,13 +32,13 @@ export class HomeService {
    * @param slug Slug category
    * @param limit giới hạn
    */
-  getProductCategory(slug: string, limit: number): Observable<HomeProduct[]> {
+  getProductCategory(slug: string, limit: number): Observable<ProductCard[]> {
     const params = new HttpParams()
       .set('pageSize', limit.toString());
 
     return this.http.get(this.urlProductCategory(slug), { params })
       .pipe(
-        map((value: HomeProduct[]) => value),
+        map((value: ProductCard[]) => value),
         catchError((err: Error) => throwError(err))
       );
   }
