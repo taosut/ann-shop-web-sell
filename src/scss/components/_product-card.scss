@@ -280,6 +280,10 @@
     background: $product-card-badge-order-bg;
     color: $product-card-badge-order-color;
 }
+.product-card__badge--sale {
+  background: $product-card-badge-sale-bg;
+  color: $product-card-badge-sale-color;
+}
 
 
 .product-card--layout--horizontal {

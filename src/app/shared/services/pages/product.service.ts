@@ -181,7 +181,14 @@ export class ProductService implements OnDestroy {
 
       content += `🔖 ${product.materials || ""}\n`;
       content += '\n';
-      content += `🔖 ${product.content ? product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '') : ""}\n`;
+      if (product.content) {
+        let temp = document.createElement("div");
+        temp.innerHTML = product.content.replace(/<img[a-zA-Z0-9\s\=\"\-\/\.]+\/>/g, '');
+        content += `🔖 ${temp.textContent || temp.innerText || ""}\n`;
+      }
+      else {
+        content += `🔖 \n`;
+      }
       content += '\n';
 
       if (product.colors && product.colors.length) {

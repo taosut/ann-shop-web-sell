@@ -9,6 +9,7 @@
     <div *ngIf="product.badge === ProductBadgeEnum.stockIn" class="product-card__badge product-card__badge--stockIn">Có sẳn</div>
     <div *ngIf="product.badge === ProductBadgeEnum.stockOut" class="product-card__badge product-card__badge--stockOut">Hết hàng</div>
     <div *ngIf="product.badge === ProductBadgeEnum.order" class="product-card__badge product-card__badge--order">Order</div>
+    <div *ngIf="product.badge === ProductBadgeEnum.sale" class="product-card__badge product-card__badge--sale">Sale</div>
   </div>
   <div class="product-card__image">
     <a appClick [routerLink]="root.product(product.slug)" *ngIf="product.thumbnails.length">
@@ -38,11 +39,17 @@
         <span *ngIf="product.badge === ProductBadgeEnum.stockIn" class="text-success">Có sẳn</span>
         <span *ngIf="product.badge === ProductBadgeEnum.stockOut" class="text-danger">Hết hàng</span>
         <span *ngIf="product.badge === ProductBadgeEnum.order" class="text-danger">Order</span>
+        <span *ngIf="product.badge === ProductBadgeEnum.sale" class="text-warning">Sale</span>
       </ng-template>
     </div>
     <div class="product-card__wholesale-prices">
-      <ng-container>
-        Giá sỉ: {{ product.regularPrice|currencyFormat }}
+      Giá sỉ:
+      <ng-container *ngIf="product.oldPrice">
+          <span class="product-card__new-price">{{ product.regularPrice|currencyFormat }}</span>{{ ' ' }}
+          <span class="product-card__old-price">{{ product.oldPrice|currencyFormat }}</span>
+      </ng-container>
+      <ng-container *ngIf="!product.oldPrice">
+          {{ product.regularPrice|currencyFormat }}
       </ng-container>
     </div>
     <div class="product-card__prices">

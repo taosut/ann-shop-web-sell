@@ -14,6 +14,7 @@ export interface Product {
   thumbnails: Thumbnail[];
   materials: string;
   regularPrice: number;
+  odlPrice: number;
   retailPrice: number;
   content: string;
   slug: string;
