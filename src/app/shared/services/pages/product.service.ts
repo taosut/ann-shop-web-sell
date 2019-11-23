@@ -214,13 +214,13 @@ export class ProductService implements OnDestroy {
       // Config phone
       if (user.shop.phone) {
         content += '\n';
-        content += `📌 Điện thoại: ${user.shop.phone || ""}\n`;
+        content += `📌 ${user.shop.phone || ""}\n`;
         content += '\n';
       }
 
       // Config address
       if (user.shop.address) {
-        content += `📌 Địa chỉ: ${user.shop.address || ""}\n`;
+        content += `📌 ${user.shop.address || ""}\n`;
         content += '\n';
       }
     }
@@ -303,7 +303,7 @@ export class ProductService implements OnDestroy {
     }
     else
     {
-      this.copyConfig.show(user).subscribe();
+      this.copyConfig.show(user, product).subscribe();
       copying.next(false);
     }
 
