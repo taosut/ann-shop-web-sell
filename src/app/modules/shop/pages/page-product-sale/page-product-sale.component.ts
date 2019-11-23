@@ -1,7 +1,7 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 // RxJS
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
@@ -21,11 +21,11 @@ import { CategoryService } from '../../../../shared/services/pages/category.serv
 
 
 @Component({
-  selector: 'app-page-product-new',
-  templateUrl: './page-product-new.component.html',
-  styleUrls: ['./page-product-new.component.scss']
+  selector: 'app-page-product-sale',
+  templateUrl: './page-product-sale.component.html',
+  styleUrls: ['./page-product-sale.component.sass']
 })
-export class PageProductNewComponent implements OnInit {
+export class PageProductSaleComponent implements OnInit {
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
   private categoryDicriptions = categoryDecriptions;
@@ -43,7 +43,6 @@ export class PageProductNewComponent implements OnInit {
   pagingHeaders: PagingHeaders;
 
   constructor(
-    private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private titleService: TitleService,
@@ -65,7 +64,7 @@ export class PageProductNewComponent implements OnInit {
     });
 
     // Query Params
-    this.productBadge = "";
+    this.productBadge = "hang-sale";
     this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
@@ -78,29 +77,14 @@ export class PageProductNewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Hàng mới về');
+    this.titleService.setTitle('Hàng Sale');
 
-    // Thức show thông tin sản phẩm theo slug danh mục
-    const urlParams = combineLatest(
-      this.route.params,
-      this.route.queryParams,
-      (params, queryParams) => ({ ...params, ...queryParams })
-    );
-
-    urlParams.subscribe(routeParams => {
-
-
+    this.route.queryParams.subscribe(params => {
       // Mở màn hình loanding
       this.loadingSpinner.show();
 
-      this.productBadge = routeParams["productBadge"] || this.productBadge;
-      if (!["hang-co-san", "hang-order"].includes(this.productBadge)) {
-        this.loadingSpinner.close();
-        this.router.navigate(['/not-found']);
-      }
-
-      this.sort = routeParams["sort"] || this.sort;
-      this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
+      this.sort = params["sort"] || this.sort;
+      this.pagingHeaders.currentPage = +params["page"] || this.pagingHeaders.currentPage;
 
       // Lấy thông tin sorts
       this.getSorts();
@@ -141,15 +125,15 @@ export class PageProductNewComponent implements OnInit {
 
     this.loadingProduct.next(true);
     products.subscribe(
-      resp => {
-        this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
-        this.products = <ProductCard[]>resp.body;
-        this.loadingProduct.next(false);
-      },
-      (err) => {
-        this.loadingProduct.next(false);
-      }
-    );
+        resp => {
+          this.pagingHeaders = <PagingHeaders>JSON.parse(resp.headers.get('x-paging-headers'));
+          this.products = <ProductCard[]>resp.body;
+          this.loadingProduct.next(false);
+        },
+        (err) => {
+          this.loadingProduct.next(false);
+        }
+      );
   }
 
   sortChange(value: number) {
@@ -204,11 +188,7 @@ export class PageProductNewComponent implements OnInit {
   }
 
   get headerPage(): string {
-    let header: string = "Hàng mới về";
-
-    if (this.productBadge) {
-      header += ` (${this.productBadge === "hang-co-san" ? "hàng có sẵn" : "hàng order"})`;
-    }
+    let header: string = "Hàng Sale";
 
     return header
   }

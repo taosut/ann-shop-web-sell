@@ -15,11 +15,13 @@ import { ShopRoutingModule } from './shop-routing.module';
 
 // pages
 import { PageProductNewComponent } from './pages/page-product-new/page-product-new.component';
+import { PageProductSaleComponent } from './pages/page-product-sale/page-product-sale.component';
 
 @NgModule({
     declarations: [
         // pages
         PageProductNewComponent,
+        PageProductSaleComponent,
     ],
     imports: [
         // modules (angular)

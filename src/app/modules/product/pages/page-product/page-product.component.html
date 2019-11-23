@@ -40,6 +40,8 @@
                   class="product-card__badge product-card__badge--stockOut">Hết hàng</div>
                 <div *ngIf="product.badge === ProductBadgeEnum.order"
                   class="product-card__badge product-card__badge--order">Order</div>
+                <div *ngIf="product.badge === ProductBadgeEnum.sale"
+                  class="product-card__badge product-card__badge--sale">Sale</div>
               </div>
             </div>
           </div>

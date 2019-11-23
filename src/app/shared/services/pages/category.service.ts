@@ -52,15 +52,15 @@ export class CategoryService {
   /**
    * Lấy url api sản phẩm order theo slug category
    */
-  private urlProductOrder(slug: string, preOrder: string): string {
-    return `${environment.apiPgaeCategory}/${slug}/product/${preOrder}`;
+  private urlProductOrder(slug: string, productBadge: string): string {
+    return `${environment.apiPgaeCategory}/${slug}/product/${productBadge}`;
   }
 
   /**
    * Lấy url api sản phẩm order new
    */
-  private urlProductOrderNew(preOrder: string): string {
-    return `${environment.apiPgaeCategory}/product/${preOrder}`;
+  private urlProductOrderNew(productBadge: string): string {
+    return `${environment.apiPgaeCategory}/product/${productBadge}`;
   }
 
   /**
@@ -89,26 +89,26 @@ export class CategoryService {
   /**
    * Lấy danh sách sản phẩm
    * @param slug
-   * @param preOrder 'hang-co-san' | 'hang-order'
+   * @param productBadge 'hang-co-san' | 'hang-order'
    * @param sort product new | price asc | price desc | model new
    * @param page
    * @param limit
    */
-  private getProduct(slug: string, preOrder: string, sort: number, page: number, limit: number): Observable<any> {
+  private getProduct(slug: string, productBadge: string, sort: number, page: number, limit: number): Observable<any> {
     const observe = 'response';
     let url: string;
     let params: HttpParams;
 
     if (slug)
     {
-      if (preOrder)
-        url = this.urlProductOrder(slug, preOrder);
+      if (productBadge)
+        url = this.urlProductOrder(slug, productBadge);
       else
         url = this.urlProduct(slug);
     }
     else {
-      if (preOrder)
-        url = this.urlProductOrderNew(preOrder);
+      if (productBadge)
+        url = this.urlProductOrderNew(productBadge);
       else
         url = this.urlProductNew();
     }
@@ -148,23 +148,23 @@ export class CategoryService {
   /**
    * Lấy danh sách sản phẩm order theo category
    * @param slug
-   * @param preOrder
+   * @param productBadge
    * @param sort product new | price asc | price desc | model new
    * @param page
    * @param limit
    */
-  public getProductOrderByCategory(slug: string, preOrder: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct(slug, preOrder, sort, page, limit);
+  public getProductOrderByCategory(slug: string, productBadge: string, sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct(slug, productBadge, sort, page, limit);
   }
 
   /**
    * Lấy sản phẩm order mới về
-   * @param preOrder
+   * @param productBadge
    * @param sort product new | price asc | price desc | model new
    * @param page number
    * @param limit number
    */
-  public getProductOrderAll(preOrder: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct("", preOrder, sort, page, limit);
+  public getProductOrderAll(productBadge: string, sort: number, page: number, limit: number): Observable<any> {
+    return this.getProduct("", productBadge, sort, page, limit);
   }
 }

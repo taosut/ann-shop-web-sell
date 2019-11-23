@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // ANN Shop
 import { PageProductNewComponent } from './pages/page-product-new/page-product-new.component';
+import { PageProductSaleComponent } from './pages/page-product-sale/page-product-sale.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,15 @@ const routes: Routes = [
     }
   },
   {
-    path: ':preOrder',
+    path: 'hang-sale',
+    component: PageProductSaleComponent,
+    data: {
+      columns: 4,
+      viewMode: 'grid'
+    }
+  },
+  {
+    path: ':productBadge',
     component: PageProductNewComponent,
     data: {
       columns: 4,
