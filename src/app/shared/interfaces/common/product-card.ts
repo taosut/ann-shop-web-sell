@@ -16,6 +16,7 @@ export interface ProductCard {
   availability: boolean;
   thumbnails: Thumbnail[];
   regularPrice: number;
+  oldPrice: number;
   retailPrice: number;
   content: string;
 }
