@@ -69,7 +69,7 @@ export class PageProductNewComponent implements OnInit {
     this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
-      pageSize: 20,
+      pageSize: 28,
       currentPage: 1,
       totalPages: 0,
       previousPage: "No",
@@ -94,7 +94,7 @@ export class PageProductNewComponent implements OnInit {
       this.loadingSpinner.show();
 
       this.productBadge = routeParams["productBadge"] || this.productBadge;
-      if (!["hang-co-san", "hang-order"].includes(this.productBadge)) {
+      if (!["hang-co-san", "hang-order", ""].includes(this.productBadge)) {
         this.loadingSpinner.close();
         this.router.navigate(['/not-found']);
       }

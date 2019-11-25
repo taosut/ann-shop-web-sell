@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // Data Hard
 import { categories } from '../../../data/shop-block-categories';
 // Service
+import { RootService } from '../../shared/services/root.service';
 import { TitleService } from '../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../shared/services/loading-spinner.service';
 
@@ -27,7 +28,11 @@ export class PageHomeTwoComponent implements OnInit {
 
   categories: any;
 
-  constructor(private titleService: TitleService, private loadingSpinner: LoadingSpinnerService) {
+  constructor(
+    private titleService: TitleService,
+    private loadingSpinner: LoadingSpinnerService,
+    public root: RootService
+  ) {
     this.loading1 = false;
     this.loading2 = false;
     this.loading3 = false;

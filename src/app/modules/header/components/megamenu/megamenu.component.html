@@ -8,13 +8,13 @@
           [ngClass]="{'megamenu__item--with-submenu': item.items}">
 
           <a *ngIf="!item.external" [routerLink]="item.url" [target]="item.target">{{ item.label }}</a>
-          <a *ngIf="item.external" [href]="item.url" [target]="item.target">{{ item.label }}</a>
+          <a *ngIf="item.external" [routerLink]="item.url" [target]="item.target">{{ item.label }}</a>
 
           <ul *ngIf="item.items" class="megamenu__links megamenu__links--level--1">
             <li *ngFor="let subItem of item.items" class="megamenu__item">
 
               <a *ngIf="!subItem.external" [routerLink]="subItem.url" [target]="subItem.target">{{ subItem.label }}</a>
-              <a *ngIf="subItem.external" [href]="subItem.url" [target]="subItem.target">{{ subItem.label }}</a>
+              <a *ngIf="subItem.external" [routerLink]="subItem.url" [target]="subItem.target">{{ subItem.label }}</a>
 
             </li>
           </ul>

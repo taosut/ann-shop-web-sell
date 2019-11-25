@@ -2,7 +2,7 @@ import { NavigationLink } from '../app/shared/interfaces/navigation-link';
 
 export const navigation: NavigationLink[] = [
     {label: 'Trang chủ', url: '/'},
-    {label: 'Hàng có sẵn mới về', url:'/shop/hang-co-san', menu: {
+    {label: 'Hàng có sẵn', url:'/shop/hang-co-san', menu: {
         type: 'menu',
         items: [
             {label: 'Quần áo nam có sẵn', url: '/category/quan-ao-nam/hang-co-san'},
@@ -10,11 +10,18 @@ export const navigation: NavigationLink[] = [
             {label: 'Nước hoa có sẵn', url: '/category/nuoc-hoa'}
         ]
     }},
-    {label: 'Hàng order mới về', url:'/shop/hang-order', menu: {
+    {label: 'Hàng order', url:'/shop/hang-order', menu: {
         type: 'menu',
         items: [
             {label: 'Quần áo nam order', url: '/category/quan-ao-nam/hang-order'},
             {label: 'Quần áo nữ order', url: '/category/quan-ao-nu/hang-order'}
+        ]
+    }},
+    {label: 'Hàng sale', url:'/sale', menu: {
+        type: 'menu',
+        items: [
+            {label: 'Quần áo nam sale', url: '/category/quan-ao-nam/hang-sale'},
+            {label: 'Quần áo nữ sale', url: '/category/quan-ao-nu/hang-sale'}
         ]
     }},
     {label: 'Danh mục sản phẩm', url:'/page/danh-muc-san-pham', menu: {

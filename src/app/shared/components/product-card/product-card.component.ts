@@ -108,11 +108,14 @@ export class ProductCardComponent implements OnInit, OnDestroy {
 
   }
 
-  saveProductImage(product: any): void {
-    if (product && product.id && product.sku) {
+  saveProductImage(product: ProductCard): void {
+    if (product && product.productID && product.sku) {
       this.downloadingImages = true;
-      this.productService.downloadAdvertisementImage(product.id, product.sku)
-        .subscribe((downloading: boolean) => { this.downloadingImages = downloading; });
+      this.productService.downloadAdvertisementImage(product.productID, product.sku)
+        .subscribe((downloading: boolean) => { 
+          this.downloadingImages = downloading; 
+          this.cd.markForCheck();
+        });
     }
   }
 }

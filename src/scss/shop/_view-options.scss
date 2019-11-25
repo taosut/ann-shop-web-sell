@@ -73,7 +73,6 @@
         height: 8px;
     }
     .view-options__control {
-        display: block;
 
         @include direction {
             #{$margin-inline-start}: 0;

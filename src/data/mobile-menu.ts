@@ -2,8 +2,9 @@ import { MobileMenuItem } from '../app/shared/interfaces/mobile-menu-item';
 
 export const mobileMenu: MobileMenuItem[] = [
     {type: 'link', label: 'Trang chủ', url: '/'},
-    {type: 'link', label: 'Hàng có sẵn mới về', url: '/shop/hang-co-san'},
-    {type: 'link', label: 'Hàng order mới về', url: '/shop/hang-order'},
+    {type: 'link', label: 'Hàng có sẵn', url: '/shop/hang-co-san'},
+    {type: 'link', label: 'Hàng order', url: '/shop/hang-order'},
+    {type: 'link', label: 'Hàng sale', url: '/sale'},
     {type: 'button', label: 'Danh mục sản phẩm', children: [
         {type: 'link', label: 'Bao lì xì tết', url: '/category/bao-li-xi-tet'},
         {type: 'link', label: 'Quần áo nam', url: '/category/quan-ao-nam', children: [

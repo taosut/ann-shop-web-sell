@@ -18,6 +18,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
 import { FakeSlidesDirective } from './directives/fake-slides.directive';
 import { OwlPreventClickDirective } from './directives/owl-prevent-click.directive';
 import { InputCurrencyDirective } from './directives/input-currency.directive';
+import { RouteTransformerDirective } from './directives/route-transformer.directive';
 
 // components
 import { AlertComponent } from './components/alert/alert.component';
@@ -51,6 +52,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         FakeSlidesDirective,
         OwlPreventClickDirective,
         InputCurrencyDirective,
+        RouteTransformerDirective,
         // components
         AlertComponent,
         CopyConfigComponent,
@@ -91,6 +93,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         FakeSlidesDirective,
         OwlPreventClickDirective,
         InputCurrencyDirective,
+        RouteTransformerDirective,
         // components
         AlertComponent,
         CopyConfigComponent,

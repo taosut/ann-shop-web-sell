@@ -11,9 +11,10 @@
     <div class="product-tabs__pane" id="tab-description"
       [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
       <div class="typography">
-        <div class="content" *ngIf="content" [innerHTML]="content"></div>
+        <div class="content" *ngIf="content" [innerHTML]="content" appRouteTransformer></div>
         <ng-template ngFor let-image [ngForOf]="images">
           <img [alt]="product?.name" defaultImage="/assets/images/350x467/placeholder.png" [lazyLoad]="image">
+          <a [href]="image" rel="nofollow" title="Bấm vào đây để tài hình phía trên" download="" class="btn btn-primary">Tải hình này</a>
         </ng-template>
       </div>
     </div>

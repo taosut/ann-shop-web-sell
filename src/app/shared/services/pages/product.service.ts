@@ -133,16 +133,24 @@ export class ProductService implements OnDestroy {
 
         data.forEach((item: string, index: number) => {
           setTimeout(() => {
-            FileSaver.saveAs(item, `${sku}-${index + 1}`);
+            let extr: string[] = item.match(/.\w+$/g)|| []
+            let fileName: string = "";
+            let fileType: string = "";
+            
+            fileName = `${sku}-${index + 1}`;
+            if (extr.length > 0)
+              fileType = extr[0];
+
+            FileSaver.saveAs(item, `${fileName}${fileType}`);
             if (index === count - 1) {
               downloading.next(false);
-              this.toastr.success("Tải hình ảnh thành công")
+              this.toastr.success("Đang tải hình sản phẩm...")
             }
           }, 1000);
         });
       },
       (err) => {
-        this.toastr.error("Đã có lỗi trong quá trình tải hình ảnh");
+        this.toastr.error("Đã có lỗi trong quá trình tải hình sản phẩm");
       }
     );
 

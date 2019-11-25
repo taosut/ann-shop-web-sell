@@ -68,7 +68,7 @@ export class PageProductSaleComponent implements OnInit {
     this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
-      pageSize: 20,
+      pageSize: 28,
       currentPage: 1,
       totalPages: 0,
       previousPage: "No",
@@ -77,7 +77,7 @@ export class PageProductSaleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Hàng Sale');
+    this.titleService.setTitle('Hàng sale');
 
     this.route.queryParams.subscribe(params => {
       // Mở màn hình loanding
@@ -118,10 +118,7 @@ export class PageProductSaleComponent implements OnInit {
   private getProducts(productBadge: string, sort: number, page: number, limit: number) {
     let products: Observable<any>;
 
-    if (productBadge)
-      products = this.service.getProductOrderAll(productBadge, sort, page, limit);
-    else
-      products = this.service.getProductAll(sort, page, limit);
+    products = this.service.getProductOrderAll(productBadge, sort, page, limit);
 
     this.loadingProduct.next(true);
     products.subscribe(
@@ -188,7 +185,7 @@ export class PageProductSaleComponent implements OnInit {
   }
 
   get headerPage(): string {
-    let header: string = "Hàng Sale";
+    let header: string = "Hàng sale";
 
     return header
   }

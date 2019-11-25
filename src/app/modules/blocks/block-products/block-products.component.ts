@@ -8,8 +8,8 @@ import { Observable, throwError } from 'rxjs';
 // Interface
 import { ProductCard } from '../../../shared/interfaces/common/product-card';
 // Service
+import { RootService } from 'src/app/shared/services/root.service';
 import { HomeService } from '../../../shared/services/pages/home.service';
-import { catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class BlockProductsComponent implements OnInit {
 
   @Output() loadingEvent: EventEmitter<boolean>;
 
-  constructor(private service: HomeService) {
+  constructor(private service: HomeService, public root: RootService) {
     this.limit = 8;
     this.products = [];
     this.loadingEvent = new EventEmitter<boolean>();

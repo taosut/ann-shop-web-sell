@@ -95,6 +95,11 @@
     }
     @media (max-width: 479px) {
         @include local-layout(1, 8px, 6px);
+
+        &[data-with-features="true"] {
+            @include local-layout(2, 8px, 6px);
+            @include product-card-grid-sm();
+        }
     }
 }
 .products-list[data-layout="grid-5-full"] {

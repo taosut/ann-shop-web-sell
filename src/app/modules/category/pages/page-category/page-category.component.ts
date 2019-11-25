@@ -74,7 +74,7 @@ export class PageCategoryComponent implements OnInit {
     this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
-      pageSize: 20,
+      pageSize: 28,
       currentPage: 1,
       totalPages: 0,
       previousPage: "No",
@@ -124,7 +124,19 @@ export class PageCategoryComponent implements OnInit {
       header += this.category.name;
 
       if (this.preOrder) {
-        header += ` (${this.preOrder === "hang-co-san"? "hàng có sẵn" : "hàng order"})`;
+        switch (this.preOrder) {
+          case "hang-co-san":
+            header += ' (hàng có sẵn)';
+            break;
+          case "hang-order":
+              header += ' (hàng order)';
+              break;
+          case "hang-sale":
+            header += ' (hàng sale)';
+            break;
+          default:
+            break;
+        }
       }
     }
 

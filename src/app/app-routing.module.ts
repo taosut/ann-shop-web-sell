@@ -19,6 +19,10 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
       loadChildren: './modules/shop/shop.module#ShopModule'
     },
     {
+      path: 'sale',
+      loadChildren: './modules/sale/sale.module#SaleModule'
+    },
+    {
       path: 'category',
       loadChildren: './modules/category/category.module#CategoryModule'
     },

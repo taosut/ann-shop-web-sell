@@ -185,6 +185,12 @@
     .product-card__features-list {
         display: block;
     }
+
+    @media (max-width: 479px) {
+        .product-card__features-list {
+            display: none;
+        }
+    }
 }
 @mixin product-card-grid-sm() {
     .product-card__image {

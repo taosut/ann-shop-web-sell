@@ -1,5 +1,5 @@
 // Angular
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 
 // ANN Shop
@@ -15,7 +15,7 @@ export type Layout = 'grid' | 'grid-with-features' | 'list';
   templateUrl: './products-view.component.html',
   styleUrls: ['./products-view.component.scss']
 })
-export class ProductsViewComponent {
+export class ProductsViewComponent implements OnInit {
   @Input() layout: Layout;
   @Input() grid: 'grid-3-sidebar' | 'grid-4-full' | 'grid-5-full' = 'grid-3-sidebar';
   @Input() sorts: ProductSort[];
@@ -45,8 +45,16 @@ export class ProductsViewComponent {
     this.pageEvent = new EventEmitter<number>();
   }
 
+  ngOnInit() {
+    let viewMode: Layout = <Layout>localStorage.getItem('viewMode') || 'grid';
+
+    if (viewMode)
+      this.layout =viewMode;
+  }
+
   setLayout(value: Layout): void {
     this.layout = value;
+    localStorage.setItem('viewMode', this.layout);
   }
 
   sortChange(key: number) {

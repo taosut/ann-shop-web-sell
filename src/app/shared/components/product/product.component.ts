@@ -309,7 +309,8 @@ export class ProductComponent implements OnInit {
       this.downloadingImages = true;
       this.service.downloadAdvertisementImage(this.product.id, this.product.sku)
         .subscribe((downloading: boolean) => {
-          this.downloadingImages = downloading
+          this.downloadingImages = downloading;
+          this.cd.markForCheck();
         });
     }
   }

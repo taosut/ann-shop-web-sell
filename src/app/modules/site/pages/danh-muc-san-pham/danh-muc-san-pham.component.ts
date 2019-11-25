@@ -1,5 +1,9 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from '../../../../shared/services/title.service';
+
+// ANN Shop
+import { RootService } from '../../../../shared/services/root.service';
 
 
 @Component({
@@ -9,7 +13,7 @@ import { TitleService } from '../../../../shared/services/title.service';
 })
 export class DanhMucSanPhamComponent implements OnInit {
 
-  constructor(private titleService: TitleService) { }
+  constructor(private titleService: TitleService, public root: RootService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Danh mục sản phẩm');
