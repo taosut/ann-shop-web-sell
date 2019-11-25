@@ -178,13 +178,14 @@ export class ProductComponent implements OnInit {
   addToWishlist(): void {
     if (!this.addingToWishlist && this.product) {
       let data: WishlistProduct = {
-        id: this.product.id,
+        productID: this.product.id,
         name: this.product.name,
         sku: this.product.sku,
         thumbnails: this.product.thumbnails,
         badge: this.product.badge,
         regularPrice: this.product.regularPrice,
       }
+
       this.addingToWishlist = true;
       this.wishlist.add(data).subscribe({ complete: () => this.addingToWishlist = false });
     }

@@ -14,6 +14,7 @@ import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
 import { ProductCard } from '../../interfaces/common/product-card';
 import { Thumbnail } from '../../interfaces/common/thumbnail';
+import { WishlistProduct } from '../../interfaces/wishlist/wishlist-product';
 // Service
 import { CopyConfigService } from '../../services/copy-config.service';
 import { CurrencyService } from '../../services/currency.service';
@@ -30,7 +31,7 @@ import { ProductService } from '../../services/pages/product.service';
 export class ProductCardComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject();
 
-  @Input() product: any;
+  @Input() product: ProductCard;
   @Input() layout: 'grid-sm' | 'grid-nl' | 'grid-lg' | 'list' | 'horizontal' | null = null;
 
   addingToCart = false;
@@ -69,8 +70,17 @@ export class ProductCardComponent implements OnInit, OnDestroy {
       return;
     }
 
+    let data: WishlistProduct = {
+      productID: this.product.productID,
+      name: this.product.name,
+      sku: this.product.sku,
+      thumbnails: this.product.thumbnails,
+      badge: this.product.badge,
+      regularPrice: this.product.regularPrice,
+    }
+
     this.addingToWishlist = true;
-    this.wishlist.add(this.product).subscribe({
+    this.wishlist.add(data).subscribe({
       complete: () => {
         this.addingToWishlist = false;
         this.cd.markForCheck();
@@ -112,8 +122,8 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     if (product && product.productID && product.sku) {
       this.downloadingImages = true;
       this.productService.downloadAdvertisementImage(product.productID, product.sku)
-        .subscribe((downloading: boolean) => { 
-          this.downloadingImages = downloading; 
+        .subscribe((downloading: boolean) => {
+          this.downloadingImages = downloading;
           this.cd.markForCheck();
         });
     }
