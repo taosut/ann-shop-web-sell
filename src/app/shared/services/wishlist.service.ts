@@ -44,8 +44,7 @@ export class WishlistService implements OnDestroy {
         // timer only for demo
         return timer(1000).pipe(map(() => {
             this.onAddingSubject$.next(product);
-
-            const index = this.data.items.findIndex(item => item.id === product.id);
+            const index = this.data.items.findIndex(item => item.productID === product.productID);
 
             if (index === -1) {
                 this.data.items.push(product);
@@ -57,7 +56,7 @@ export class WishlistService implements OnDestroy {
     remove(product: WishlistProduct): Observable<void> {
         // timer only for demo
         return timer(1000).pipe(map(() => {
-            const index = this.data.items.findIndex(item => item.id === product.id);
+            const index = this.data.items.findIndex(item => item.productID === product.productID);
 
             if (index !== -1) {
                 this.data.items.splice(index, 1);
