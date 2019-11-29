@@ -139,6 +139,16 @@
         </div>
       </form>
       <!-- .product__options / end -->
+
+      <div class="product__tags" *ngIf="product.tags?.length">
+        <label class="product__tag-label">Tag</label>
+        <div class="product__tag-lable__list">
+          <ng-template ngFor let-item [ngForOf]="product.tags" let-isLast="last">
+            <a *ngIf="isLast" [routerLink]="root.tag(item.slug)">{{item.name}}</a>
+            <a *ngIf="!isLast" [routerLink]="root.tag(item.slug)">{{item.name + ', '}}</a>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </div>

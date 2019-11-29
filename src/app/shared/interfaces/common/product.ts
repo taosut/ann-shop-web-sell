@@ -1,6 +1,7 @@
 import { ProductBadge } from './product-bage';
 import { Color } from './color';
 import { Size } from './size';
+import { Tag } from './tag';
 import { Thumbnail } from './thumbnail';
 
 
@@ -22,4 +23,5 @@ export interface Product {
   colors: Color[];
   sizes: Size[];
   badge: ProductBadge;
+  tags: Tag;
 }
