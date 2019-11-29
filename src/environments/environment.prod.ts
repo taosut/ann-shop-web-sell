@@ -7,4 +7,5 @@ export const environment = {
     apiPgaeCategory: _api + "/category",
     apiPageProduct: _api +"/product",
     apiPageSearch: _api + "/search",
+    apiPageTag: _api + "/tag",
 };

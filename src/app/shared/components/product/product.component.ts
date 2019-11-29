@@ -26,15 +26,15 @@ import { timer } from 'rxjs';
 import { ProductBadge } from '../../interfaces/common/product-bage';
 // Interface
 import { Product } from '../../interfaces/common/product';
+import { ProductCard } from '../../interfaces/common/product-card';
 import { ProductImage } from '../../interfaces/product/product-image';
 import { ProductService } from '../../services/pages/product.service';
 import { WishlistProduct } from '../../../shared/interfaces/wishlist/wishlist-product'
 // Service
-import { CopyConfigService } from '../../services/copy-config.service';
 import { DirectionService } from '../../services/direction.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { PhotoSwipeService } from '../../services/photo-swipe.service';
-import { ProductCard } from '../../interfaces/common/product-card';
+import { RootService } from '../../services/root.service';
 
 export type Layout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
@@ -136,10 +136,10 @@ export class ProductComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: any,
     private cd: ChangeDetectorRef,
     private direction: DirectionService,
-    private copyConfig: CopyConfigService,
     private photoSwipe: PhotoSwipeService,
     private wishlist: WishlistService,
-    private service: ProductService
+    private service: ProductService,
+    public root: RootService
   ) {
     this.downloadingImages = false;
   }

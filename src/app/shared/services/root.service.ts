@@ -15,6 +15,10 @@ export class RootService {
       return `${this.path}/category/${slug}`;
   }
 
+  tag(slug: string): any[] | string {
+    return `${this.path}/tag/${slug}`
+  }
+
   product(slug: string): any[] | string {
     return `${this.path}/product/${slug}`;
   }

@@ -23,6 +23,10 @@ export function makeRoutes(homeComponent: Type<any>): Routes {
       loadChildren: './modules/sale/sale.module#SaleModule'
     },
     {
+      path: 'tag',
+      loadChildren: './modules/tag/tag.module#TagModule'
+    },
+    {
       path: 'category',
       loadChildren: './modules/category/category.module#CategoryModule'
     },
