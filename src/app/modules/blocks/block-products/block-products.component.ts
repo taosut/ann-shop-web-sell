@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 // Interface
 import { ProductCard } from '../../../shared/interfaces/common/product-card';
 // Service
-import { RootService } from 'src/app/shared/services/root.service';
+import { RootService } from '../../../shared/services/root.service';
 import { HomeService } from '../../../shared/services/pages/home.service';
 
 
