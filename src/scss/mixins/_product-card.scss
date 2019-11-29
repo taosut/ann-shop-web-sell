@@ -215,7 +215,7 @@
         @include btn-xs();
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (min-width: breakpoint(md-start)) {
         .product-card__buttons {
             display: none;
         }
@@ -252,7 +252,7 @@
         @include btn-sm();
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (min-width: breakpoint(md-start)) {
         .product-card__buttons {
             display: none;
         }
