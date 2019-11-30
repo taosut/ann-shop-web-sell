@@ -41,6 +41,7 @@ export const navigation: NavigationLink[] = [
                 {label: 'Set bộ nam', url: '/category/set-bo-nam'}
             ]},
             {label: 'Quần áo nữ', url: '/category/quan-ao-nu', items: [
+                {label: 'Quần áo nữ big size', url: '/tag/quan-ao-nu-big-size'},
                 {label: 'Váy đầm', url: '/category/vay-dam'},
                 {label: 'Đồ bộ nữ', url: '/category/do-bo-nu'},
                 {label: 'Áo thun nữ', url: '/category/ao-thun-nu'},

@@ -7,6 +7,16 @@ export const categoryDecriptions = [
                 <div class="block-categories__item category-card category-card--layout--compact">
                     <div class="category-card__body">
                         <div class="category-card__image">
+                            <a href="/tag/quan-ao-nu-big-size"><img src="assets/images/categories/big-size.png" alt="Quần áo nữ big size"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Quần áo nữ big size" href="/tag/quan-ao-nu-big-size">Quần áo nữ big size</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
                             <a href="/category/do-bo-nu"><img src="assets/images/categories/category-18.jpg" alt="Đồ bộ nữ"></a>
                         </div>
                         <div class="category-card__content">

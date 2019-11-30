@@ -8,6 +8,17 @@
       <div class="container">
         <div class="block-categories__list">
           <div class="block-categories__item category-card category-card--layout--compact">
+              <div class="category-card__body">
+                <div class="category-card__image">
+                  <a [routerLink]="root.category('bao-li-xi-tet')"><img src="assets/images/categories/bao-li-xi-tet.jpg"
+                      alt="Bao lì xì tết"></a>
+                </div>
+                <div class="category-card__content">
+                  <div class="category-card__name"><a title="Bao lì xì tết" [routerLink]="root.category('bao-li-xi-tet')">Bao lì xì tết</a></div>
+                </div>
+              </div>
+            </div>
+          <div class="block-categories__item category-card category-card--layout--compact">
             <div class="category-card__body">
               <div class="category-card__image">
                 <a [routerLink]="root.category('do-bo-nu')"><img src="assets/images/categories/category-18.jpg"
@@ -116,17 +127,17 @@
             </div>
           </div>
           <div class="block-categories__item category-card category-card--layout--compact">
-              <div class="category-card__body">
-                <div class="category-card__image">
-                  <a [routerLink]="root.category('quan-ao-nu', 'hang-sale')"><img
-                      src="assets/images/categories/sale-product.jpg" alt="Quần áo nữ sale"></a>
-                </div>
-                <div class="category-card__content">
-                  <div class="category-card__name"><a title="Quần áo nữ order"
-                      [routerLink]="root.category('quan-ao-nu', 'hang-sale')">Quần áo nữ sale</a></div>
-                </div>
+            <div class="category-card__body">
+              <div class="category-card__image">
+                <a [routerLink]="root.category('quan-ao-nu', 'hang-sale')"><img
+                    src="assets/images/categories/sale-product.png" alt="Quần áo nữ sale"></a>
+              </div>
+              <div class="category-card__content">
+                <div class="category-card__name"><a title="Quần áo nữ sale"
+                    [routerLink]="root.category('quan-ao-nu', 'hang-sale')">Quần áo nữ sale</a></div>
               </div>
             </div>
+          </div>
           <div class="block-categories__item category-card category-card--layout--compact">
             <div class="category-card__body">
               <div class="category-card__image">
@@ -203,11 +214,23 @@
             <div class="category-card__body">
               <div class="category-card__image">
                 <a [routerLink]="root.category('quan-ao-nam', 'hang-order')"><img
-                    src="assets/images/categories/category-nam-order.jpg" alt="Quần áo nam order"></a>
+                    src="assets/images/categories/order-product.png" alt="Quần áo nam order"></a>
               </div>
               <div class="category-card__content">
                 <div class="category-card__name"><a title="Quần áo nam order"
                     [routerLink]="root.category('quan-ao-nam', 'hang-order')">Quần áo nam order</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="block-categories__item category-card category-card--layout--compact">
+            <div class="category-card__body">
+              <div class="category-card__image">
+                <a [routerLink]="root.category('quan-ao-nam', 'hang-sale')"><img
+                    src="assets/images/categories/sale-product.png" alt="Quần áo nam sale"></a>
+              </div>
+              <div class="category-card__content">
+                <div class="category-card__name"><a title="Quần áo nam sale"
+                    [routerLink]="root.category('quan-ao-nam', 'hang-sale')">Quần áo nam sale</a></div>
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ export const mobileMenu: MobileMenuItem[] = [
     {type: 'link', label: 'Hàng có sẵn', url: '/shop/hang-co-san'},
     {type: 'link', label: 'Hàng order', url: '/shop/hang-order'},
     {type: 'link', label: 'Hàng sale', url: '/sale'},
-    {type: 'button', label: 'Danh mục sản phẩm', children: [
+    {type: 'link', label: 'Danh mục sản phẩm', url: '/page/danh-muc-san-pham', children: [
         {type: 'link', label: 'Bao lì xì tết', url: '/category/bao-li-xi-tet'},
         {type: 'link', label: 'Quần áo nam', url: '/category/quan-ao-nam', children: [
             {type: 'link', label: 'Áo thun nam', url: '/category/ao-thun-nam'},
@@ -20,6 +20,7 @@ export const mobileMenu: MobileMenuItem[] = [
             {type: 'link', label: 'Set bộ nam', url: '/category/set-bo-nam'},
         ]},
         {type: 'link', label: 'Quần áo nữ', url: '/category/quan-ao-nu', children: [
+            {type: 'link', label: 'Quần áo nữ big size', url: '/tag/quan-ao-nu-big-size'},
             {type: 'link', label: 'Váy đầm', url: '/category/vay-dam'},
             {type: 'link', label: 'Đồ bộ nữ', url: '/category/do-bo-nu'},
             {type: 'link', label: 'Áo thun nữ', url: '/category/ao-thun-nu'},
@@ -41,5 +42,6 @@ export const mobileMenu: MobileMenuItem[] = [
         {type: 'link', label: 'Các Zalo xem hàng', url: '/page/zalo-xem-hang'},
         {type: 'link', label: 'Danh mục sản phẩm', url: '/page/danh-muc-san-pham'},
     ]},
+    {type: 'link', label: 'Sản phẩm đã lưu', url: '/wishlist'},
     {type: 'link', label: 'Liên hệ', url: '/page/lien-he'},
 ];
