@@ -15,10 +15,8 @@ export const mobileMenu: MobileMenuItem[] = [
             {type: 'link', label: 'Sơ mi nam', url: '/category/ao-so-mi-nam'},
             {type: 'link', label: 'Áo khoác nam', url: '/category/ao-khoac-nam'},
             {type: 'link', label: 'Quần nam', url: '/category/quan-nam'},
-            {type: 'link', label: 'Quần jeans nam',    url: '/category/quan-jeans-nam'},
-            {type: 'link', label: 'Quần dài nam', url: '/category/quan-dai-nam'},
-            {type: 'link', label: 'Quần short nam', url: '/category/quan-short-nam'},
             {type: 'link', label: 'Quần lót nam', url: '/category/quan-lot-nam'},
+            {type: 'link', label: 'Quần jeans nam',    url: '/category/quan-jeans-nam'},
             {type: 'link', label: 'Set bộ nam', url: '/category/set-bo-nam'},
         ]},
         {type: 'link', label: 'Quần áo nữ', url: '/category/quan-ao-nu', children: [

@@ -17,14 +17,16 @@
 
 <app-block-products header="Đồ bộ nữ" layout="normal" slug="do-bo-nu" limit="8" (loadingEvent)='loadingBlockProduct1($event)'></app-block-products>
 
-<app-block-products header="Áo thun nữ - Sơ mi nữ" layout="normal" slug="ao-thun-nu|ao-so-mi-nu" limit="8" (loadingEvent)='loadingBlockProduct3($event)'></app-block-products>
+<app-block-products header="Áo dài cách tân nữ" layout="normal" slug="ao-dai-cach-tan" limit="4" (loadingEvent)='loadingBlockProduct10($event)'></app-block-products>
+
+<app-block-products layout="normal" isMultiCategory="true" [categories]="[{'name': 'Áo thun nữ', 'slug': 'ao-thun-nu'}, {'name': 'Sơ mi nữ', 'slug': 'ao-so-mi-nu'}]" limit="8" (loadingEvent)='loadingBlockProduct3($event)'></app-block-products>
 
 <app-block-products header="Áo khoác nữ" layout="normal" slug="ao-khoac-nu" limit="8" (loadingEvent)='loadingBlockProduct4($event)'></app-block-products>
 
-<app-block-products header="Quần nữ - Đồ lót nữ" layout="normal" slug="quan-nu|do-lot-nu" limit="8" (loadingEvent)='loadingBlockProduct5($event)'></app-block-products>
+<app-block-products layout="normal" isMultiCategory="true" [categories]="[{'name': 'Quần nữ', 'slug': 'quan-nu'}, {'name': 'Đồ lót nữ', 'slug': 'do-lot-nu'}]" limit="8" (loadingEvent)='loadingBlockProduct5($event)'></app-block-products>
 
 <app-block-products header="Áo thun nam" layout="normal" slug="ao-thun-nam" limit="8" (loadingEvent)='loadingBlockProduct6($event)'></app-block-products>
 
-<app-block-products header="Quần nam - Quần lót nam" layout="normal" slug="quan-nam|quan-lot-nam" limit="8" (loadingEvent)='loadingBlockProduct7($event)'></app-block-products>
+<app-block-products layout="normal" isMultiCategory="true" [categories]="[{'name': 'Quần nam', 'slug': 'quan-nam'}, {'name': 'Quần lót nam', 'slug': 'quan-lot-nam'}]" limit="8" (loadingEvent)='loadingBlockProduct7($event)'></app-block-products>
 
-<app-block-products header="Áo khoác nam - Sơ mi nam" layout="normal" slug="ao-khoac-nam|ao-so-mi-nam" limit="4" (loadingEvent)='loadingBlockProduct8($event)'></app-block-products>
+<app-block-products layout="normal" isMultiCategory="true" [categories]="[{'name': 'Áo khoác nam', 'slug': 'ao-khoac-nam'}, {'name': 'Sơ mi nam', 'slug': 'ao-so-mi-nam'}]" limit="4" (loadingEvent)='loadingBlockProduct8($event)'></app-block-products>

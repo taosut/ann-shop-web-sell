@@ -28,6 +28,13 @@ export class HomeService {
   }
 
   /**
+   * Lấy url api sản phẩm theo nhiều slug category
+   */
+  private urlProductCategoryList(): string {
+    return `${environment.apiPageHome}/category`;
+  }
+
+  /**
    * Lấy sản phẩm theo slug category
    * @param slug Slug category
    * @param limit giới hạn
@@ -37,6 +44,26 @@ export class HomeService {
       .set('pageSize', limit.toString());
 
     return this.http.get(this.urlProductCategory(slug), { params })
+      .pipe(
+        map((value: ProductCard[]) => value),
+        catchError((err: Error) => throwError(err))
+      );
+  }
+
+  /**
+   * Lấy sản phẩm theo nhiều slug category
+   * @param slugList Slug category
+   * @param limit giới hạn
+   */
+  getProductCategoryList(slugList: string[], limit: number): Observable<ProductCard[]> {
+    let params = new HttpParams()
+      .set('pageSize', limit.toString());
+
+    slugList.forEach((slug: string, index: number) => {
+      params = params.set(`slugList[${index}]`, slug);
+    });
+
+    return this.http.get(this.urlProductCategoryList(), { params })
       .pipe(
         map((value: ProductCard[]) => value),
         catchError((err: Error) => throwError(err))

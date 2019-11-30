@@ -23,9 +23,23 @@ $local-product-margin: 6px;
     display: block;
     margin-top: 15px;
 
+    .btn {
+        margin-left: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
     @media (max-width: 479px) {
         .btn {
             width: 100%;
+            margin-left: 0;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 }
@@ -159,6 +173,11 @@ $local-product-margin: 6px;
             @include product-card-grid();
             @include product-card-grid-nl();
         }
+    }
+}
+@media (min-width: 480px) and (max-width: breakpoint(sm-end)) {
+    .block-products__list-item-normal {
+        width: calc(33.3333% - #{$local-product-margin * 2});
     }
 }
 @media (max-width: 479px) {

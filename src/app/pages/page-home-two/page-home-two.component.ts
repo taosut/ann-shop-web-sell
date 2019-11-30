@@ -25,6 +25,7 @@ export class PageHomeTwoComponent implements OnInit {
   private loading7: boolean;
   private loading8: boolean;
   private loading9: boolean;
+  private loading10: boolean;
 
   categories: any;
 
@@ -42,6 +43,7 @@ export class PageHomeTwoComponent implements OnInit {
     this.loading7 = false;
     this.loading8 = false;
     this.loading9 = false;
+    this.loading10 = false;
 
     this.categories = categories;
   }
@@ -61,12 +63,13 @@ export class PageHomeTwoComponent implements OnInit {
     this.loading7 = true;
     this.loading8 = true;
     this.loading9 = true;
+    this.loading10 = true;
 
     this.loadingSpinner.show();
   }
 
   private finishLoading() {
-    if (!this.loading1 && !this.loading2 && !this.loading3 && !this.loading4 && !this.loading5 && !this.loading6 && !this.loading7 && !this.loading8 && !this.loading9)
+    if (!this.loading1 && !this.loading2 && !this.loading3 && !this.loading4 && !this.loading5 && !this.loading6 && !this.loading7 && !this.loading8 && !this.loading9 && !this.loading10)
       this.loadingSpinner.close();
   }
 
@@ -112,6 +115,11 @@ export class PageHomeTwoComponent implements OnInit {
 
   loadingBlockProduct9(value: boolean) {
     this.loading9 = value;
+    this.finishLoading();
+  }
+
+  loadingBlockProduct10(value: boolean) {
+    this.loading10 = value;
     this.finishLoading();
   }
 }

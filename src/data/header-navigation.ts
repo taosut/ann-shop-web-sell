@@ -36,10 +36,8 @@ export const navigation: NavigationLink[] = [
                 {label: 'Sơ mi nam', url: '/category/ao-so-mi-nam'},
                 {label: 'Áo khoác nam', url: '/category/ao-khoac-nam'},
                 {label: 'Quần nam', url: '/category/quan-nam'},
-                {label: 'Quần jeans nam',    url: '/category/quan-jeans-nam'},
-                {label: 'Quần dài nam', url: '/category/quan-dai-nam'},
-                {label: 'Quần short nam', url: '/category/quan-short-nam'},
                 {label: 'Quần lót nam', url: '/category/quan-lot-nam'},
+                {label: 'Quần jeans nam',    url: '/category/quan-jeans-nam'},
                 {label: 'Set bộ nam', url: '/category/set-bo-nam'}
             ]},
             {label: 'Quần áo nữ', url: '/category/quan-ao-nu', items: [

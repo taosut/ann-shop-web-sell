@@ -1,7 +1,7 @@
 <!-- .block-products -->
 <div class="block block-products block-products--layout--normal">
   <div class="container">
-    <app-block-header [header]="header"></app-block-header>
+    <app-block-header [header]="title"></app-block-header>
     <div class="block-products__body">
       <div class="block-products__list">
         <div *ngFor="let product of products; last as isLast" class="block-products__list-item-normal" [attr.data-layout]="layout">
@@ -11,7 +11,12 @@
       </div>
     </div>
     <div class="block-products__footer">
-      <a [routerLink]="root.category(slug)" class="btn btn-primary"> Xem tất cả {{header}}</a>
+      <ng-template [ngIf]="slug">
+          <a [routerLink]="root.category(slug)" class="btn btn-primary"> Xem tất cả {{header}}</a>
+      </ng-template>
+      <ng-template ngFor let-item [ngForOf]="categories">
+          <a [routerLink]="root.category(item.slug)" class="btn btn-primary"> Xem tất cả {{item.name}}</a>
+      </ng-template>
     </div>
   </div>
 </div>

@@ -47,6 +47,16 @@ export const categoryDecriptions = [
                 <div class="block-categories__item category-card category-card--layout--compact">
                     <div class="category-card__body">
                         <div class="category-card__image">
+                            <a href="/category/ao-so-mi-nu"><img src="assets/images/categories/category-20.jpg" alt="Áo sơ mi nữ"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Áo sơ mi nữ" href="/category/ao-so-mi-nu">Áo sơ mi nữ</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
                             <a href="/category/do-lot-nu"><img src="assets/images/categories/category-41.jpg" alt="Đồ lót nữ"></a>
                         </div>
                         <div class="category-card__content">
@@ -61,6 +71,16 @@ export const categoryDecriptions = [
                         </div>
                         <div class="category-card__content">
                             <div class="category-card__name"><a title="Áo khoác nữ" href="/category/ao-khoac-nu">Áo khoác nữ</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/ao-dai-cach-tan"><img src="assets/images/categories/category-16.jpg" alt="Áo dài cách tân"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Áo dài cách tân" href="/category/ao-dai-cach-tan">Áo dài cách tân</a></div>
                         </div>
                     </div>
                 </div>
@@ -116,10 +136,10 @@ export const categoryDecriptions = [
                 <div class="block-categories__item category-card category-card--layout--compact">
                     <div class="category-card__body">
                         <div class="category-card__image">
-                            <a href="/category/ao-so-mi-nam"><img src="assets/images/categories/category-7.jpg" alt="Sơ mi nam"></a>
+                            <a href="/category/quan-nam"><img src="assets/images/categories/category-11.jpg" alt="Quần nam"></a>
                         </div>
                         <div class="category-card__content">
-                            <div class="category-card__name"><a title="Sơ mi nam" href="/category/ao-so-mi-nam">Sơ mi nam</a></div>
+                            <div class="category-card__name"><a title="Quần nam" href="/category/quan-nam">Quần nam</a></div>
                         </div>
                     </div>
                 </div>
@@ -136,10 +156,10 @@ export const categoryDecriptions = [
                 <div class="block-categories__item category-card category-card--layout--compact">
                     <div class="category-card__body">
                         <div class="category-card__image">
-                            <a href="/category/quan-nam"><img src="assets/images/categories/category-11.jpg" alt="Quần nam"></a>
+                            <a href="/category/ao-so-mi-nam"><img src="assets/images/categories/category-7.jpg" alt="Sơ mi nam"></a>
                         </div>
                         <div class="category-card__content">
-                            <div class="category-card__name"><a title="Quần nam" href="/category/quan-nam">Quần nam</a></div>
+                            <div class="category-card__name"><a title="Sơ mi nam" href="/category/ao-so-mi-nam">Sơ mi nam</a></div>
                         </div>
                     </div>
                 </div>
