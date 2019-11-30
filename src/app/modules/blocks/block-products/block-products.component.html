@@ -4,7 +4,7 @@
     <app-block-header [header]="header"></app-block-header>
     <div class="block-products__body">
       <div class="block-products__list">
-        <div *ngFor="let product of products; last as isLast" class="block-products__list-item-normal">
+        <div *ngFor="let product of products; last as isLast" class="block-products__list-item-normal" [attr.data-layout]="layout">
           <app-product-card [product]="product"></app-product-card>
           {{ isLast ? loading(!isLast) : '' }}
         </div>
