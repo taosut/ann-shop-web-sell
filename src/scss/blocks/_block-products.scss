@@ -22,7 +22,7 @@ $local-product-margin: 6px;
 .block-products__footer {
     display: block;
     margin-top: 15px;
-    
+
     @media (max-width: 479px) {
         .btn {
             width: 100%;
@@ -94,6 +94,16 @@ $local-product-margin: 6px;
             @include product-card-grid-nl();
         }
     }
+}
+
+.block-products__list-item-normal[data-layout="grid-with-features"] {
+  @media (max-width: 479px) {
+    width: calc(50% - #{$local-product-margin * 2});
+
+    .product-card {
+      @include product-card-grid-sm();
+    }
+  }
 }
 
 @media (min-width: breakpoint(lg-start)) {
