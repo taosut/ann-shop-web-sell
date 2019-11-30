@@ -1,15 +1,14 @@
 // Angular
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-// RxJS
-import { Observable, throwError } from 'rxjs';
-
 // ANN Shop
 // Interface
 import { ProductCard } from '../../../shared/interfaces/common/product-card';
 // Service
 import { RootService } from '../../../shared/services/root.service';
 import { HomeService } from '../../../shared/services/pages/home.service';
+
+export type Layout = 'grid' | 'grid-with-features' | 'list';
 
 
 @Component({
@@ -23,6 +22,7 @@ export class BlockProductsComponent implements OnInit {
   @Input() limit: number;
 
   products: ProductCard[];
+  layout: Layout;
 
   @Output() loadingEvent: EventEmitter<boolean>;
 
@@ -33,6 +33,13 @@ export class BlockProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Cài đặt layout
+    let viewMode: Layout = <Layout>localStorage.getItem('viewMode') || 'grid';
+
+    if (viewMode)
+      this.layout = viewMode;
+
+    // Lấy danh sách sản phẩm
     if (this.slug) {
       // Bắt đầu loading
       this.loading(true);
