@@ -16,7 +16,7 @@ const routes: Routes = [
     }
   },
   {
-    path: ':slug/:preOrder',
+    path: ':slug/:productBadge',
     component: PageCategoryComponent,
     data: {
       columns: 4,

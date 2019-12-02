@@ -10,8 +10,14 @@ import { map, catchError } from 'rxjs/operators';
 // Enviroment
 import { environment } from '../../../../environments/environment';
 // Interface
+// Common
 import { Category } from '../../interfaces/common/category';
 import { ProductSort } from '../../interfaces/common/product-sort';
+import { CategoryFilter } from '../../interfaces/common/category-filter';
+// Pages
+import { CategoryPageFilter } from '../../interfaces/pages/category-page/category-page-filter';
+import { ProductNewPageFilter } from '../../interfaces/pages/product-new-page/product-new-page-filter';
+import { ProductSalePageFilter } from '../../interfaces/pages/product-sale/product-sale-page-filter';
 
 
 @Injectable({
@@ -88,83 +94,97 @@ export class CategoryService {
 
   /**
    * Lấy danh sách sản phẩm
-   * @param slug
-   * @param productBadge 'hang-co-san' | 'hang-order'
-   * @param sort product new | price asc | price desc | model new
-   * @param page
-   * @param limit
+   * @param filter 
    */
-  private getProduct(slug: string, productBadge: string, sort: number, page: number, limit: number): Observable<any> {
+  private getProducts(filter: CategoryFilter): Observable<any> {
     const observe = 'response';
     let url: string;
     let params: HttpParams;
 
-    if (slug)
+    if (filter.categorySlug)
     {
-      if (productBadge)
-        url = this.urlProductOrder(slug, productBadge);
+      if (filter.productBadge)
+        url = this.urlProductOrder(filter.categorySlug, filter.productBadge);
       else
-        url = this.urlProduct(slug);
+        url = this.urlProduct(filter.categorySlug);
     }
     else {
-      if (productBadge)
-        url = this.urlProductOrderNew(productBadge);
+      if (filter.productBadge)
+        url = this.urlProductOrderNew(filter.productBadge);
       else
         url = this.urlProductNew();
     }
 
     params = new HttpParams()
-      .set('pageNumber', page.toString())
-      .set('pageSize', limit.toString());
+      .set('pageNumber', filter.page.toString())
+      .set('pageSize', filter.limit.toString());
 
-    if (sort) {
-      params = params.set('sort', sort.toString());
+    if (filter.priceMin) {
+      params = params.set('priceMin', filter.priceMin.toString());
+    }
+
+    if (filter.priceMax) {
+      params = params.set('priceMax', filter.priceMax.toString());
+    }
+
+    if (filter.productSort) {
+      params = params.set('sort', filter.productSort.toString());
     }
 
     return this.http.get(url, { observe, params });
   }
 
   /**
-   * Lấy danh sách sản phẩm theo category
-   * @param slug
-   * @param sort product new | price asc | price desc | model new
-   * @param page
-   * @param limit
+   * Lấy danh sách sản phẩm theo bộ lọc của trang category
+   * @param category 
    */
-  public getProductByCategory(slug: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct(slug, "", sort, page, limit);
+  public getProductListByCategoryPage(category: CategoryPageFilter): Observable<any> {
+    let filter: CategoryFilter = {
+      categorySlug: category.categorySlug,
+      productBadge: category.productBadge,
+      priceMin: category.priceMin,
+      priceMax: category.priceMax,
+      productSort: category.productSort,
+      page: category.page,
+      limit: category.limit
+    }
+
+    return this.getProducts(filter);
   }
 
   /**
-   * Lấy sản phẩm mới về
-   * @param sort product new | price asc | price desc | model new
-   * @param page number
-   * @param limit number
+   * Lấy danh sách sản phẩm theo bộ lọc của trang product new
+   * @param productNew 
    */
-  public getProductAll(sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct("", "", sort, page, limit);
+  public getProductListByProductNewPage(productNew: ProductNewPageFilter): Observable<any> {
+    let filter: CategoryFilter = {
+      categorySlug: "",
+      productBadge: productNew.productBadge,
+      priceMin: productNew.priceMin,
+      priceMax: productNew.priceMax,
+      productSort: productNew.productSort,
+      page: productNew.page,
+      limit: productNew.limit
+    }
+
+    return this.getProducts(filter);
   }
 
   /**
-   * Lấy danh sách sản phẩm order theo category
-   * @param slug
-   * @param productBadge
-   * @param sort product new | price asc | price desc | model new
-   * @param page
-   * @param limit
+   * Lấy danh sách sản phẩm theo bộ lọc của trang product sale
+   * @param tag 
    */
-  public getProductOrderByCategory(slug: string, productBadge: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct(slug, productBadge, sort, page, limit);
-  }
+  public getProductListByProductSalePage(productSale: ProductSalePageFilter): Observable<any> {
+    let filter: CategoryFilter = {
+      categorySlug: "",
+      productBadge: productSale.productBadge,
+      priceMin: productSale.priceMin,
+      priceMax: productSale.priceMax,
+      productSort: productSale.productSort,
+      page: productSale.page,
+      limit: productSale.limit
+    }
 
-  /**
-   * Lấy sản phẩm order mới về
-   * @param productBadge
-   * @param sort product new | price asc | price desc | model new
-   * @param page number
-   * @param limit number
-   */
-  public getProductOrderAll(productBadge: string, sort: number, page: number, limit: number): Observable<any> {
-    return this.getProduct("", productBadge, sort, page, limit);
+    return this.getProducts(filter);
   }
 }

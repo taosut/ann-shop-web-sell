@@ -265,6 +265,46 @@ export const categoryDecriptions = [
                         </div>
                     </div>
                 </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/do-bo-nu?priceMin=0&priceMax=99000"><img src="assets/images/categories/price-filter.png" alt="Đồ bộ sỉ dưới 100k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Đồ bộ sỉ dưới 100k" href="/category/do-bo-nu?priceMin=0&priceMax=99000">Đồ bộ sỉ dưới 100k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/do-bo-nu?priceMin=100000&priceMax=125000"><img src="assets/images/categories/price-filter.png" alt="Đồ bộ sỉ từ 100k - 125k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Đồ bộ sỉ từ 100k - 125k" href="/category/do-bo-nu?priceMin=100000&priceMax=125000">Đồ bộ sỉ từ 100k - 125k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/do-bo-nu?priceMin=126000&priceMax=150000"><img src="assets/images/categories/price-filter.png" alt="Đồ bộ sỉ từ 125k - 150k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Đồ bộ sỉ từ 125k - 150k" href="/category/do-bo-nu?priceMin=126000&priceMax=150000">Đồ bộ sỉ từ 125k - 150k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/do-bo-nu?priceMin=151000"><img src="assets/images/categories/price-filter.png" alt="Đồ bộ sỉ trên 150k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Đồ bộ sỉ trên 150k" href="/category/do-bo-nu?priceMin=151000">Đồ bộ sỉ trên 150k</a></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>`
@@ -304,6 +344,36 @@ export const categoryDecriptions = [
                         <div class="category-card__content">
                             <div class="category-card__name"><a title="Váy đầm sale" href="/category/vay-dam/hang-sale">Váy đầm sale</a></div>
                             <div class="category-card__products"> Tất cả váy đầm sale</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/vay-dam?priceMin=0&priceMax=124000"><img src="assets/images/categories/price-filter.png" alt="Váy đầm sỉ dưới 125k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Váy đầm sỉ dưới 125k" href="/category/vay-dam?priceMin=0&priceMax=124000">Váy đầm sỉ dưới 125k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/vay-dam?priceMin=125000&priceMax=150000"><img src="assets/images/categories/price-filter.png" alt="Váy đầm sỉ từ 125k - 150k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Váy đầm sỉ từ 125k - 150k" href="/category/vay-dam?priceMin=125000&priceMax=150000">Váy đầm sỉ từ 125k - 150k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/vay-dam?priceMin=151000"><img src="assets/images/categories/price-filter.png" alt="Váy đầm sỉ trên 150k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Váy đầm sỉ trên 150k" href="/category/vay-dam?priceMin=151000">Váy đầm sỉ trên 150k</a></div>
                         </div>
                     </div>
                 </div>
@@ -408,6 +478,65 @@ export const categoryDecriptions = [
                         <div class="category-card__content">
                             <div class="category-card__name"><a title="Áo thun nam có sẵn" href="/category/quan-ao-nam/hang-sale">Quần áo nam sale</a></div>
                             <div class="category-card__products"> Tất cả quần áo nam sale</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`
+    },
+    {
+        slug: 'nuoc-hoa',
+        decription: `<div class="row block block-categories block-categories--layout--compact">
+        <div class="container">
+            <div class="block-categories__list">
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/nuoc-hoa?priceMin=0&priceMax=30000"><img src="assets/images/categories/price-filter.png" alt="Loại 20ml giá sỉ 30k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Loại 20ml giá sỉ 30k" href="/category/nuoc-hoa?priceMin=0&priceMax=30000">Loại chai 20ml giá 30k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/nuoc-hoa?priceMin=31000&priceMax=35000"><img src="assets/images/categories/price-filter.png" alt="Loại táo 20ml giá sỉ 35k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Loại táo 20ml giá sỉ 35k" href="/category/nuoc-hoa?priceMin=31000&priceMax=35000">Loại chai táo 20ml sỉ 35k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/nuoc-hoa?priceMin=36000&priceMax=49000"><img src="assets/images/categories/price-filter.png" alt="Loại ống giá sỉ 49k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Loại giá sỉ 49k" href="/category/nuoc-hoa?priceMin=36000&priceMax=49000">Loại chai ống giá sỉ 49k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/nuoc-hoa?priceMin=135000&priceMax=135000"><img src="assets/images/categories/price-filter.png" alt="Loại 50ml giá sỉ 135k"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Loại 50ml giá sỉ 135k" href="/category/nuoc-hoa?priceMin=135000&priceMax=135000">Loại chai 50ml sỉ 135k</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-categories__item category-card category-card--layout--compact">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <a href="/category/nuoc-hoa?priceMin=50000&priceMax=400000"><img src="assets/images/categories/price-filter.png" alt="Loại full size nhiều giá"></a>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name"><a title="Loại full size nhiều giá" href="/category/nuoc-hoa?priceMin=50000&priceMax=400000">Loại full size nhiều giá</a></div>
                         </div>
                     </div>
                 </div>

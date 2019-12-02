@@ -9,14 +9,16 @@ export class RouteTransformerDirective {
 
   constructor(private el: ElementRef, private router: Router) { }
 
-  @HostListener('click', ['$event.target'])
-  public onClick(target: HTMLElement) {
+  @HostListener('click', ['$event'])
+  public onClick(event: any) {
+    let target: HTMLElement = event.target;
+
     switch (target.tagName) {
       case 'A':
-        this.onClickATag(target);
+        this.onClickATag(event, target);
         break;
       case 'IMG':
-        this.onClickImageTag(<HTMLImageElement>target.parentElement);
+        this.onClickImageTag(event, <HTMLImageElement>target.parentElement);
         break;
       default:
         break;
@@ -27,9 +29,9 @@ export class RouteTransformerDirective {
    * Kiểm tra xem phải router link và thưc thi navigation
    * @param href 
    */
-  private routeTransformer(href: string) {
+  private routeTransformer(event: any, href: string) {
     if (!href.match(/^https|http:\/\//g)) {
-      this.router.navigate([href]);
+      this.router.navigateByUrl(href);
       event.preventDefault();
     }
   }
@@ -38,9 +40,9 @@ export class RouteTransformerDirective {
    * Xử lý khi click vào image tag
    * @param element 
    */
-  private onClickImageTag(element: HTMLImageElement) {
+  private onClickImageTag(event: any, element: HTMLImageElement) {
     if (element.tagName === 'A') {
-      this.routeTransformer(element.getAttribute('href'));
+      this.routeTransformer(event, element.getAttribute('href'));
     }
   }
 
@@ -48,7 +50,7 @@ export class RouteTransformerDirective {
    * Xử lý khi click vào a tag
    * @param element 
    */
-  private onClickATag(element: HTMLElement) {
-    this.routeTransformer(element.getAttribute('href'));
+  private onClickATag(event: any, element: HTMLElement) {
+    this.routeTransformer(event, element.getAttribute('href'));
   }
 }

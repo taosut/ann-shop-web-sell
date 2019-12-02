@@ -14,6 +14,8 @@ import { ProductSortKind } from '../../../../shared/interfaces/common/product-so
 import { ProductSort } from '../../../../shared/interfaces/common/product-sort';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 import { ProductCard } from '../../../../shared/interfaces/common/product-card';
+// Page
+import { ProductSalePageFilter } from '../../../../shared/interfaces/pages/product-sale/product-sale-page-filter';
 // Service
 import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
@@ -35,8 +37,7 @@ export class PageProductSaleComponent implements OnInit {
   sidebarPosition: 'start' | 'end';
 
   // Query Params
-  productBadge: string;
-  sort: number;
+  filter: ProductSalePageFilter;
 
   sorts: ProductSort[];
   products: ProductCard[];
@@ -64,8 +65,6 @@ export class PageProductSaleComponent implements OnInit {
     });
 
     // Query Params
-    this.productBadge = "hang-sale";
-    this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
       pageSize: 28,
@@ -74,6 +73,14 @@ export class PageProductSaleComponent implements OnInit {
       previousPage: "No",
       nextPage: "No"
     };
+    this.filter = {
+      productBadge: "hang-sale",
+      priceMin: 0,
+      priceMax: 0,
+      productSort: ProductSortKind.ProductNew,
+      page: this.pagingHeaders.currentPage,
+      limit: this.pagingHeaders.pageSize
+    }
   }
 
   ngOnInit() {
@@ -83,14 +90,16 @@ export class PageProductSaleComponent implements OnInit {
       // Mở màn hình loanding
       this.loadingSpinner.show();
 
-      this.sort = params["sort"] || this.sort;
-      this.pagingHeaders.currentPage = +params["page"] || this.pagingHeaders.currentPage;
+      this.filter.priceMin = +params["priceMin"] || 0;
+      this.filter.priceMax = +params["priceMax"] || 0;
+      this.filter.productSort = params["sort"] || ProductSortKind.ProductNew;
+      this.filter.page = this.pagingHeaders.currentPage = +params["page"] || 1;
 
       // Lấy thông tin sorts
       this.getSorts();
 
       // Lấy danh sách sản phẩm
-      this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+      this.getProducts(this.filter);
     })
 
     combineLatest(this.loadingSort, this.loadingProduct)
@@ -115,10 +124,8 @@ export class PageProductSaleComponent implements OnInit {
       );
   }
 
-  private getProducts(productBadge: string, sort: number, page: number, limit: number) {
-    let products: Observable<any>;
-
-    products = this.service.getProductOrderAll(productBadge, sort, page, limit);
+  private getProducts(filter: ProductSalePageFilter) {
+    let products: Observable<any> = this.service.getProductListByProductSalePage(filter);
 
     this.loadingProduct.next(true);
     products.subscribe(
@@ -137,12 +144,12 @@ export class PageProductSaleComponent implements OnInit {
     // Mở màn hình loanding
     this.loadingSpinner.show();
 
-    this.sort = value;
-    this.pagingHeaders.currentPage = 1;
+    this.filter.productSort = value;
+    this.filter.page = this.pagingHeaders.currentPage = 1;
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.filter);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
@@ -155,11 +162,11 @@ export class PageProductSaleComponent implements OnInit {
     // Mở màn hình loanding
     this.loadingSpinner.show();
 
-    this.pagingHeaders.currentPage = value
+    this.filter.page = this.pagingHeaders.currentPage = value
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.filter);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
@@ -173,8 +180,12 @@ export class PageProductSaleComponent implements OnInit {
     let url = window.location.pathname.split('/').join('/');
     let query = "";
 
-    if (this.sort)
-      query += `&sort=${this.sort}`;
+    if (this.filter.priceMin)
+      query += `&priceMin=${this.filter.priceMin}`;
+    if (this.filter.priceMax)
+      query += `&priceMax=${this.filter.priceMax}`;
+    if (this.filter.productSort)
+      query += `&sort=${this.filter.productSort}`;
     if (this.pagingHeaders.currentPage)
       query += `&page=${this.pagingHeaders.currentPage}`;
 

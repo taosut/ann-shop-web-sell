@@ -9,9 +9,12 @@ import { map, catchError } from 'rxjs/operators';
 // ANN Shop
 // Enviroment
 import { environment } from '../../../../environments/environment';
-// Intefface
+// Inteface
+// Common
 import { Tag } from '../../interfaces/common/tag';
 import { ProductSort } from '../../interfaces/common/product-sort';
+// Pages
+import { TagPageFilter } from '../../interfaces/pages/tag-page/tag-page-filter';
 
 
 @Injectable({
@@ -72,18 +75,26 @@ export class TagService {
    * @param page
    * @param limit
    */
-  public getProductByTag(slug: string, sort: number, page: number, limit: number): Observable<any> {
+  public getProductByTag(filter: TagPageFilter): Observable<any> {
     const observe = 'response';
     let url: string;
     let params: HttpParams;
 
-    url = this.urlProduct(slug);
+    url = this.urlProduct(filter.tagSlug);
     params = new HttpParams()
-      .set('pageNumber', page.toString())
-      .set('pageSize', limit.toString());
+      .set('pageNumber', filter.page.toString())
+      .set('pageSize', filter.limit.toString());
 
-    if (sort) {
-      params = params.set('sort', sort.toString());
+    if (filter.priceMin) {
+      params = params.set('priceMin', filter.priceMin.toString());
+    }
+
+    if (filter.priceMax) {
+      params = params.set('priceMax', filter.priceMax.toString());
+    }
+
+    if (filter.productSort) {
+      params = params.set('sort', filter.productSort.toString());
     }
 
     return this.http.get(url, { observe, params });

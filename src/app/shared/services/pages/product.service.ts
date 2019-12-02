@@ -146,7 +146,7 @@ export class ProductService implements OnDestroy {
               downloading.next(false);
               this.toastr.success("Đang tải hình sản phẩm...")
             }
-          }, 1000);
+          }, 3000);
         });
       },
       (err) => {

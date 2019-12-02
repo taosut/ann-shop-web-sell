@@ -10,10 +10,13 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 // data
 import { categoryDecriptions } from '../../../../../data/category-description'
 // Interface
+// Common
 import { ProductSortKind } from '../../../../shared/interfaces/common/product-sort-kind';
 import { ProductSort } from '../../../../shared/interfaces/common/product-sort';
 import { PagingHeaders } from '../../../../shared/interfaces/common/paging-headers';
 import { ProductCard } from '../../../../shared/interfaces/common/product-card';
+// Pages
+import { ProductNewPageFilter } from '../../../../shared/interfaces/pages/product-new-page/product-new-page-filter';
 // Service
 import { TitleService } from '../../../../shared/services/title.service';
 import { LoadingSpinnerService } from '../../../../shared/services/loading-spinner.service';
@@ -35,8 +38,7 @@ export class PageProductNewComponent implements OnInit {
   sidebarPosition: 'start' | 'end';
 
   // Query Params
-  productBadge: string;
-  sort: number;
+  filter: ProductNewPageFilter;
 
   sorts: ProductSort[];
   products: ProductCard[];
@@ -65,8 +67,6 @@ export class PageProductNewComponent implements OnInit {
     });
 
     // Query Params
-    this.productBadge = "";
-    this.sort = ProductSortKind.ProductNew;
     this.pagingHeaders = {
       totalCount: 0,
       pageSize: 28,
@@ -75,6 +75,15 @@ export class PageProductNewComponent implements OnInit {
       previousPage: "No",
       nextPage: "No"
     };
+
+    this.filter = {
+      productBadge: "",
+      priceMin: 0,
+      priceMax: 0,
+      productSort: ProductSortKind.ProductNew,
+      page: this.pagingHeaders.currentPage,
+      limit: this.pagingHeaders.pageSize
+    }
   }
 
   ngOnInit() {
@@ -93,20 +102,22 @@ export class PageProductNewComponent implements OnInit {
       // Mở màn hình loanding
       this.loadingSpinner.show();
 
-      this.productBadge = routeParams["productBadge"] || this.productBadge;
-      if (!["hang-co-san", "hang-order", ""].includes(this.productBadge)) {
+      this.filter.productBadge = routeParams["productBadge"] || this.filter.productBadge;
+      if (!["hang-co-san", "hang-order", ""].includes(this.filter.productBadge)) {
         this.loadingSpinner.close();
         this.router.navigate(['/not-found']);
       }
 
-      this.sort = routeParams["sort"] || this.sort;
-      this.pagingHeaders.currentPage = +routeParams["page"] || this.pagingHeaders.currentPage;
+      this.filter.priceMin = +routeParams["priceMin"] || 0;
+      this.filter.priceMax = +routeParams["priceMax"] || 0;
+      this.filter.productSort = routeParams["sort"] || ProductSortKind.ProductNew;
+      this.filter.page = this.pagingHeaders.currentPage = +routeParams["page"] || 1;
 
       // Lấy thông tin sorts
       this.getSorts();
 
       // Lấy danh sách sản phẩm
-      this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+      this.getProducts(this.filter);
     })
 
     combineLatest(this.loadingSort, this.loadingProduct)
@@ -131,13 +142,8 @@ export class PageProductNewComponent implements OnInit {
       );
   }
 
-  private getProducts(productBadge: string, sort: number, page: number, limit: number) {
-    let products: Observable<any>;
-
-    if (productBadge)
-      products = this.service.getProductOrderAll(productBadge, sort, page, limit);
-    else
-      products = this.service.getProductAll(sort, page, limit);
+  private getProducts(filter: ProductNewPageFilter) {
+    let products: Observable<any> = this.service.getProductListByProductNewPage(filter);
 
     this.loadingProduct.next(true);
     products.subscribe(
@@ -156,12 +162,12 @@ export class PageProductNewComponent implements OnInit {
     // Mở màn hình loanding
     this.loadingSpinner.show();
 
-    this.sort = value;
-    this.pagingHeaders.currentPage = 1;
+    this.filter.productSort = value;
+    this.filter.page = this.pagingHeaders.currentPage = 1;
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.filter);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
@@ -174,11 +180,11 @@ export class PageProductNewComponent implements OnInit {
     // Mở màn hình loanding
     this.loadingSpinner.show();
 
-    this.pagingHeaders.currentPage = value
+    this.filter.page = this.pagingHeaders.currentPage = value
 
     // Lấy danh sách sản phẩm
     this.loadingProduct.next(true);
-    this.getProducts(this.productBadge, this.sort, this.pagingHeaders.currentPage, this.pagingHeaders.pageSize);
+    this.getProducts(this.filter);
     this.loadingProduct.subscribe((value: boolean) => {
       if (!value) {
         this.changeURL();
@@ -192,8 +198,12 @@ export class PageProductNewComponent implements OnInit {
     let url = window.location.pathname.split('/').join('/');
     let query = "";
 
-    if (this.sort)
-      query += `&sort=${this.sort}`;
+    if (this.filter.priceMin)
+      query += `&priceMin=${this.filter.priceMin}`;
+    if (this.filter.priceMax)
+      query += `&priceMax=${this.filter.priceMax}`;
+    if (this.filter.productSort)
+      query += `&sort=${this.filter.productSort}`;
     if (this.pagingHeaders.currentPage)
       query += `&page=${this.pagingHeaders.currentPage}`;
 
@@ -206,8 +216,8 @@ export class PageProductNewComponent implements OnInit {
   get headerPage(): string {
     let header: string = "Hàng mới về";
 
-    if (this.productBadge) {
-      header += ` (${this.productBadge === "hang-co-san" ? "hàng có sẵn" : "hàng order"})`;
+    if (this.filter.productBadge) {
+      header += ` (${this.filter.productBadge === "hang-co-san" ? "hàng có sẵn" : "hàng order"})`;
     }
 
     return header

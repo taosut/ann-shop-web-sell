@@ -14,6 +14,10 @@ const routes: Routes = [
       columns: 4,
       viewMode: 'grid'
     }
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 

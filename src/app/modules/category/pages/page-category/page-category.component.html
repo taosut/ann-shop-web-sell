@@ -1,4 +1,4 @@
-<app-page-header [header]="headerPage" [description]="getDecription(slug)" [breadcrumbs]="[
+<app-page-header [header]="headerPage" [description]="getDecription(filter.categorySlug)" [breadcrumbs]="[
     {label: 'Trang chủ',         url: '/'},
     {label: category?.name, url: '/category/' + category?.slug }
 ]"></app-page-header>
