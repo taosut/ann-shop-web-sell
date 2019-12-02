@@ -1,10 +1,11 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, Event } from '@angular/router';
 
 // RxJS
-import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { combineLatest, BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 // ANN Shop
 // data
@@ -27,7 +28,8 @@ import { CategoryService } from '../../../../shared/services/pages/category.serv
   templateUrl: './page-product-sale.component.html',
   styleUrls: ['./page-product-sale.component.sass']
 })
-export class PageProductSaleComponent implements OnInit {
+export class PageProductSaleComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void>;
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
   private categoryDicriptions = categoryDecriptions;
@@ -45,11 +47,13 @@ export class PageProductSaleComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: TitleService,
     private service: CategoryService,
     private loadingSpinner: LoadingSpinnerService
   ) {
+    this.destroy$ = new Subject();
     this.loadingSort = new BehaviorSubject<boolean>(false);
     this.loadingProduct = new BehaviorSubject<boolean>(false);
 
@@ -73,6 +77,7 @@ export class PageProductSaleComponent implements OnInit {
       previousPage: "No",
       nextPage: "No"
     };
+
     this.filter = {
       productBadge: "hang-sale",
       priceMin: 0,
@@ -80,27 +85,31 @@ export class PageProductSaleComponent implements OnInit {
       productSort: ProductSortKind.ProductNew,
       page: this.pagingHeaders.currentPage,
       limit: this.pagingHeaders.pageSize
-    }
+    };
+
+    this.router.events.pipe(
+        filter((e: Event) => e instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((e: Event) => {
+        // Mở màn hình loanding
+        this.loadingSpinner.show();
+
+        this.filter.priceMin = +this.route.snapshot.queryParams.priceMin || 0;
+        this.filter.priceMax = +this.route.snapshot.queryParams.priceMax || 0;
+        this.filter.productSort = +this.route.snapshot.queryParams.sort || ProductSortKind.ProductNew;
+        this.filter.page = this.pagingHeaders.currentPage = +this.route.snapshot.queryParams.page || 1;
+
+        // Lấy thông tin sorts
+        this.getSorts();
+
+        // Lấy danh sách sản phẩm
+        this.getProducts(this.filter);
+      });
   }
 
   ngOnInit() {
     this.titleService.setTitle('Hàng sale');
-
-    this.route.queryParams.subscribe(params => {
-      // Mở màn hình loanding
-      this.loadingSpinner.show();
-
-      this.filter.priceMin = +params["priceMin"] || 0;
-      this.filter.priceMax = +params["priceMax"] || 0;
-      this.filter.productSort = params["sort"] || ProductSortKind.ProductNew;
-      this.filter.page = this.pagingHeaders.currentPage = +params["page"] || 1;
-
-      // Lấy thông tin sorts
-      this.getSorts();
-
-      // Lấy danh sách sản phẩm
-      this.getProducts(this.filter);
-    })
 
     combineLatest(this.loadingSort, this.loadingProduct)
       .subscribe(([loadingSort, loadingProduct]) => {
@@ -108,6 +117,11 @@ export class PageProductSaleComponent implements OnInit {
           this.loadingSpinner.close();
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private getSorts() {
@@ -180,13 +194,13 @@ export class PageProductSaleComponent implements OnInit {
     let url = window.location.pathname.split('/').join('/');
     let query = "";
 
-    if (this.filter.priceMin)
+    if (this.filter.priceMin > 0)
       query += `&priceMin=${this.filter.priceMin}`;
-    if (this.filter.priceMax)
+    if (this.filter.priceMax > 0)
       query += `&priceMax=${this.filter.priceMax}`;
-    if (this.filter.productSort)
+    if (this.filter.productSort != ProductSortKind.ProductNew)
       query += `&sort=${this.filter.productSort}`;
-    if (this.pagingHeaders.currentPage)
+    if (this.pagingHeaders.currentPage > 1)
       query += `&page=${this.pagingHeaders.currentPage}`;
 
     if (query)

@@ -1,10 +1,11 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 
 // RxJS
-import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { combineLatest, BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 // ANN Shop
 // Interface
@@ -28,7 +29,8 @@ import { TagService } from '../../../../shared/services/pages/tag.service';
   templateUrl: './page-tag.component.html',
   styleUrls: ['./page-tag.component.sass']
 })
-export class PageTagComponent implements OnInit {
+export class PageTagComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void>;
   private loadingTag: BehaviorSubject<boolean>;
   private loadingSort: BehaviorSubject<boolean>;
   private loadingProduct: BehaviorSubject<boolean>;
@@ -53,6 +55,7 @@ export class PageTagComponent implements OnInit {
     private service: TagService,
     private loadingSpinner: LoadingSpinnerService
   ) {
+    this.destroy$ = new Subject();
     this.loadingTag = new BehaviorSubject<boolean>(false);
     this.loadingSort = new BehaviorSubject<boolean>(false);
     this.loadingProduct = new BehaviorSubject<boolean>(false);
@@ -77,6 +80,7 @@ export class PageTagComponent implements OnInit {
       previousPage: "No",
       nextPage: "No"
     };
+
     this.filter = {
       tagSlug: "",
       priceMin: 0,
@@ -85,48 +89,50 @@ export class PageTagComponent implements OnInit {
       page: this.pagingHeaders.currentPage,
       limit: this.pagingHeaders.pageSize
     };
+
+    this.router.events.pipe(
+      filter((e: Event) => e instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+      )
+      .subscribe((e: Event) => {
+        // Mở màn hình loanding
+        this.loadingSpinner.show();
+
+        this.filter.tagSlug = this.route.snapshot.params.slug || "";
+
+        if (!this.filter.tagSlug) {
+          this.loadingSpinner.close();
+          this.router.navigate(['/not-found']);
+        }
+
+        this.filter.priceMin = +this.route.snapshot.queryParams.priceMin || 0;
+        this.filter.priceMax = +this.route.snapshot.queryParams.priceMax || 0;
+        this.filter.productSort = +this.route.snapshot.queryParams.sort || ProductSortKind.ProductNew;
+        this.filter.page = this.pagingHeaders.currentPage = +this.route.snapshot.queryParams.page || 1;
+
+        // Lấy thông tin tag
+         this.getTag(this.filter.tagSlug);
+
+        // Lấy thông tin sorts
+        this.getSorts();
+
+        // Lấy danh sách sản phẩm
+        this.getProducts(this.filter);
+      });
   }
 
   ngOnInit() {
-    // Thức show thông tin sản phẩm theo slug danh mục
-    const urlParams = combineLatest(
-      this.route.params,
-      this.route.queryParams,
-      (params, queryParams) => ({ ...params, ...queryParams })
-    );
-
-    urlParams.subscribe(routeParams => {
-      // Mở màn hình loanding
-      this.loadingSpinner.show();
-
-      this.filter.tagSlug = routeParams["slug"] || this.filter.tagSlug;
-
-      if (!this.filter.tagSlug) {
-        this.loadingSpinner.close();
-        this.router.navigate(['/not-found']);
-      }
-
-      this.filter.priceMin = +routeParams["priceMin"] || 0;
-      this.filter.priceMax = +routeParams["priceMax"] || 0;
-      this.filter.productSort = routeParams["sort"] || ProductSortKind.ProductNew;
-      this.filter.page = this.pagingHeaders.currentPage = +routeParams["page"] || 1;
-
-      // Lấy thông tin category
-      this.getTag(this.filter.tagSlug);
-
-      // Lấy thông tin sorts
-      this.getSorts();
-
-      // Lấy danh sách sản phẩm
-      this.getProducts(this.filter);
-    })
-
     combineLatest(this.loadingTag, this.loadingSort, this.loadingProduct)
       .subscribe(([loadingCategory, loadingSort, loadingProduct]) => {
         if (!loadingCategory && !loadingSort && !loadingProduct) {
           this.loadingSpinner.close();
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   get headerPage(): string {
@@ -225,13 +231,13 @@ export class PageTagComponent implements OnInit {
     let url = window.location.pathname.split('/').join('/');
     let query = "";
 
-    if (this.filter.priceMin)
+    if (this.filter.priceMin > 0)
       query += `&priceMin=${this.filter.priceMin}`;
-    if (this.filter.priceMax)
+    if (this.filter.priceMax > 0)
       query += `&priceMax=${this.filter.priceMax}`;
-    if (this.filter.productSort)
+    if (this.filter.productSort != ProductSortKind.ProductNew)
       query += `&sort=${this.filter.productSort}`;
-    if (this.pagingHeaders.currentPage)
+    if (this.pagingHeaders.currentPage > 1)
       query += `&page=${this.pagingHeaders.currentPage}`;
 
     if (query)

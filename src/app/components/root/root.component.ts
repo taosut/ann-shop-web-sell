@@ -16,6 +16,5 @@ export class RootComponent {
         public route: ActivatedRoute
     ) {
         this.route.data.subscribe(data => this.headerLayout = data.headerLayout);
-        // this.root.path = this.router.createUrlTree(['./'], {relativeTo: route}).toString();
     }
 }
