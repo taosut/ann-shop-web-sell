@@ -35,6 +35,7 @@ import { DirectionService } from '../../services/direction.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { PhotoSwipeService } from '../../services/photo-swipe.service';
 import { RootService } from '../../services/root.service';
+import { DownloadImageService } from '../../services/modals/download-image.service';
 
 export type Layout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
@@ -101,6 +102,29 @@ export class ProductComponent implements OnInit {
   get product(): Product {
     return this.dataProduct;
   }
+  get productCard() : ProductCard {
+    if (this.dataLayout) {
+      return {
+        productID: this.product.id,
+        name: this.product.name,
+        sku: this.product.sku,
+        slug: this.product.slug,
+        materials: this.product.materials,
+        colors: this.product.colors,
+        sizes: this.product.sizes,
+        badge: this.product.badge,
+        availability: false,
+        thumbnails: this.product.thumbnails,
+        regularPrice: this.product.regularPrice,
+        oldPrice: this.product.odlPrice,
+        retailPrice: this.product.retailPrice,
+        content: this.product.content
+      };
+    }
+    else {
+      return null;
+    }
+  }
 
   images: ProductImage[] = [];
 
@@ -128,7 +152,7 @@ export class ProductComponent implements OnInit {
 
   addingToWishlist = false;
   copyingProductInfo = false;
-  downloadingImages: boolean;
+  showingImageDownload: boolean;
 
   ProductBadgeEnum = ProductBadge;
 
@@ -139,9 +163,10 @@ export class ProductComponent implements OnInit {
     private photoSwipe: PhotoSwipeService,
     private wishlist: WishlistService,
     private service: ProductService,
+    private downloadImage: DownloadImageService,
     public root: RootService
   ) {
-    this.downloadingImages = false;
+    this.showingImageDownload = false;
   }
 
   ngOnInit(): void {
@@ -305,14 +330,16 @@ export class ProductComponent implements OnInit {
 
   }
 
-  saveProductImage(): void {
-    if (this.product && this.product.id && this.product.sku) {
-      this.downloadingImages = true;
-      this.service.downloadAdvertisementImage(this.product.id, this.product.sku)
-        .subscribe((downloading: boolean) => {
-          this.downloadingImages = downloading;
+  saveProductImage(product: ProductCard): void {
+    if (product) {
+      this.showingImageDownload = true;
+
+      this.downloadImage.show(product).subscribe(
+        _ => {
+          this.showingImageDownload = false;
           this.cd.markForCheck();
-        });
+        }
+      );
     }
   }
 }
