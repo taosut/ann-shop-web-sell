@@ -23,6 +23,7 @@ import { RouteTransformerDirective } from './directives/route-transformer.direct
 // components
 import { AlertComponent } from './components/alert/alert.component';
 import { CopyConfigComponent } from './components/copy-config/copy-config.component';
+import { DownloadImageComponent } from '../shared/components/download-image/download-image.component';
 import { IconComponent } from './components/icon/icon.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
@@ -56,6 +57,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         // components
         AlertComponent,
         CopyConfigComponent,
+        DownloadImageComponent,
         IconComponent,
         InputNumberComponent,
         LoadingBarComponent,
@@ -97,6 +99,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
         // components
         AlertComponent,
         CopyConfigComponent,
+        DownloadImageComponent,
         IconComponent,
         InputNumberComponent,
         LoadingBarComponent,

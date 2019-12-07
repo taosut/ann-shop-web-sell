@@ -1,0 +1,35 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Tải hình ảnh quảng cáo</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="download-image__buttons" *ngIf="!isIOS && data.images.length > 0">
+      <button class="btn btn-primary download-image__download" type="button" appClick (click)="downloadALL(data?.product.sku, data.images)" [ngClass]="{'btn-loading': downloading}">
+        <app-icon name="copy-16" size="16"></app-icon>Tải tất cả ảnh
+      </button>
+    </div>
+    <div class="download-image__list">
+      <div class="download-image__list-item" *ngFor="let image of data.images; index as i">
+        <div class="download-image__list-item-content" *ngIf="image">
+          <a [href]="image" target="_blank" [attr.download]="image.fileName">
+              <img *ngIf="image" defaultImage="/assets/images/85x113/placeholder.png" [lazyLoad]="image.thumbnail">
+          </a>
+          <a [href]="image" rel="nofollow" title="Bấm vào đây để tài hình phía trên" class="btn btn-primary download-image__download" target="_blank" [attr.download]="image.fileName">
+            <app-icon name="copy-16" size="16"></app-icon>Tải ảnh
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary download-image__buttons" [ngClass]="{'btn-loading': copying}"
+      appClick (click)="copyAdvertisementContent(data.product, copy)" #copy>
+      <app-icon name="copy-16" size="16"></app-icon> Copy
+    </button>
+    <button class="btn btn-primary download-image__buttons" type="button" appClick
+      (click)="modalRef.hide()">Đóng</button>
+  </div>
+</ng-template>
