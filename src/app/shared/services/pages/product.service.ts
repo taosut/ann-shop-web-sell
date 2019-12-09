@@ -3,12 +3,9 @@ import { Injectable, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT, formatNumber } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-// third-party
-import { ToastrService } from 'ngx-toastr';
-
 // RxJS
 import { map, catchError, takeUntil } from 'rxjs/operators';
-import { Observable, throwError, BehaviorSubject, Subject, timer } from 'rxjs';
+import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
 
 // ANN Shop
 // Environment
@@ -32,7 +29,6 @@ export class ProductService implements OnDestroy {
   constructor(
     @Inject(DOCUMENT) dom: Document,
     private http: HttpClient,
-    private toastr: ToastrService,
     private copyConfig: CopyConfigService,
     private currency: CurrencyService,
   ) {
@@ -118,43 +114,10 @@ export class ProductService implements OnDestroy {
 
   /**
    * Lấy danh sách image quảng cáo
-   * @param id product ID
+   * @param productID
    */
-  public downloadAdvertisementImage(id: number, sku: string): Observable<boolean> {
-    let downloading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
-    this.http.get(this.urlAdvertisementImage(id))
-    .subscribe(
-      (data: string[]) => {
-        // Khai báo thư viên
-        const FileSaver = require('file-saver');
-        // Số lượng ảnh cần download
-        let count: number = data.length;
-
-        data.forEach((item: string, index: number) => {
-          setTimeout(() => {
-            let extr: string[] = item.match(/.\w+$/g)|| []
-            let fileName: string = "";
-            let fileType: string = "";
-            
-            fileName = `${sku}-${index + 1}`;
-            if (extr.length > 0)
-              fileType = extr[0];
-
-            FileSaver.saveAs(item, `${fileName}${fileType}`);
-            if (index === count - 1) {
-              downloading.next(false);
-              this.toastr.success("Đang tải hình sản phẩm...")
-            }
-          }, 3000);
-        });
-      },
-      (err) => {
-        this.toastr.error("Đã có lỗi trong quá trình tải hình sản phẩm");
-      }
-    );
-
-    return downloading.pipe(takeUntil(this.destroy$));
+  public getAdvertisementImage(productID: number): Observable<string[]> {
+    return this.http.get<string[]>(this.urlAdvertisementImage(productID));
   }
 
   private createContentProductAdvertisement(product: ProductCard, user?: User): string {

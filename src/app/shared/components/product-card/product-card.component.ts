@@ -1,9 +1,6 @@
 // Angular
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-// modules (third-party)
-import { ToastrService } from 'ngx-toastr';
-
 // RxJS
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -21,6 +18,7 @@ import { CurrencyService } from '../../services/currency.service';
 import { RootService } from '../../services/root.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/pages/product.service';
+import { DownloadImageService } from '../../services/modals/download-image.service';
 
 @Component({
   selector: 'app-product-card',
@@ -38,20 +36,20 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   addingToWishlist = false;
   addingToCompare = false;
   copyingProductInfo = false;
-  downloadingImages: boolean;
+  showingImageDownload: boolean;
 
   ProductBadgeEnum = ProductBadge;
 
   constructor(
     private cd: ChangeDetectorRef,
-    private toastr: ToastrService,
     private productService: ProductService,
+    private downloadImage: DownloadImageService,
     public copyConfig: CopyConfigService,
     public currency: CurrencyService,
     public root: RootService,
     public wishlist: WishlistService,
   ) {
-    this.downloadingImages = false;
+    this.showingImageDownload = false;
   }
 
   ngOnInit(): void {
@@ -119,13 +117,19 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   }
 
   saveProductImage(product: ProductCard): void {
-    if (product && product.productID && product.sku) {
-      this.downloadingImages = true;
-      this.productService.downloadAdvertisementImage(product.productID, product.sku)
-        .subscribe((downloading: boolean) => {
-          this.downloadingImages = downloading;
+    if (product) {
+      this.showingImageDownload = true;
+
+      this.downloadImage.show(product).subscribe(
+        _ => {
+          this.showingImageDownload = false;
           this.cd.markForCheck();
-        });
+        },
+        _ => {
+          this.showingImageDownload = false;
+          this.cd.markForCheck();
+        }
+      );
     }
   }
 }

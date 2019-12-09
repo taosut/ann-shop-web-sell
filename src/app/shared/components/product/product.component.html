@@ -124,8 +124,8 @@
               </button>
             </div>
             <div class="product__actions-item product__actions-item--save-image">
-              <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': downloadingImages}"
-                appClick (click)="saveProductImage()">
+              <button type="button" class="btn btn-primary btn-lg" [ngClass]="{'btn-loading': showingImageDownload}"
+                appClick (click)="saveProductImage(productCard)">
                 <app-icon name="download-16" size="16"></app-icon> Tải hình
               </button>
             </div>

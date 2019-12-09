@@ -63,7 +63,7 @@
         <app-icon name="copy-16" size="16"></app-icon>
       </button>
       <button class="btn btn-primary product-card__addtocart" type="button" appClick (click)="saveProductImage(product)"
-        [ngClass]="{'btn-loading': downloadingImages}">
+        [ngClass]="{'btn-loading': showingImageDownload}">
         <app-icon name="download-16" size="16"></app-icon>
       </button>
       <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick
@@ -71,7 +71,7 @@
         <app-icon name="copy-16" size="16"></app-icon> Copy
       </button>
       <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button" appClick
-        (click)="saveProductImage(product)" [ngClass]="{'btn-loading': downloadingImages}">
+        (click)="saveProductImage(product)" [ngClass]="{'btn-loading': showingImageDownload}">
         <app-icon name="download-16" size="16"></app-icon> Tải hình
       </button>
       <button class="btn btn-primary product-card__wishlist" type="button" appClick (click)="addToWishlist()"
