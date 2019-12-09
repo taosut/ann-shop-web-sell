@@ -8,6 +8,7 @@ import { ZaloXemHangComponent } from './pages/zalo-xem-hang/zalo-xem-hang.compon
 import { ChinhSachBanSiComponent } from './pages/chinh-sach-ban-si/chinh-sach-ban-si.component';
 import { ThongBaoComponent } from './pages/thong-bao/thong-bao.component';
 import { GioiThieuComponent } from './pages/gioi-thieu/gioi-thieu.component';
+import { LixiComponent } from './pages/lixi/lixi.component';
 
 // ANN Shop
 // components
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'zalo-xem-hang',
     component: ZaloXemHangComponent
+  },
+  {
+    path: 'lixi',
+    component: LixiComponent
   },
   {
     path: '**',

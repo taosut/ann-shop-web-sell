@@ -28,6 +28,9 @@
     position: relative;
     height: 100%;
 }
+.nav-panel__logo img {
+    width: 100px;
+}
 .nav-panel__logo svg {
     display: block;
     fill: $nav-panel-logo-color;

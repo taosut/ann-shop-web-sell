@@ -14,6 +14,7 @@ import { HuongDanDatHangComponent } from './pages/huong-dan-dat-hang/huong-dan-d
 import { LienHeComponent } from './pages/lien-he/lien-he.component';
 import { ThongBaoComponent } from './pages/thong-bao/thong-bao.component';
 import { ZaloXemHangComponent } from './pages/zalo-xem-hang/zalo-xem-hang.component';
+import { LixiComponent } from './pages/lixi/lixi.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ZaloXemHangComponent } from './pages/zalo-xem-hang/zalo-xem-hang.compon
     ChinhSachBanSiComponent,
     ThongBaoComponent,
     GioiThieuComponent,
+    LixiComponent,
   ],
   imports: [
     CommonModule,
