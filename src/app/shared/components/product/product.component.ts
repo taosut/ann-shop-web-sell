@@ -86,7 +86,7 @@ export class ProductComponent implements OnInit {
       this.dataProduct.images.map((url, index) => {
         let active: boolean = false;
 
-        if (url === value.avatar)
+        if (this.extractImage(url) === value.avatar)
           active = true;
 
         carousel_image.push({
@@ -173,6 +173,16 @@ export class ProductComponent implements OnInit {
     if (this.layout !== 'quickview' && isPlatformBrowser(this.platformId)) {
       this.photoSwipe.load().subscribe();
     }
+  }
+
+  private extractImage (url: string): string {
+    let image: string = "";
+    let regex: string[] = url.match(/[a-z0-9\_\-\.]+$/g);
+    
+    if (regex.length > 0)
+      image = regex[0];
+
+    return image
   }
 
   setActiveImage(image: ProductImage): void {
@@ -309,8 +319,8 @@ export class ProductComponent implements OnInit {
     if (!imageURL) return "";
     if (imageURL.match(/^\/App_Themes\/Ann\/image\/.+$/g)) return imageURL;
 
-    let regexFiles: string[] = imageURL.match(/[a-z0-9\-\.]+$/g);
-    return regexFiles.length ? `/uploads/images/${size}/${regexFiles[0]}` : "";
+    let image = this.extractImage(imageURL);
+    return image ? `/uploads/images/${size}/${image}` : "";
   }
 
   copyProductInfo(product: ProductCard, btCopy: HTMLButtonElement): void {
